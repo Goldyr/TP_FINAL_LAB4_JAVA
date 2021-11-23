@@ -1,10 +1,12 @@
 package entidades;
 
+import entidades.Materia;
+
 public class Curso {
 	
 
 	private int codCurso;
-	private int codMateria;
+	private Materia materia;
 	private String semestre_Curso;
 	private String anio_Curso;
 	
@@ -19,11 +21,11 @@ public class Curso {
 	}
 
 	public int getCodMateria() {
-		return codMateria;
+		return materia.getCodigoMateria();
 	}
 
 	public void setCodMateria(int codMateria) {
-		this.codMateria = codMateria;
+		this.materia.setCodigoMateria(codMateria);
 	}
 
 	public String getSemestre_Curso() {
