@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@page import="java.util.List"  %>
+<%@page import="entidades.Alumno" %>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,39 +12,33 @@
 
 	<h3>Listado Alumnos</h3>
 	<a href="AdminAltaAlumno.jsp">Alta Alumno</a>
-	<table border="1">
-		<tr> 
-			<td></td>
-			<td></td>
-			<th>Legajo</th>
-			<th>DNI</th>
-			<th>Nombre</th>
-			<th>Apellido</th>
-			<th>Nacimiento</th>
-			<th>Direccion</th>
-			<th>Nacionalidad</th>
-			<th>Provincia</th>
-			<th>Email</th>
-			<th>Telefono</th>
 	
-		</tr>
-		<tr>
-			<td><a>Editar</a></td>
-			<td><a>Eliminar</a> </td>
-			<td>9999</td>
-			<td>222222</td>
-			<td>Mario Perez</td>
-			<td>Perez</td>
-			<td>09/03/2001</td>
-			<td> Avenida 1234</td>
-			<td>Uruguay</td>
-			<td>Bs As</td>
-			<td>mario@alumno.com</td>
-			<td>1566667777</td>
-			
-		</tr>
-
+	<form method="post" action="Servlet_Alumnos">
+	<input type="submit" name="btnMostrarAlumnos" value="Mostrar Alumnos">
+	</form>
+	
+	<%
+	List<Alumno> listaAlumno = null;
+	if(request.getAttribute("ListaA")!=null){
+		listaAlumno = (List<Alumno>)request.getAttribute("ListaA");
+	}
+	%>
+	
+	<table border="1">
+	<tr><th>Legajo</th><th>DNI</th><th>Nombre</th><th>Apellido</th><th>Fecha Nac</th> <th>Direccion</th>
+	 <th>Nacionalidad</th><th>Email</th><th>Telefono</th></tr>
+	 <%
+	 if(listaAlumno !=null)
+	 for(Alumno Alu : listaAlumno){
+	 %>
+	 <tr><td><%=Alu.getLegajo_Alumno() %></td> 	<td><%= Alu.getDni_Alumno() %></td>	 <td><%=Alu.getNombre_Alumno()%></td><td><%=Alu.getApellido_Alumno()%></td><td><%=Alu.getFechaNac_Alumno()%></td> <td><%=Alu.getDireccion_Alumno()%></td>
+	 <td><%= Alu.getNacionalidad_Alumno() %></td><td><%=Alu.getEmail_Alumno()%></td><td><%=Alu.getTelefono_Alumno()%></td></tr>
+	 
+	 <%
+	 }
+	 %>
 	</table>
+	
 	
 </body>
 </html>

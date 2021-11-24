@@ -13,7 +13,7 @@
 		<p>Ingresar Mail:<p>
 		<input type="text">
 		
-		<p>Ingresar legajo:<p>
+		<p>Ingresar Contraseña:<p>
 		<input type="text">
 		<br>
 		<br>
