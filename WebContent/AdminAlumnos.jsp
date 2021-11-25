@@ -1,4 +1,4 @@
-<%@page import="java.util.List"  %>
+<%@page import="java.util.ArrayList"  %>
 <%@page import="entidades.Alumno" %>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -18,9 +18,9 @@
 	</form>
 	
 	<%
-	List<Alumno> listaAlumno = null;
+	ArrayList<Alumno> listaAlumno = null;
 	if(request.getAttribute("ListaA")!=null){
-		listaAlumno = (List<Alumno>)request.getAttribute("ListaA");
+		listaAlumno = (ArrayList<Alumno>)request.getAttribute("ListaA");
 	}
 	%>
 	

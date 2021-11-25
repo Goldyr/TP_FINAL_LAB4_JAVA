@@ -43,7 +43,7 @@ public class Servlet_Alumnos extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			if(request.getParameter("btnMostrarAlumnos")!=null) {
 				AlumnoDaoImpl alumDao = new AlumnoDaoImpl();
-				List<Alumno> lista = alumDao.ListarAlumnos();
+				ArrayList<Alumno> lista = alumDao.ListarAlumnos();
 				 
 				 request.setAttribute("ListaA", lista);
 				 
