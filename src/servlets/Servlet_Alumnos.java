@@ -47,7 +47,7 @@ public class Servlet_Alumnos extends HttpServlet {
 				 
 				 request.setAttribute("ListaA", lista);
 				 
-				 RequestDispatcher rd = request.getRequestDispatcher("/AdminAlumnos");
+				 RequestDispatcher rd = request.getRequestDispatcher("AdminAlumnos.jsp");
 				 rd.forward(request, response);
 			}
 	}
