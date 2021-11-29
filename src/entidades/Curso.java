@@ -5,26 +5,30 @@ import entidades.Materia;
 public class Curso {
 	
 
-	private int codCurso;
+	private String codCurso;
 	private Materia materia;
 	private String semestre_Curso;
 	private String anio_Curso;
+	private boolean estado;
 	
-	public Curso() {}
+	public Curso(String codCurso, String materia, String semestre_Curso, String anio_Curso, boolean estado) {
+		this.codCurso=codCurso;
+		this.materia.setCodigoMateria(materia);
+		this.semestre_Curso=semestre_Curso;
+		this.anio_Curso=anio_Curso;
+		this.setEstado(estado);
+		
+		
+		
+	}
 	
-	public int getCodCurso() {
-		return codCurso;
-	}
 
-	public void setCodCurso(int codCurso) {
-		this.codCurso = codCurso;
-	}
 
-	public int getCodMateria() {
+	public String getCodMateria() {
 		return materia.getCodigoMateria();
 	}
 
-	public void setCodMateria(int codMateria) {
+	public void setCodMateria(String codMateria) {
 		this.materia.setCodigoMateria(codMateria);
 	}
 
@@ -42,6 +46,30 @@ public class Curso {
 
 	public void setAnio_Curso(String anio_Curso) {
 		this.anio_Curso = anio_Curso;
+	}
+
+
+
+	public String getCodCurso() {
+		return codCurso;
+	}
+
+
+
+	public void setCodCurso(String codCurso) {
+		this.codCurso = codCurso;
+	}
+
+
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 
 }

@@ -1,7 +1,7 @@
 package entidades;
 
 public class Notas {
-	private int codNotas_Nota;
+	private String codNotas_Nota;
 	private int parcial_1_Nota;
 	private int parcial_2_Nota;
 	private int recuperatorio_1_Nota;
@@ -9,11 +9,11 @@ public class Notas {
 	
 	public Notas() {}
 
-	public int getCodNotas_Nota() {
+	public String getCodNotas_Nota() {
 		return codNotas_Nota;
 	}
 
-	public void setCodNotas_Nota(int codNotas_Nota) {
+	public void setCodNotas_Nota(String codNotas_Nota) {
 		this.codNotas_Nota = codNotas_Nota;
 	}
 

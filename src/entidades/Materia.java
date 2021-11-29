@@ -2,15 +2,15 @@ package entidades;
 
 public class Materia {
 
-	private int codigoMateria;
+	private String codigoMateria;
 	private String nombreMateria;
 	
 	public Materia() {}
 	
-	public int getCodigoMateria() {
+	public String getCodigoMateria() {
 		return codigoMateria;
 	}
-	public void setCodigoMateria(int codigoMateria) {
+	public void setCodigoMateria(String codigoMateria) {
 		this.codigoMateria = codigoMateria;
 	}
 	public String getNombreMateria() {

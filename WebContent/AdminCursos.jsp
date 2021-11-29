@@ -13,7 +13,7 @@
 		<tr> 
 			<th>Materia</th>
 			<th>Semestre</th>
-			<th>Anio</th>
+			<th>Año</th>
 			<th>Docente</th>
 
 		</tr>
