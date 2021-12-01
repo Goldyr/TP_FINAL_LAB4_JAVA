@@ -6,19 +6,17 @@ public class Curso {
 	
 
 	private String codCurso;
-	private Materia materia;
+	private Materia materia = new Materia();
 	private String semestre_Curso;
 	private String anio_Curso;
-	private boolean estado;
+	private Boolean estado;
 	
-	public Curso(String codCurso, String materia, String semestre_Curso, String anio_Curso, boolean estado) {
+	public Curso(String codCurso, String materia, String semestre_Curso, String anio_Curso, Boolean estado) {
 		this.codCurso=codCurso;
 		this.materia.setCodigoMateria(materia);
 		this.semestre_Curso=semestre_Curso;
 		this.anio_Curso=anio_Curso;
 		this.setEstado(estado);
-		
-		
 		
 	}
 	
@@ -62,13 +60,13 @@ public class Curso {
 
 
 
-	public boolean isEstado() {
+	public Boolean getEstado() {
 		return estado;
 	}
 
 
 
-	public void setEstado(boolean estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
 

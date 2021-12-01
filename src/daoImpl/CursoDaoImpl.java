@@ -14,7 +14,7 @@ import entidades.Materia;
 public class CursoDaoImpl implements CursoDao {
 
 	
-	private static final String readall = "SELECT * FROM Cursos;";
+	private static final String readall = "SELECT * FROM cursos;";
 	
 	@Override
 	public boolean AltaCurso(Curso alumno) {
@@ -44,7 +44,7 @@ public class CursoDaoImpl implements CursoDao {
 		}
 
 		return ListarCursos;
-		
+
 	}
 	
 	private Curso getCurso(ResultSet resultSet) throws SQLException
@@ -55,10 +55,11 @@ public class CursoDaoImpl implements CursoDao {
 		String materia=resultSet.getString("CodMateria_Curso");
 		String semestre_Curso = resultSet.getString("Semestre_Curso");
 		String anio_Curso = resultSet.getString("Año_Curso");
-		boolean estado = resultSet.getBoolean("Estado_Curso");
+		Boolean estado = resultSet.getBoolean("Estado_Curso");
 
 
-
+	
+	
 		return new Curso(codCurso , materia, semestre_Curso, anio_Curso, estado);
 	}
 

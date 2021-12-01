@@ -5,7 +5,10 @@ public class Materia {
 	private String codigoMateria;
 	private String nombreMateria;
 	
-	public Materia() {}
+	public Materia() {
+
+		
+	}
 	
 	public String getCodigoMateria() {
 		return codigoMateria;

@@ -56,7 +56,7 @@ public class AlumnoDaoImpl implements AlumnoDao{
 		String telefono = resultSet.getString("Telefono_Alumno");
 		Boolean estado = resultSet.getBoolean("Estado_Alumno");
 
-		return new Alumno(Legajo, DNI, nombre, apellido, fecha_nac, direccion, nacionalidad, email, telefono, estado);
+		return new Alumno(Legajo, DNI, nombre, apellido, fecha_nac, direccion, nacionalidad, email, telefono, estado);	
 	}
 	
 	@Override

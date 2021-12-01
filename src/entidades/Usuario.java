@@ -7,16 +7,19 @@ public class Usuario {
 	private String dni_Usuario;
 	private String nombre_Usuario ;
 	private String apellido_Usuario ;
-	private Date fechaNac_Usuario;
-	private String direccion_Usuario;
-	private String localidad_Usuario;
-	private String nacionalidad_Usuario;
 	private String email_Usuario;
 	private String telefono_Usuario;
 	private boolean estado_Usuario;
 	private boolean admin_Usuario;
 	
-	public Usuario() {}
+	public Usuario(String legajo, String dni, String nombre, String apellido, String email, String telefono){
+		legajo_Usuario = legajo;
+		dni_Usuario = dni;
+		nombre_Usuario = nombre;
+		apellido_Usuario = apellido;
+		email_Usuario = email;
+		telefono_Usuario = telefono;
+	}
 
 	public String getLegajo_Usuario() {
 		return legajo_Usuario;
@@ -26,7 +29,7 @@ public class Usuario {
 		this.legajo_Usuario = legajo_Usuario;
 	}
 
-	public String getDNI_() {
+	public String getDNI_Usuario() {
 		return dni_Usuario;
 	}
 
@@ -48,38 +51,6 @@ public class Usuario {
 
 	public void setApellido_Usuario(String apellido_Usuario) {
 		this.apellido_Usuario = apellido_Usuario;
-	}
-
-	public Date getFechaNac_Usuario() {
-		return fechaNac_Usuario;
-	}
-
-	public void setFechaNac_Usuario(Date fechaNac_Usuario) {
-		this.fechaNac_Usuario = fechaNac_Usuario;
-	}
-
-	public String getDireccion_Usuario() {
-		return direccion_Usuario;
-	}
-
-	public void setDireccion_Usuario(String direccion_Usuario) {
-		this.direccion_Usuario = direccion_Usuario;
-	}
-
-	public String getLocalidad_Usuario() {
-		return localidad_Usuario;
-	}
-
-	public void setLocalidad_Usuario(String localidad_Usuario) {
-		this.localidad_Usuario = localidad_Usuario;
-	}
-
-	public String getNacionalidad_Usuario() {
-		return nacionalidad_Usuario;
-	}
-
-	public void setNacionalidad_Usuario(String nacionalidad_Usuario) {
-		this.nacionalidad_Usuario = nacionalidad_Usuario;
 	}
 
 	public String getEmail_Usuario() {
@@ -116,3 +87,4 @@ public class Usuario {
 	
 	
 }
+
