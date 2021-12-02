@@ -9,7 +9,7 @@
 <body>
 	<h2>Login</h2>
 	
-	<form>
+	<form method="post" action="Servlet_Login">
 		<p>Ingresar Mail:<p>
 		<input type="text">
 		

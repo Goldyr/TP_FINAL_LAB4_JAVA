@@ -16,7 +16,7 @@
 	<a href="AdminAltaAlumno.jsp">Alta Alumno</a>
 	</li>
 		<li>
-	<a href="AdminAlumno.jsp">Listado y modificacion de alumnos</a>
+	<a href="AdminAlumnos.jsp">Listado y modificacion de alumnos</a>
 	</li>
 		<li>
 	<a href="AdminAltaProfesor.jsp">Alta Profesor </a>

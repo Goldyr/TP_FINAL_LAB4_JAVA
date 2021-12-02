@@ -9,16 +9,21 @@ public class Usuario {
 	private String apellido_Usuario ;
 	private String email_Usuario;
 	private String telefono_Usuario;
+	private String Contraseña_Usuario;
 	private boolean estado_Usuario;
 	private boolean admin_Usuario;
 	
-	public Usuario(String legajo, String dni, String nombre, String apellido, String email, String telefono){
+	public Usuario() {
+	}
+	
+	public Usuario(String legajo, String dni, String nombre, String apellido, String email, String telefono,String Contraseña, boolean admin_Usuario){
 		legajo_Usuario = legajo;
 		dni_Usuario = dni;
 		nombre_Usuario = nombre;
 		apellido_Usuario = apellido;
 		email_Usuario = email;
 		telefono_Usuario = telefono;
+		Contraseña_Usuario = Contraseña;
 	}
 
 	public String getLegajo_Usuario() {
@@ -56,7 +61,12 @@ public class Usuario {
 	public String getEmail_Usuario() {
 		return email_Usuario;
 	}
-
+	public String getContraseña_Usuario() {
+		return Contraseña_Usuario;
+	}
+	public void setContraseña_Usuario(String contraseña_usuario) {
+		this.Contraseña_Usuario = contraseña_usuario;
+	}
 	public void setEmail_Usuario(String email_Usuario) {
 		this.email_Usuario = email_Usuario;
 	}

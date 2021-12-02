@@ -12,7 +12,7 @@ import entidades.Profesor;
 
 public class ProfesorDaoImpl implements ProfesorDao{
 
-	private static final String readall = "SELECT * FROM Usuarios WHERE Admin_Usuario=0;";
+	private static final String readall = "SELECT * FROM Usuarios WHERE Admin_Usuario=0 and Estado_Usuario=1;";
 	
 	@Override
 	public ArrayList<Profesor> ListarProfesor() {
@@ -44,12 +44,14 @@ public class ProfesorDaoImpl implements ProfesorDao{
 		String apellido = resultSet.getString("Apellido_Usuario");
 		String email = resultSet.getString("Email_Usuario");
 		String telefono = resultSet.getString("Telefono_Usuario");
+		String Contraseña = resultSet.getString("Contraseña_Usuario");
 		String localidad = resultSet.getString("Localidad_Usuario");
 		String direccion = resultSet.getString("Direccion_Usuario");
 		String nacionalidad = resultSet.getString("Nacionalidad_Usuario");
+		Boolean Admin_Est = resultSet.getBoolean("Admin_Usuario");
 		Date fecha_nac = resultSet.getDate("FechaNac_Usuario");
 
-		return new Profesor(legajo,dni,nombre,apellido,email,telefono,localidad, direccion, nacionalidad, fecha_nac);
+		return new Profesor(legajo,dni,nombre,apellido,email,telefono,Contraseña,localidad, direccion, nacionalidad, fecha_nac, Admin_Est);
 	}
 
 	@Override

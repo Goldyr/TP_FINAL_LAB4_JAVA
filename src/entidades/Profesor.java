@@ -10,8 +10,8 @@ public class Profesor extends Usuario{
 	private Date FechaNac_Profesor;
 	
 	
-	public Profesor(String legajo, String dni, String nombre, String apellido, String email, String telefono,String localidad, String direcc, String nacionalidad, Date fechaNac){
-        super(legajo, dni, nombre, apellido, email, telefono);
+	public Profesor(String legajo, String dni, String nombre, String apellido, String email, String telefono, String Contraseña,String localidad, String direcc, String nacionalidad, Date fechaNac, boolean Admin){
+        super(legajo, dni, nombre, apellido, email, telefono, Contraseña , Admin);
 		Localidad_Profesor=localidad;
         Direccion_Profesor=direcc;
         Nacionalidad_Profesor=nacionalidad;
