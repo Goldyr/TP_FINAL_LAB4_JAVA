@@ -49,9 +49,10 @@ public class ProfesorDaoImpl implements ProfesorDao{
 		String direccion = resultSet.getString("Direccion_Usuario");
 		String nacionalidad = resultSet.getString("Nacionalidad_Usuario");
 		Boolean Admin_Est = resultSet.getBoolean("Admin_Usuario");
+		Boolean estad = resultSet.getBoolean("Estado_Usuario");
 		Date fecha_nac = resultSet.getDate("FechaNac_Usuario");
 
-		return new Profesor(legajo,dni,nombre,apellido,email,telefono,Contraseña,localidad, direccion, nacionalidad, fecha_nac, Admin_Est);
+		return new Profesor(legajo,dni,nombre,apellido,email,telefono,Contraseña,localidad, direccion, nacionalidad, fecha_nac, Admin_Est, estad);
 	}
 
 	@Override

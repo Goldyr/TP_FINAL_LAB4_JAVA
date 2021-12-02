@@ -10,8 +10,8 @@ import entidades.Usuario;
 public class UsuarioDaoImpl implements UsuarioDao {
 
 	
-	private static String readall = "SELECT * FROM Usuarios where Usuarios.Estado_Usuario=1";
-	private static String userlogin = "SELECT * FROM Usuarios where Usuarios.Estado_Usuario=1 and Usuarios.Contraseña_Usuario=? and Usuarios.Email_Usuario=?  ";
+	private static String readall = "SELECT * FROM Usuarios where Estado_Usuario=1;";
+	private static String userlogin = "SELECT * FROM Usuarios where Estado_Usuario=1 and Contraseña_Usuario=? and Usuarios.Email_Usuario=?;";
 	
 	
 	
@@ -24,10 +24,12 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		String Nombre = resultSet.getString("Nombre_Usuario");
 		String Apellido = resultSet.getString("Apellido_Usuario");
 		String Telefono = resultSet.getString("Telefono_Usuario");
+		Boolean estado = resultSet.getBoolean("Estado_Usuario");
 		Boolean Admin_Est = resultSet.getBoolean("Admin_Usuario");
 		
 		
-		return new Usuario(Legajo, Dni, Nombre,Apellido, Email, Telefono, Contraseña, Admin_Est);
+		
+		return new Usuario(Legajo, Dni, Nombre,Apellido, Email, Telefono, Contraseña, estado, Admin_Est);
 	}
 	
 	@Override
@@ -52,18 +54,28 @@ public class UsuarioDaoImpl implements UsuarioDao {
         try
         {
             statement = conexion.getSQLConexion().prepareStatement(userlogin);
-            statement.setString(1, Contraseña);
-            statement.setString(2, Email);
+            statement.setString(2, Contraseña);
+            statement.setString(1, Email);
+
             resultSet = statement.executeQuery();
 
-            resultSet.next();
-            User = (getUsuario(resultSet));
+           
+           if(resultSet.next()) 
+           {
+        	   
+        	   User = (getUsuario(resultSet));   
+           }
+        	   
+           
+            
+
            
         } 
         catch (SQLException e) 
         {
             e.printStackTrace();
         }
+        
         return User;
 	}
 

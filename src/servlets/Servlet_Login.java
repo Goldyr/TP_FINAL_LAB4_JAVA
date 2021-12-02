@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import daoImpl.AlumnoDaoImpl;
 import daoImpl.UsuarioDaoImpl;
+import entidades.Usuario;
 
 /**
  * Servlet implementation class Servlet_Login
@@ -37,18 +40,29 @@ public class Servlet_Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		if(request.getParameter("btnIniciarSesion")!=null) {
-			UsuarioDaoImpl UsuarDao = new UsuarioDaoImpl();
 			
+
+			UsuarioDaoImpl Udao = new UsuarioDaoImpl();
+			Usuario user = new Usuario();
+			user = Udao.ExisteUsuario(request.getParameter("txtMail").toString(),request.getParameter("txtPass").toString());
+			
+			if(user.getLegajo_Usuario() != null) {
+			request.setAttribute("usuarioA", user);
+			}
+			else {
+			request.setAttribute("error", "No existe");
+			}
+			RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
+			rd.forward(request, response);
+		
 			
 			
 			
 		}
 			
 			
-			
-			
-		doGet(request, response);
 	}
 
 }
