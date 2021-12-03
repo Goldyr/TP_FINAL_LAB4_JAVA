@@ -9,9 +9,12 @@ import entidades.Usuario;
 
 public class UsuarioDaoImpl implements UsuarioDao {
 
+	
 	private static String readall = "SELECT * FROM Usuarios where Estado_Usuario=1;";
 	private static String userlogin = "SELECT * FROM Usuarios where Estado_Usuario=1 and Contraseña_Usuario=? and Usuarios.Email_Usuario=?;";
-
+	
+	
+	
 	private Usuario getUsuario(ResultSet resultSet) throws SQLException
 	{
 		String Legajo = resultSet.getString("Legajo_Usuario");
@@ -23,11 +26,12 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		String Telefono = resultSet.getString("Telefono_Usuario");
 		Boolean estado = resultSet.getBoolean("Estado_Usuario");
 		Boolean Admin_Est = resultSet.getBoolean("Admin_Usuario");
-
-
+		
+		
+		
 		return new Usuario(Legajo, Dni, Nombre,Apellido, Email, Telefono, Contraseña, estado, Admin_Est);
 	}
-
+	
 	@Override
 	public boolean AltaUsuario(Usuario user) {
 		// TODO Auto-generated method stub
@@ -52,19 +56,26 @@ public class UsuarioDaoImpl implements UsuarioDao {
             statement = conexion.getSQLConexion().prepareStatement(userlogin);
             statement.setString(2, Contraseña);
             statement.setString(1, Email);
+
             resultSet = statement.executeQuery();
 
-            if(resultSet.next()) 
-            {
+           
+           if(resultSet.next()) 
+           {
+        	   
+        	   User = (getUsuario(resultSet));   
+           }
+        	   
+           
+            
 
-         	   User = (getUsuario(resultSet));   
-            }
-
+           
         } 
         catch (SQLException e) 
         {
             e.printStackTrace();
         }
+        
         return User;
 	}
 

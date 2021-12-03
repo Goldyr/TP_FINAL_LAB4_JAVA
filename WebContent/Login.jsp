@@ -20,6 +20,45 @@
 		<br>
 		<input type="submit" name="btnIniciarSesion" value="Iniciar Sesion">
 	</form>
+	
+	<%
+	Usuario user = new Usuario();
+	
+	if(request.getAttribute("usuarioA")!=null)
+	{
+		user = (Usuario)request.getAttribute("usuarioA");
+		
+
+	}
+	
+	if(request.getAttribute("error")!= null)
+	{
+	%>
+	Contraseña o email incorrecto	
+	<% 
+	}
+
+	
+	
+	if(user.getLegajo_Usuario() != null)
+	{
+		session.setAttribute("legajo" , user.getLegajo_Usuario());//Atributo global del legajo del usuario en la sesion
+		
+		if(user.isAdmin_Usuario())
+		{
+			
+			response.sendRedirect("InicioAdmin.jsp");
+		}
+		else
+		{
+			
+			response.sendRedirect("InicioProfesor.jsp");
+		}
+	}
+
+	
+	
+	 %>
 
 	<%
 	Usuario user = new Usuario();
