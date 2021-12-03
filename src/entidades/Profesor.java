@@ -10,13 +10,18 @@ public class Profesor extends Usuario{
 	private Date FechaNac_Profesor;
 	
 	
-	public Profesor(String legajo, String dni, String nombre, String apellido, String email, String telefono,String localidad, String direcc, String nacionalidad, Date fechaNac){
-        super(legajo, dni, nombre, apellido, email, telefono);
+	public Profesor(String legajo, String dni, String nombre, String apellido, String email, String telefono, String Contraseña,String localidad, String direcc, String nacionalidad, Date fechaNac, boolean Admin, boolean estado){
+        super(legajo, dni, nombre, apellido, email, telefono, Contraseña , Admin, estado);
 		Localidad_Profesor=localidad;
         Direccion_Profesor=direcc;
         Nacionalidad_Profesor=nacionalidad;
         FechaNac_Profesor=fechaNac;
     }
+
+	public Profesor() {
+		// TODO Auto-generated constructor stub
+		super();
+	}
 
 
 	public String getLocalidad_Profesor() {

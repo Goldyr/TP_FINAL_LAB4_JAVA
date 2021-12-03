@@ -9,17 +9,25 @@ public class Usuario {
 	private String apellido_Usuario ;
 	private String email_Usuario;
 	private String telefono_Usuario;
+	private String Contraseña_Usuario;
 	private boolean estado_Usuario;
 	private boolean admin_Usuario;
 	
-	public Usuario(String legajo, String dni, String nombre, String apellido, String email, String telefono){
+	public Usuario() {
+	}
+
+	public Usuario(String legajo, String dni, String nombre, String apellido, String email, String telefono,String Contraseña, boolean estado_usuario, boolean admin_Usuario){
 		legajo_Usuario = legajo;
 		dni_Usuario = dni;
 		nombre_Usuario = nombre;
 		apellido_Usuario = apellido;
 		email_Usuario = email;
 		telefono_Usuario = telefono;
+		Contraseña_Usuario = Contraseña;
+		estado_Usuario = estado_usuario;
+		this.admin_Usuario = admin_Usuario;
 	}
+
 
 	public String getLegajo_Usuario() {
 		return legajo_Usuario;
@@ -57,6 +65,13 @@ public class Usuario {
 		return email_Usuario;
 	}
 
+	public String getContraseña_Usuario() {
+		return Contraseña_Usuario;
+	}
+	public void setContraseña_Usuario(String contraseña_usuario) {
+		this.Contraseña_Usuario = contraseña_usuario;
+	}
+	
 	public void setEmail_Usuario(String email_Usuario) {
 		this.email_Usuario = email_Usuario;
 	}
@@ -85,6 +100,13 @@ public class Usuario {
 		this.admin_Usuario = admin_Usuario;
 	}
 	
+	@Override
+	public String toString() {
+		return "Usuario [legajo_Usuario=" + legajo_Usuario + ", dni_Usuario=" + dni_Usuario + ", nombre_Usuario="
+				+ nombre_Usuario + ", apellido_Usuario=" + apellido_Usuario + ", email_Usuario=" + email_Usuario
+				+ ", telefono_Usuario=" + telefono_Usuario + ", Contraseña_Usuario=" + Contraseña_Usuario
+				+ ", estado_Usuario=" + estado_Usuario + ", admin_Usuario=" + admin_Usuario + "]";
+	}
 	
 }
 
