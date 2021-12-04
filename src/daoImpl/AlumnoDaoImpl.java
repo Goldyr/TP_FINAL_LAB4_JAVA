@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException;
 
 import dao.AlumnoDao;
 import entidades.Alumno;
@@ -28,7 +29,7 @@ public class AlumnoDaoImpl implements AlumnoDao{
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		ArrayList<Alumno> ListarAlumnos = new ArrayList<Alumno>();
-		Conexion conexion = Conexion.getConexion();
+		Conexion conexion = new Conexion();
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(readall);
@@ -79,10 +80,12 @@ public class AlumnoDaoImpl implements AlumnoDao{
 		
 		boolean resultado = false;
 		
-		Connection conexion = Conexion.getConexion().getSQLConexion();
+		
+		Conexion conexion = new Conexion();
 		
 		try {
-			CallableStatement cst = conexion.prepareCall("{call sp_modificarAlumno(?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+			conexion.getSQLConexion().setAutoCommit(false);
+			CallableStatement cst = conexion.getSQLConexion().prepareCall("call sp_modificarAlumno(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			cst.setString(1, alumno.getDni_Alumno());
 			cst.setString(2, alumno.getNombre_Alumno());
@@ -97,17 +100,25 @@ public class AlumnoDaoImpl implements AlumnoDao{
 			cst.setString(8, alumno.getTelefono_Alumno());
 			cst.setString(9, alumno.getLegajo_Alumno());
 			
+			System.out.println(cst.toString());
+			
 			int filas_afectadas = cst.executeUpdate();
 			System.out.println("Filas afectadas: " + filas_afectadas);
 			
 			resultado = true;
+			if(filas_afectadas==1) {
+				conexion.getSQLConexion().commit();
+			}else {
+				conexion.getSQLConexion().rollback();
+			}
+			
 			
 		}
 		catch(SQLException e)
 		{
 			e.printStackTrace();
 			try {
-				conexion.rollback();
+				conexion.getSQLConexion().rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -128,7 +139,7 @@ public class AlumnoDaoImpl implements AlumnoDao{
 	
 		PreparedStatement statement;
 		ResultSet resultSet;
-		Conexion conexion = Conexion.getConexion();
+		Conexion conexion = new Conexion();
 		
 		String consulta = "SELECT * FROM Alumnos WHERE Legajo_Alumno = '" + legajo + "';";
 		

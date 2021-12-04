@@ -26,6 +26,15 @@ public class Alumno {
         estado_Alumno=estado;
     }
 
+	@Override
+	public String toString() {
+		return "Alumno [legajo_Alumno=" + legajo_Alumno + ", dni_Alumno=" + dni_Alumno + ", nombre_Alumno="
+				+ nombre_Alumno + ", apellido_Alumno=" + apellido_Alumno + ", fechaNac_Alumno=" + fechaNac_Alumno
+				+ ", direccion_Alumno=" + direccion_Alumno + ", nacionalidad_Alumno=" + nacionalidad_Alumno
+				+ ", email_Alumno=" + email_Alumno + ", telefono_Alumno=" + telefono_Alumno + ", estado_Alumno="
+				+ estado_Alumno + "]";
+	}
+
 	public Alumno() {;}
 
 	public String getLegajo_Alumno() {

@@ -22,7 +22,7 @@ public class ProfesorDaoImpl implements ProfesorDao{
 		PreparedStatement statement;
 		ResultSet resultSet;
 		ArrayList<Profesor> ListarProfesores = new ArrayList<Profesor>();
-		Conexion conexion = Conexion.getConexion();
+		Conexion conexion = new Conexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(readall);
 			resultSet = statement.executeQuery();

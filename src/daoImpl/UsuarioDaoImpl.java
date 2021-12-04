@@ -48,7 +48,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	public Usuario ExisteUsuario(String Contraseña, String Email) {
 		PreparedStatement statement;
         ResultSet resultSet; //Guarda el resultado de la query
-        Conexion conexion = Conexion.getConexion();
+        Conexion conexion = new Conexion();
         Usuario User = new Usuario();
 
         try

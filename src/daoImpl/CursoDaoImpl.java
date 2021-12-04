@@ -28,7 +28,7 @@ public class CursoDaoImpl implements CursoDao {
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		ArrayList<Curso> ListarCursos = new ArrayList<Curso>();
-		Conexion conexion = Conexion.getConexion();
+		Conexion conexion = new Conexion();
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(readall);

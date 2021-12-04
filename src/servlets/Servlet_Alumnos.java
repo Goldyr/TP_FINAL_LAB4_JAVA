@@ -91,7 +91,7 @@ public class Servlet_Alumnos extends HttpServlet {
 	private void guardarEdicionAlumno(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException
 	{
-		String legajo = request.getParameter("legajoUsuario");
+		String legajo = request.getParameter("legajoAlumno");
 		
 		AlumnoDaoImpl adao = new AlumnoDaoImpl();
 		Alumno alumno = new Alumno();
@@ -99,7 +99,7 @@ public class Servlet_Alumnos extends HttpServlet {
 		alumno = adao.obtenerAlumno(legajo);
 		
 		if(alumno != null) {
-			
+			System.out.println(legajo);
 			alumno.setDni_Alumno(request.getParameter("dniAlumno"));
 			alumno.setNombre_Alumno(request.getParameter("nombreAlumno"));
 			alumno.setApellido_Alumno(request.getParameter("apellidoAlumno"));
