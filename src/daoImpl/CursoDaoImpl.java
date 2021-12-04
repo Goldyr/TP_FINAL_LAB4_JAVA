@@ -1,5 +1,6 @@
 package daoImpl;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,8 +19,36 @@ public class CursoDaoImpl implements CursoDao {
 	
 	@Override
 	public boolean AltaCurso(Curso alumno) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resultado = false;
+		
+		Conexion conexion = new Conexion();
+	
+		try {
+			
+			CallableStatement cst = conexion.getSQLConexion().prepareCall("{call sp_AltaCursos(?, ?, ?)}");
+			cst.setString(1, alumno.getCodMateria());
+			cst.setString(2, alumno.getAnio_Curso());
+			cst.setString(3, alumno.getSemestre_Curso());
+				
+			int filas_afectadas = cst.executeUpdate();
+			
+			resultado = true;
+			if(filas_afectadas==1) {
+				conexion.getSQLConexion().commit();
+			}else {
+				conexion.getSQLConexion().rollback();
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				conexion.getSQLConexion().rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}	
+		}
+		return resultado;
 	}
 
 	@Override

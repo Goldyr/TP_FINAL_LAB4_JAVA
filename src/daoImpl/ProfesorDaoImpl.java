@@ -74,10 +74,12 @@ public class ProfesorDaoImpl implements ProfesorDao{
 		
 		boolean resultado = false;
 		
-		Connection conexion = Conexion.getConexion().getSQLConexion();
+		Conexion conexion = new Conexion();
 	
 		try {
-			CallableStatement cst = conexion.prepareCall("{call sp_ModificarUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+			
+			
+			CallableStatement cst = conexion.getSQLConexion().prepareCall("{call sp_ModificarUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
 			cst.setString(1, profesor.getLegajo_Usuario());
 			cst.setString(2, profesor.getDNI_Usuario());
 			cst.setString(3, profesor.getNombre_Usuario());
@@ -93,15 +95,20 @@ public class ProfesorDaoImpl implements ProfesorDao{
 			cst.setString(10, profesor.getContraseña_Usuario());
 			cst.setString(11, profesor.getTelefono_Usuario());
 			
-			cst.execute();
-			resultado = true;
+			int filas_afectadas = cst.executeUpdate();
 			
+			resultado = true;
+			if(filas_afectadas==1) {
+				conexion.getSQLConexion().commit();
+			}else {
+				conexion.getSQLConexion().rollback();
+			}
 		}
 		catch(SQLException e)
 		{
 			e.printStackTrace();
 			try {
-				conexion.rollback();
+				conexion.getSQLConexion().rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -123,7 +130,7 @@ public class ProfesorDaoImpl implements ProfesorDao{
 	{
 		PreparedStatement statement;
 		ResultSet resultSet;
-		Conexion conexion = Conexion.getConexion();
+		Conexion conexion = new Conexion();
 		
 		String consulta = "SELECT * FROM Usuarios WHERE Legajo_Usuario = '" + legajo + "';";
 		

@@ -11,6 +11,14 @@ public class Curso {
 	private String anio_Curso;
 	private Boolean estado;
 	
+	public Curso() {};
+			
+	@Override
+	public String toString() {
+		return "Curso [codCurso=" + codCurso + ", materia=" + materia + ", semestre_Curso=" + semestre_Curso
+				+ ", anio_Curso=" + anio_Curso + ", estado=" + estado + "]";
+	}
+
 	public Curso(String codCurso, String materia, String semestre_Curso, String anio_Curso, Boolean estado) {
 		this.codCurso=codCurso;
 		this.materia.setCodigoMateria(materia);
