@@ -1,6 +1,8 @@
 package daoImpl;
 
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,13 +12,14 @@ import java.util.Date;
 
 import dao.AlumnoDao;
 import entidades.Alumno;
+import entidades.Profesor;
 
 
 
 
 public class AlumnoDaoImpl implements AlumnoDao{
 	
-	private static final String readall = "SELECT * FROM alumnos;";
+	private static final String readall = "SELECT * FROM alumnos WHERE Estado_Alumno = 1;";
 	
 	@Override
 	
@@ -73,14 +76,77 @@ public class AlumnoDaoImpl implements AlumnoDao{
 
 	@Override
 	public boolean ModificarAlumno(Alumno alumno) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		boolean resultado = false;
+		
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		
+		try {
+			CallableStatement cst = conexion.prepareCall("{call sp_modificarAlumno(?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+			
+			cst.setString(1, alumno.getDni_Alumno());
+			cst.setString(2, alumno.getNombre_Alumno());
+			cst.setString(3, alumno.getApellido_Alumno());
+			
+			java.sql.Date sqlDate = new java.sql.Date(alumno.getFechaNac_Alumno().getTime());
+			
+			cst.setDate(4, sqlDate);
+			cst.setString(5, alumno.getDireccion_Alumno());
+			cst.setString(6, alumno.getNacionalidad_Alumno());
+			cst.setString(7, alumno.getEmail_Alumno());
+			cst.setString(8, alumno.getTelefono_Alumno());
+			cst.setString(9, alumno.getLegajo_Alumno());
+			
+			int filas_afectadas = cst.executeUpdate();
+			System.out.println("Filas afectadas: " + filas_afectadas);
+			
+			resultado = true;
+			
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+		}
+		
+		return resultado;
 	}
 
 	@Override
 	public boolean ExisteAlumno(String legajo) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Alumno obtenerAlumno(String legajo) {
+	
+		PreparedStatement statement;
+		ResultSet resultSet;
+		Conexion conexion = Conexion.getConexion();
+		
+		String consulta = "SELECT * FROM Alumnos WHERE Legajo_Alumno = '" + legajo + "';";
+		
+		Alumno alumno = new Alumno();
+		
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(consulta);
+			resultSet = statement.executeQuery();
+			
+			if(resultSet.next() == true) {
+				alumno = getAlumno(resultSet);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return alumno;
 	}
 
 }

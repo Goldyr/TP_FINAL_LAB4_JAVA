@@ -77,14 +77,14 @@ public class ProfesorDaoImpl implements ProfesorDao{
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 	
 		try {
-			CallableStatement cst = conexion.prepareCall("CALL sp_ModificarUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			CallableStatement cst = conexion.prepareCall("{call sp_ModificarUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
 			cst.setString(1, profesor.getLegajo_Usuario());
 			cst.setString(2, profesor.getDNI_Usuario());
 			cst.setString(3, profesor.getNombre_Usuario());
 			cst.setString(4, profesor.getApellido_Usuario());
 			
 			java.sql.Date sqlDate = new java.sql.Date(profesor.getFechaNac_Profesor().getTime());
-			
+		
 			cst.setDate(5, sqlDate);
 			cst.setString(6, profesor.getDireccion_Profesor());
 			cst.setString(7, profesor.getLocalidad_Profesor());

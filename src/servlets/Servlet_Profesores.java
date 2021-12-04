@@ -43,13 +43,9 @@ public class Servlet_Profesores extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("btnMostrarProfesores")!=null) {
-			ProfesorDaoImpl ProfDao = new ProfesorDaoImpl();
-			ArrayList<Profesor> lista = ProfDao.ListarProfesor();
-			request.setAttribute("ListaP",lista);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("AdminProfesores.jsp");
-			rd.forward(request, response);
+		if(request.getParameter("btnMostrarProfesores")!=null || request.getParameter("btnVolver")!= null) 
+		{
+			mostrarListaProfesores(request, response);
 		}
 		
 		if(request.getParameter("btnEditar")!=null)
@@ -59,11 +55,18 @@ public class Servlet_Profesores extends HttpServlet {
 		
 		if(request.getParameter("btnGuardarEdicion")!=null)
 		{
-		
 			guardarEdicionProfesor(request, response);
-	
 		}
 		
+	}
+	
+	private void mostrarListaProfesores(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
+		ProfesorDaoImpl ProfDao = new ProfesorDaoImpl();
+		ArrayList<Profesor> lista = ProfDao.ListarProfesor();
+		request.setAttribute("ListaP",lista);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("AdminProfesores.jsp");
+		rd.forward(request, response);
 	}
 	
 	private void editarProfesor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -97,15 +100,19 @@ public class Servlet_Profesores extends HttpServlet {
 			profesor.setDNI_(request.getParameter("dniUsuario"));
 			profesor.setNombre_Usuario(request.getParameter("nombreUsuario"));
 			profesor.setApellido_Usuario(request.getParameter("apellidoUsuario"));
-			profesor.setDNI_(request.getParameter("dniUsuario"));
 			
-			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			String stringFechaNacimiento = request.getParameter("fechaNacUsuario");
 			Date date;
+			
 			try {
-				date = formatter.parse(request.getParameter("fechaNacUsuario"));
+				
+				date = formatter.parse(stringFechaNacimiento);
+				//formatter.format(date);
 				profesor.setFechaNac_Profesor(date);
+				
 			} catch (ParseException e) {
-	
+					e.printStackTrace();
 			}
 			
 			profesor.setDireccion_Profesor(request.getParameter("direccionUsuario"));
@@ -118,14 +125,9 @@ public class Servlet_Profesores extends HttpServlet {
 			// ------------
 			
 			if(udao.ModificarProfesor(profesor)) {
-				ProfesorDaoImpl ProfDao = new ProfesorDaoImpl();
-				ArrayList<Profesor> lista = ProfDao.ListarProfesor();
-				request.setAttribute("ListaP",lista);
-				
+				mostrarListaProfesores(request, response);
 				System.out.println("Modificado correctamente");
-				
-				RequestDispatcher rd = request.getRequestDispatcher("AdminProfesores.jsp");
-				rd.forward(request, response);
+		
 			}
 
 		}

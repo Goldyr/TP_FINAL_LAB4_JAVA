@@ -26,6 +26,8 @@ public class Alumno {
         estado_Alumno=estado;
     }
 
+	public Alumno() {;}
+
 	public String getLegajo_Alumno() {
 		return legajo_Alumno;
 	}

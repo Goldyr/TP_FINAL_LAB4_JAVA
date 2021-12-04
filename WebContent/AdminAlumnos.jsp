@@ -24,18 +24,73 @@
 	}
 	%>
 	
+	<%
+	Alumno alumnoEditable = null;
+	if(request.getAttribute("AlumnoEditable")!= null)
+	{
+		alumnoEditable = (Alumno)request.getAttribute("AlumnoEditable");
+	}
+	%>
+	
 	<table border="1">
-	<tr><th>Legajo</th><th>DNI</th><th>Nombre</th><th>Apellido</th><th>Fecha Nac</th> <th>Direccion</th>
-	 <th>Nacionalidad</th><th>Email</th><th>Telefono</th></tr>
+		<tr>
+			<td> </td>
+			<td> </td>
+			<th>Legajo</th>
+			<th>DNI</th>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>Fecha Nac</th>
+			<th>Direccion</th>
+	 		<th>Nacionalidad</th>
+	 		<th>Email</th>
+	 		<th>Telefono</th>
+	 	</tr>
 	 <%
-	 if(listaAlumno !=null)
+	 if(listaAlumno !=null) {
 	 for(Alumno Alu : listaAlumno){
 	 %>
-	 <tr><td><%=Alu.getLegajo_Alumno() %></td> 	<td><%= Alu.getDni_Alumno() %></td>	 <td><%=Alu.getNombre_Alumno()%></td><td><%=Alu.getApellido_Alumno()%></td><td><%=Alu.getFechaNac_Alumno()%></td> <td><%=Alu.getDireccion_Alumno()%></td>
-	 <td><%= Alu.getNacionalidad_Alumno() %></td><td><%=Alu.getEmail_Alumno()%></td><td><%=Alu.getTelefono_Alumno()%></td></tr>
-	 
+	 <tr>
+	 	<form method="post" action="Servlet_Alumnos">
+	 		<td><input type="submit" name="btnEditar" value="Editar"/></td>
+			<td>Eliminar</td>	
+	 		<td><%=Alu.getLegajo_Alumno() %> <input type="hidden" name="legajoAlumno" value="<%=Alu.getLegajo_Alumno()%>"> </td> 	
+	 		<td><%= Alu.getDni_Alumno() %></td>	 
+	 		<td><%=Alu.getNombre_Alumno()%></td>
+	 		<td><%=Alu.getApellido_Alumno()%></td>
+	 		<td><%=Alu.getFechaNac_Alumno()%></td> 
+	 		<td><%=Alu.getDireccion_Alumno()%></td>
+	 		<td><%= Alu.getNacionalidad_Alumno() %></td>
+	 		<td><%=Alu.getEmail_Alumno()%></td>
+	 		<td><%=Alu.getTelefono_Alumno()%></td>
+	  	</form>
+	 </tr>
 	 <%
+	 	}
 	 }
+	 
+	 else {
+		 if(alumnoEditable != null){
+			
+	 %>
+	 <tr>
+	 		<form action="Servlet_Alumnos" method="post">
+	 			<td><input type="submit" name="btnVolver" value="Volver"/></td>
+				<td><input type="submit" name="btnGuardarEdicion" value="Guardar"/></td>
+	 			<td><%=alumnoEditable.getLegajo_Alumno()%> <input type="hidden" name="legajoAlumno" value="<%=alumnoEditable.getLegajo_Alumno() %>"></td>
+	 			<td><input type="text" required name="dniAlumno" value="<%=alumnoEditable.getDni_Alumno() %>"></td> 
+	 			<td><input type="text" required name="nombreAlumno" value="<%=alumnoEditable.getNombre_Alumno()%>"></td>
+	 			<td><input type="text" required name="apellidoAlumno" value="<%=alumnoEditable.getApellido_Alumno()%>"></td>
+	 			<td><input type="date"  required name="fechaNacAlumno" value="<%=alumnoEditable.getFechaNac_Alumno()%>"></td>
+	 			<td><input type="text" name="direccionAlumno" value="<%=alumnoEditable.getDireccion_Alumno()%>"></td>
+	 			<td><input type="text" name="nacionalidadAlumno" value="<%= alumnoEditable.getNacionalidad_Alumno() %>"></td>
+	 			<td><input type="text" required name="emailAlumno" value="<%= alumnoEditable.getEmail_Alumno()%>"></td>
+	 			<td><input type="text" required name="telefonoAlumno" value="<%= alumnoEditable.getTelefono_Alumno()%>"></td>
+	 		</form>	
+	 </tr>
+	 <%
+		 	}
+		}
 	 %>
 	</table>
 	

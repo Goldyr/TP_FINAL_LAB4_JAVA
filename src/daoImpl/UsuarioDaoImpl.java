@@ -65,10 +65,6 @@ public class UsuarioDaoImpl implements UsuarioDao {
         	   
         	   User = (getUsuario(resultSet));   
            }
-        	   
-           
-            
-
            
         } 
         catch (SQLException e) 
