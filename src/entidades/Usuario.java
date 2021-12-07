@@ -41,7 +41,7 @@ public class Usuario {
 		return dni_Usuario;
 	}
 
-	public void setDNI_(String dni_Usuario) {
+	public void setDNI_Usuario(String dni_Usuario) {
 		this.dni_Usuario = dni_Usuario;
 	}
 

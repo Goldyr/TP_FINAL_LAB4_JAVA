@@ -1,3 +1,5 @@
+<%@page import="entidades.Profesor" %>
+<%@page import="dao.ProfesorDao" %>
 <%@page import="entidades.Usuario" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -21,26 +23,46 @@
 		}
 	}else{response.sendRedirect("Login.jsp");}
  %>
- 
- 	<form method="post" action="Servlet_Login" >
-	<div ><%= user.getNombre_Usuario() %>
+
+	<form method="post" action="Servlet_Login">
+	<div style=text-align:right><%= user.getNombre_Usuario() %>
 	<input type="submit" value="CerrarSesion" name="btnCerrarSesion">
 	</div>
 	</form>
+
+	<form method="post" action="Servlet_AltaProfesor">
+		<h3>Alta Profesor</h3>
+	    <p>DNI                     <input type="text" name="txtDNI"> </p>
+	    <p>Nombre                 <input type="text" name="txtNombre"> </p>
+	    <p>Apellido             <input type="text" name="txtApellido"> </p>
+	    <p>Contraseña             <input type="password" name="txtContraseña"> </p>
+	    <p>Repetir Contraseña     <input type="password" name="txtRepContraseña"> </p>
+	    <p>Fecha de nacimiento     <input type="text" name="txtFechaNacimiento"> </p>
+	    <p>Direccion             <input type="text" name="txtDireccion"> </p>
+	    <p>Nacionalidad            <input type="text" name="txtNacionalidad"> </p>
+	    <p>Localidad             <input type="text" name="txtLocalidad"> </p>
+	    <p>Email                 <input type="text" name="txtEmail"> </p>
+	    <p>Telefono             <input type="text" name="txtTelefono"> </p>
+	    
+		<input type="submit" name="btnAltaProfesor" value="AltaProfesor">
+	</form>
+	  	
+	<%
+		String mensaje="";
+		if(request.getAttribute("AltaProfesor")!=null){
 	
-<form>
-	<h3>Alta Docente</h3>
-	<p>Nombre 				<input type="text" name="txtNombre"> </p>
-	<p>Apellido 			<input type="text" name="txtApellido"> </p>
-	<p>DNI 					<input type="text" name="txtDNI"> </p>
-	<p>Fecha de nacimiento 	<input type="text" name="txtFechaNacimiento"> </p>
-	<p>Direccion 			<input type="text" name="txtDireccion"> </p>
-	<p>Nacionalidad			<input type="text" name="txtNacionalidad"> </p>
-	<p>Localidad 			<input type="text" name="txtLocalidad"> </p>
-	<p>Email 				<input type="text" name="txtEmail"> </p>
-	<p>Telefono 			<input type="text" name="txtTelefono"> </p>
+			mensaje= (String)request.getAttribute("MensajeError");	
+			
+		}
 	
-	<input type="submit" name="btnAltaProfesor" value="Alta Profesor">
-</form>
+		if(request.getAttribute("MensajeError")!=null){
+			mensaje= (String)request.getAttribute("MensajeError");	
+		}
+	%>
+	
+	<%=mensaje %>
+	
+	
+
 </body>
 </html>

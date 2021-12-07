@@ -97,7 +97,7 @@ public class Servlet_Profesores extends HttpServlet {
 		
 		if(profesor != null) {
 			
-			profesor.setDNI_(request.getParameter("dniUsuario"));
+			profesor.setDNI_Usuario(request.getParameter("dniUsuario"));
 			profesor.setNombre_Usuario(request.getParameter("nombreUsuario"));
 			profesor.setApellido_Usuario(request.getParameter("apellidoUsuario"));
 			
