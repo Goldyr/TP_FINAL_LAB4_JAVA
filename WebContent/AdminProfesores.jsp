@@ -7,6 +7,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Admin</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+<script type="text/javascript">
+$(document).ready( function () {
+    $('#tablaProfesores').DataTable();
+} );
+</script>
 </head>
 <body>
 
@@ -32,17 +45,19 @@
 	}
 	%>
 	
-	<table border="1">
+	<table border="1" class="display" id="tablaProfesores">
+	<thead>
 		<tr> 
 			<td></td> <td></td> <th>Legajo</th> <th>DNI</th> <th>Nombre</th> <th>Apellido</th> <th>Fecha de Nacimiento</th>
 			<th>Direccion</th> <th>Localidad</th> <th>Nacionalidad</th> <th>Email</th> <th>Contraseña</th> <th>Telefono</th>
 			
 		</tr>
-
+	</thead>
 		<%
 	 	if(listaProfesor!=null){
 	 		for(Profesor Prof : listaProfesor){
 	 	%>
+	 	<tbody>
 	 	<tr>
 	 		<form action="Servlet_Profesores" method="post">
 	 			<td><input type="submit" name="btnEditar" value="Editar"/></td>
@@ -60,6 +75,7 @@
 	 			<td><%=Prof.getTelefono_Usuario()%></td>
 	 		</form>	
 	 	</tr>
+	 	</tbody>
 	 	<%
 	 		}
 	 	}
@@ -68,6 +84,7 @@
 	 		if(profesorEdit != null)
 	 		{
 	 	%>
+
 	 			<tr>
 	 				<form action="Servlet_Profesores" method="post">
 	 					<td><input type="submit" name="btnVolver" value="Volver"/></td>
@@ -86,6 +103,7 @@
 	 					<td><input type="text" required name="telefonoUsuario" value="<%= profesorEdit.getTelefono_Usuario()%>"></td>
 	 				</form>	
 	 			</tr>
+
 	 	<%	
 	 		}
 	 	}
