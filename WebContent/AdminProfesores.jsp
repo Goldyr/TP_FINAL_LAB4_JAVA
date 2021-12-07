@@ -1,3 +1,4 @@
+<%@page import="entidades.Usuario" %>
 <%@page import="java.util.ArrayList"  %>
 <%@page import="entidades.Profesor" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -23,6 +24,25 @@ $(document).ready( function () {
 </head>
 <body>
 
+	<% 
+	//Validacion si hay un usuario y si es admin
+	Usuario user = new Usuario();
+	if(session.getAttribute("Usuario")!=null){
+		
+		user = (Usuario)session.getAttribute("Usuario");
+
+		if(!user.isAdmin_Usuario()){
+			response.sendRedirect("InicioProfesor.jsp");
+		}
+	}else{response.sendRedirect("Login.jsp");}
+ %>
+ 
+ 	<form method="post" action="Servlet_Login">
+	<div style=text-align:right><%= user.getNombre_Usuario() %>
+	<input type="submit" value="CerrarSesion" name="btnCerrarSesion">
+	</div>
+	</form>
+	
 <h3>Listado Profesores</h3>
 	<a href="AdminAltaProfesor.jsp">Alta Profesor</a>
 	

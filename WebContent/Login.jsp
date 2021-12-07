@@ -42,7 +42,7 @@
 	
 	if(user.getLegajo_Usuario() != null)
 	{
-		session.setAttribute("legajo" , user.getLegajo_Usuario());//Atributo global del legajo del usuario en la sesion
+		session.setAttribute("Usuario" , user);//Atributo global del usuario en la sesion
 		
 		if(user.isAdmin_Usuario())
 		{

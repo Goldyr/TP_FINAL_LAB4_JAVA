@@ -1,3 +1,4 @@
+<%@page import="entidades.Usuario" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,8 +8,21 @@
 <title>Inicio</title>
 </head>
 <body>
+
+	<%
+	Usuario user = new Usuario();
+	if(session.getAttribute("Usuario")!=null){
+		user = (Usuario)session.getAttribute("Usuario");
+	}else{response.sendRedirect("Login.jsp");}
+	%>
+
 	<h3>Bienvenido/a</h3>
-	<a href=""> Cerrar Sesion</a>
+
+	<form method="post" action="Servlet_Login">
+	<div style=text-align:right><%= user.getNombre_Usuario() %>
+	<input type="submit" value="CerrarSesion" name="btnCerrarSesion">
+	</div>
+	</form>
 	
 	<form>
 		<b>Seleccionar Materia para administrar alumnos: </b>

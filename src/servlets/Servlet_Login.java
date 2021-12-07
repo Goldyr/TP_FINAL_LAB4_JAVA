@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import daoImpl.AlumnoDaoImpl;
+
 import daoImpl.UsuarioDaoImpl;
 import entidades.Usuario;
 
@@ -49,19 +49,23 @@ public class Servlet_Login extends HttpServlet {
 			user = Udao.ExisteUsuario(request.getParameter("txtMail").toString(),request.getParameter("txtPass").toString());
 			
 			if(user.getLegajo_Usuario() != null) {
+				
 			request.setAttribute("usuarioA", user);
+			
 			}
 			else {
 			request.setAttribute("error", "No existe");
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
 			rd.forward(request, response);
-		
-			
-			
-			
+	
 		}
-			
+		if(request.getParameter("btnCerrarSesion")!=null) {
+			request.getSession().setAttribute("Usuario", null);
+			RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
+			rd.forward(request, response);
+		}
+		
 			
 	}
 
