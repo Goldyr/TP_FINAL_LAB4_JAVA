@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import daoImpl.ProfesorDaoImpl;
+
 import entidades.Profesor;
+import negocio.ProfesorNeg;
 
 /**
  * Servlet implementation class Servlet_Profesores
@@ -43,39 +44,22 @@ public class Servlet_Profesores extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ProfesorNeg profNeg = new ProfesorNeg();
 		if(request.getParameter("btnMostrarProfesores")!=null || request.getParameter("btnVolver")!= null) 
-		{
-			mostrarListaProfesores(request, response);
+		{ // Manda para mostrar la lista de los profesores
+			request.setAttribute("ListaP",profNeg.obtenerListaProfesores());
+			
+			RequestDispatcher rd = request.getRequestDispatcher("AdminProfesores.jsp");
+			rd.forward(request, response);
 		}
 		
 		if(request.getParameter("btnEditar")!=null)
-		{
-			editarProfesor(request, response);
-		}
-		
-		if(request.getParameter("btnGuardarEdicion")!=null)
-		{
-			guardarEdicionProfesor(request, response);
-		}
-		
-	}
-	
-	private void mostrarListaProfesores(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
-		ProfesorDaoImpl ProfDao = new ProfesorDaoImpl();
-		ArrayList<Profesor> lista = ProfDao.ListarProfesor();
-		request.setAttribute("ListaP",lista);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("AdminProfesores.jsp");
-		rd.forward(request, response);
-	}
-	
-	private void editarProfesor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			String legajo = request.getParameter("legajoUsuario");
+		{//Activa la edicion del profesor
 			
-			ProfesorDaoImpl udao = new ProfesorDaoImpl();
+			String legajo = request.getParameter("legajoUsuario");
 			Profesor profesor = new Profesor();
-		
-			profesor = udao.ObtenerProfesor(legajo);
+			
+			profesor = profNeg.obtenerProfesor(legajo);
 			
 			if(profesor != null) {
 				request.setAttribute("ProfesorEditable", profesor);
@@ -83,54 +67,24 @@ public class Servlet_Profesores extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("AdminProfesores.jsp");
 				rd.forward(request, response);
 			}
-	}
-	
-	private void guardarEdicionProfesor(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException
-	{
-		String legajo = request.getParameter("legajoUsuario");
-		
-		ProfesorDaoImpl udao = new ProfesorDaoImpl();
-		Profesor profesor = new Profesor();
-	
-		profesor = udao.ObtenerProfesor(legajo);
-		
-		if(profesor != null) {
-			
-			profesor.setDNI_Usuario(request.getParameter("dniUsuario"));
-			profesor.setNombre_Usuario(request.getParameter("nombreUsuario"));
-			profesor.setApellido_Usuario(request.getParameter("apellidoUsuario"));
-			
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			String stringFechaNacimiento = request.getParameter("fechaNacUsuario");
-			Date date;
-			
-			try {
-				
-				date = formatter.parse(stringFechaNacimiento);
-				//formatter.format(date);
-				profesor.setFechaNac_Profesor(date);
-				
-			} catch (ParseException e) {
-					e.printStackTrace();
-			}
-			
-			profesor.setDireccion_Profesor(request.getParameter("direccionUsuario"));
-			profesor.setLocalidad_Profesor(request.getParameter("localidadUsuario"));
-			profesor.setNacionalidad_Profesor(request.getParameter("nacionalidadUsuario"));
-			profesor.setEmail_Usuario(request.getParameter("emailUsuario"));
-			profesor.setContraseña_Usuario(request.getParameter("contraseñaUsuario"));
-			profesor.setTelefono_Usuario(request.getParameter("telefonoUsuario"));
-			
-			// ------------
-			
-			if(udao.ModificarProfesor(profesor)) {
-				mostrarListaProfesores(request, response);
-				System.out.println("Modificado correctamente");
-		
-			}
-
 		}
+		
+		if(request.getParameter("btnGuardarEdicion")!=null)
+		{//modifica al profesor
+			profNeg.guardarEdicionProfesor(request.getParameter("legajoUsuario"), request.getParameter("dniUsuario"), request.getParameter("nombreUsuario"), request.getParameter("apellidoUsuario"), request.getParameter("fechaNacUsuario"), request.getParameter("direccionUsuario"), request.getParameter("localidadUsuario"), request.getParameter("nacionalidadUsuario"), request.getParameter("emailUsuario"), request.getParameter("contraseñaUsuario"), request.getParameter("telefonoUsuario"));
+			
+			request.setAttribute("ListaP",profNeg.obtenerListaProfesores());
+			
+			RequestDispatcher rd = request.getRequestDispatcher("AdminProfesores.jsp");
+			rd.forward(request, response);
+		}
+		
 	}
+	
+
+	
+
+	
+	
 
 }

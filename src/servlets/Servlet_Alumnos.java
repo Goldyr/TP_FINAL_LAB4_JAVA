@@ -18,6 +18,7 @@ import daoImpl.AlumnoDaoImpl;
 import daoImpl.ProfesorDaoImpl;
 import entidades.Alumno;
 import entidades.Profesor;
+import negocio.AlumnoNeg;
 
 /**
  * Servlet implementation class Servlet_Alumnos
@@ -46,94 +47,47 @@ public class Servlet_Alumnos extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			AlumnoNeg alneg = new AlumnoNeg();
+			
 			if(request.getParameter("btnMostrarAlumnos")!=null || request.getParameter("btnVolver")!=null) {
-				obtenerListaAlumnos(request, response);
+				//lista los alumnos
+				 request.setAttribute("ListaA", alneg.obtenerListaAlumnos());
+				 
+				 RequestDispatcher rd = request.getRequestDispatcher("AdminAlumnos.jsp");
+				 rd.forward(request, response);
 			}
 			
 			if(request.getParameter("btnEditar") != null) {
-				editarAlumno(request, response);
+				//activa la edicion del alumno
+				String legajo = request.getParameter("legajoAlumno");
+				
+				Alumno alumno = new Alumno();
+				alumno = alneg.obtenerAlumno(legajo);
+				
+				if(alumno != null) {
+					request.setAttribute("AlumnoEditable", alumno);
+					
+					RequestDispatcher rd = request.getRequestDispatcher("AdminAlumnos.jsp");
+					rd.forward(request, response);
+				}else {RequestDispatcher rd = request.getRequestDispatcher("AdminAlumnos.jsp");
+				rd.forward(request, response);
+				}
+				
 			}
 			
 			if(request.getParameter("btnGuardarEdicion") != null) {
-				guardarEdicionAlumno(request, response);
-			}
-	}
-	
-	private void obtenerListaAlumnos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		AlumnoDaoImpl alumDao = new AlumnoDaoImpl();
-		ArrayList<Alumno> lista = alumDao.ListarAlumnos();
-		 
-		 request.setAttribute("ListaA", lista);
-		 
-		 RequestDispatcher rd = request.getRequestDispatcher("AdminAlumnos.jsp");
-		 rd.forward(request, response);
-	}
-	
-	private void editarAlumno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		String legajo = request.getParameter("legajoAlumno");
-		
-		AlumnoDaoImpl adao = new AlumnoDaoImpl();
-		Alumno alumno = new Alumno();
-	
-		alumno = adao.obtenerAlumno(legajo);
-		
-		if(alumno != null) {
-			request.setAttribute("AlumnoEditable", alumno);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("AdminAlumnos.jsp");
-			rd.forward(request, response);
-		}
-	}
+				//guarda la modificacion
+				alneg.guardarEdicionAlumno(request.getParameter("legajoAlumno"), request.getParameter("dniAlumno"), request.getParameter("nombreAlumno"), request.getParameter("apellidoAlumno"), request.getParameter("fechaNacAlumno"), request.getParameter("direccionAlumno"), request.getParameter("nacionalidadAlumno"), request.getParameter("emailAlumno"), request.getParameter("telefonoAlumno"));
+				
+				
+				 request.setAttribute("ListaA", alneg.obtenerListaAlumnos());
+				 
+				 RequestDispatcher rd = request.getRequestDispatcher("AdminAlumnos.jsp");
+				 rd.forward(request, response);
 
-	
-	private void guardarEdicionAlumno(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException
-	{
-		String legajo = request.getParameter("legajoAlumno");
-		
-		AlumnoDaoImpl adao = new AlumnoDaoImpl();
-		Alumno alumno = new Alumno();
-	
-		alumno = adao.obtenerAlumno(legajo);
-		
-		if(alumno != null) {
-			System.out.println(legajo);
-			alumno.setDni_Alumno(request.getParameter("dniAlumno"));
-			alumno.setNombre_Alumno(request.getParameter("nombreAlumno"));
-			alumno.setApellido_Alumno(request.getParameter("apellidoAlumno"));
-			
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			String stringFechaNacimiento = request.getParameter("fechaNacAlumno");
-			Date date;
-			
-			try {
-				
-				date = formatter.parse(stringFechaNacimiento);
-				//formatter.format(date);
-				alumno.setFechaNac_Alumno(date);
-				
-			} catch (ParseException e) {
-					e.printStackTrace();
 			}
-			
-			alumno.setDireccion_Alumno(request.getParameter("direccionAlumno"));
-			alumno.setNacionalidad_Alumno(request.getParameter("nacionalidadAlumno"));
-			alumno.setEmail_Alumno(request.getParameter("emailAlumno"));
-			alumno.setTelefono_Alumno(request.getParameter("telefonoAlumno"));
-			
-			// ------------
-			
-			if(adao.ModificarAlumno(alumno)) {
-				
-				obtenerListaAlumnos(request, response);
-				
-				System.out.println("Modificado correctamente");
-				
-			}
-
-		}
 	}
+	
+
 	
 }

@@ -37,7 +37,7 @@
 	    <p>Apellido             <input type="text" name="txtApellido"> </p>
 	    <p>Contraseña             <input type="password" name="txtContraseña"> </p>
 	    <p>Repetir Contraseña     <input type="password" name="txtRepContraseña"> </p>
-	    <p>Fecha de nacimiento     <input type="text" name="txtFechaNacimiento"> </p>
+	    <p>Fecha de nacimiento     <input type="date" name="txtFechaNacimiento"> </p>
 	    <p>Direccion             <input type="text" name="txtDireccion"> </p>
 	    <p>Nacionalidad            <input type="text" name="txtNacionalidad"> </p>
 	    <p>Localidad             <input type="text" name="txtLocalidad"> </p>
