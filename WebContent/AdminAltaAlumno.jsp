@@ -29,12 +29,12 @@
 	</div>
 	</form>
 	
-	<form>
+	<form method="post" action="Servlet_AltaAlumno">
 		<h3>Alta Alumno</h3>
 		<p>Nombre 				<input type="text" name="txtNombre"> </p>
 		<p>Apellido 			<input type="text" name="txtApellido"> </p>
 		<p>DNI 					<input type="text" name="txtDNI"> </p>
-		<p>Fecha de nacimiento 	<input type="text" name="txtFechaNacimiento"> </p>
+		<p>Fecha de nacimiento 	<input type="date" name="txtFechaNacimiento"> </p>
 		<p>Direccion 			<input type="text" name="txtDireccion"> </p>
 		<p>Nacionalidad			<input type="text" name="txtNacionalidad"> </p>
 		<p>Provincia 			<input type="text" name="txtProvincia"> </p>
@@ -43,6 +43,20 @@
 		
 		<input type="submit" name="btnAgregarAlumno" value="Agregar Alumno">
 	</form>
+	
+		<%
+		if(request.getAttribute("AlumnoAlta")!=null){
+			if((boolean)request.getAttribute("AlumnoAlta")){
+				%>
+				Se dio de alta correctamente	
+				<%	
+			}else{
+				%>
+				Error: No pudo darse de alta correctamente	
+				<%
+			}
+		}
+		%>
 
 </body>
 </html>

@@ -64,10 +64,52 @@ public class ProfesorDaoImpl implements ProfesorDao{
 	}
 
 	@Override
-	public boolean AltaProfesor(Profesor profesor) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    public boolean AltaProfesor(Profesor profesor) {
+        boolean resultado = false;
+
+        Conexion cn = new Conexion(); 
+
+        try {
+            CallableStatement cst = cn.getSQLConexion().prepareCall("CALL sp_altaProfesor(?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
+
+            cst.setString(1, profesor.getDNI_Usuario());
+            cst.setString(2, profesor.getNombre_Usuario());
+            cst.setString(3, profesor.getApellido_Usuario());
+
+            java.sql.Date sqlDate = new java.sql.Date(profesor.getFechaNac_Profesor().getTime());
+            //java.sql.Date sqlDate = new java.sql.Date(1999-8-18);
+            cst.setDate(4, sqlDate);
+
+            cst.setString(5, profesor.getDireccion_Profesor());
+            cst.setString(6, profesor.getLocalidad_Profesor());
+            cst.setString(7, profesor.getNacionalidad_Profesor());
+            cst.setString(8, profesor.getEmail_Usuario());
+            cst.setString(9, profesor.getContraseña_Usuario());
+            cst.setString(10, profesor.getTelefono_Usuario());
+
+
+            System.out.println(cst.toString());
+            int filas_afectadas = cst.executeUpdate();
+            System.out.println("Filas afectadas: " + filas_afectadas);
+
+            resultado = true;
+            if(filas_afectadas==1) {
+                cn.getSQLConexion().commit();
+            }else {
+                cn.getSQLConexion().rollback();
+            }
+
+        }catch(SQLException e) {
+            e.printStackTrace();
+            try {
+                cn.getSQLConexion().rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        }
+
+        return resultado;
+    }
 
 	@Override
 	public boolean ModificarProfesor(Profesor profesor) {
@@ -79,7 +121,7 @@ public class ProfesorDaoImpl implements ProfesorDao{
 		try {
 			
 			
-			CallableStatement cst = conexion.getSQLConexion().prepareCall("{call sp_ModificarUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+			CallableStatement cst = conexion.getSQLConexion().prepareCall("{call sp_ModificarUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
 			cst.setString(1, profesor.getLegajo_Usuario());
 			cst.setString(2, profesor.getDNI_Usuario());
 			cst.setString(3, profesor.getNombre_Usuario());

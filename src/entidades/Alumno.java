@@ -9,11 +9,12 @@ public class Alumno {
 	private Date fechaNac_Alumno;
 	private String direccion_Alumno;
 	private String nacionalidad_Alumno;
+	private String provincia_Alumno;
 	private String email_Alumno;
 	private String telefono_Alumno;
 	private boolean estado_Alumno;
 	
-	public Alumno(String legajo, String dni, String nombre, String apellido, Date fechaNac, String direcc, String nacionalidad, String email, String telefono, Boolean estado){
+	public Alumno(String legajo, String dni, String nombre, String apellido, Date fechaNac, String direcc, String nacionalidad, String provincia, String email, String telefono, Boolean estado){
         legajo_Alumno=legajo;
         dni_Alumno=dni;
         nombre_Alumno=nombre;
@@ -21,6 +22,7 @@ public class Alumno {
         fechaNac_Alumno=fechaNac;
         direccion_Alumno=direcc;
         nacionalidad_Alumno=nacionalidad;
+        provincia_Alumno=provincia;
         email_Alumno=email;
         telefono_Alumno=telefono;
         estado_Alumno=estado;
@@ -116,6 +118,15 @@ public class Alumno {
 	public void setEstado_Alumno(boolean estado_Alumno) {
 		this.estado_Alumno = estado_Alumno;
 	}
+
+	public String getProvincia_Alumno() {
+		return provincia_Alumno;
+	}
+
+	public void setProvincia_Alumno(String provincia_Alumno) {
+		this.provincia_Alumno = provincia_Alumno;
+	}
 	
 	
 }
+

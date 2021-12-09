@@ -10,6 +10,12 @@ public class Materia {
 		
 	}
 	
+	public Materia(String codigo, String nombre)
+	{
+		this.setCodigoMateria(codigo);
+		this.setNombreMateria(nombre);
+	}
+	
 	public String getCodigoMateria() {
 		return codigoMateria;
 	}
@@ -21,6 +27,11 @@ public class Materia {
 	}
 	public void setNombreMateria(String nombreMateria) {
 		this.nombreMateria = nombreMateria;
+	}
+
+	@Override
+	public String toString() {
+		return "Materia [codigoMateria=" + codigoMateria + ", nombreMateria=" + nombreMateria + "]";
 	}
 
 	

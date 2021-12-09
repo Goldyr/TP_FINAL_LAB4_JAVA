@@ -1,4 +1,9 @@
-<%@page import="entidades.Usuario" %>
+<%@ page import="entidades.Usuario" %>
+<%@ page import="entidades.Materia" %>
+<%@ page import="daoImpl.MateriaDaoImpl" %>
+
+<%@ page import = "java.util.ArrayList" %>
+<%@ page import = "java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -26,11 +31,24 @@
 	
 	<form>
 		<b>Seleccionar Materia para administrar alumnos: </b>
-		<select name="materia">
-			<option> Laboratorio IV </option>
-			<option> Laboratorio III </option>
-			<option> Laboratorio II </option>
-		</select>
+			<select name="materia_a_administrar">
+
+				<%
+				ArrayList<Materia> listamaterias = new ArrayList<Materia>();
+				
+				if(request.getAttribute("listamaterias")!=null)
+				{
+					listamaterias = (ArrayList<Materia>)request.getAttribute("listamaterias");
+					for(Materia mat : listamaterias)
+					{
+				%>
+					<option value="<%=mat.getCodigoMateria()%>"> <%=mat.getNombreMateria()%> </option>
+	
+				<%
+					}
+				}
+				%>
+			</select>
 		<input type="submit" value="Buscar" name="btnBuscarAlumnos">
 	</form>
 	

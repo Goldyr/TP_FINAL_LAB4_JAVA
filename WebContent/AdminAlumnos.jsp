@@ -77,6 +77,7 @@ $(document).ready( function () {
 			<th>Fecha Nac</th>
 			<th>Direccion</th>
 	 		<th>Nacionalidad</th>
+	 		<th>Provincia</th>
 	 		<th>Email</th>
 	 		<th>Telefono</th>
 	 	</tr>
@@ -97,6 +98,7 @@ $(document).ready( function () {
 	 		<td><%=Alu.getFechaNac_Alumno()%></td> 
 	 		<td><%=Alu.getDireccion_Alumno()%></td>
 	 		<td><%= Alu.getNacionalidad_Alumno() %></td>
+	 		<td><%=Alu.getProvincia_Alumno()%></td>
 	 		<td><%=Alu.getEmail_Alumno()%></td>
 	 		<td><%=Alu.getTelefono_Alumno()%></td>
 	  	</form>
@@ -122,6 +124,7 @@ $(document).ready( function () {
 	 			<td><input type="date"  required name="fechaNacAlumno" value="<%=alumnoEditable.getFechaNac_Alumno()%>"></td>
 	 			<td><input type="text" name="direccionAlumno" value="<%=alumnoEditable.getDireccion_Alumno()%>"></td>
 	 			<td><input type="text" name="nacionalidadAlumno" value="<%= alumnoEditable.getNacionalidad_Alumno() %>"></td>
+	 			<td><input type="text" name="provinciaAlumno" value="<%=alumnoEditable.getProvincia_Alumno()%>"></td>
 	 			<td><input type="text" required name="emailAlumno" value="<%= alumnoEditable.getEmail_Alumno()%>"></td>
 	 			<td><input type="text" required name="telefonoAlumno" value="<%= alumnoEditable.getTelefono_Alumno()%>"></td>
 	 		</form>	

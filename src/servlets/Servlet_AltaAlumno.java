@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import negocio.CursoNeg;
+import negocio.AlumnoNeg;
 
 /**
- * Servlet implementation class Servlet_AdminAltaCurso
+ * Servlet implementation class Servlet_AltaAlumno
  */
-@WebServlet("/Servlet_AdminAltaCurso")
-public class Servlet_AdminAltaCurso extends HttpServlet {
+@WebServlet("/Servlet_AltaAlumno")
+public class Servlet_AltaAlumno extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Servlet_AdminAltaCurso() {
+    public Servlet_AltaAlumno() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,14 +39,18 @@ public class Servlet_AdminAltaCurso extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CursoNeg curNeg = new CursoNeg();
-		if(request.getParameter("btnAgregarCurso")!=null) {
+		AlumnoNeg alumNeg = new AlumnoNeg();
+		
+		if(request.getParameter("btnAgregarAlumno")!=null) {
+			Boolean flag;
+			flag = alumNeg.AltaAlumno(request.getParameter("txtNombre"), request.getParameter("txtApellido"), request.getParameter("txtDNI"), request.getParameter("txtFechaNacimiento"), request.getParameter("txtDireccion"), request.getParameter("txtNacionalidad"), request.getParameter("txtProvincia"), request.getParameter("txtEmail"), request.getParameter("txtTelefono"));
 
-			request.setAttribute("CursoAlta", curNeg.Altacurso(request.getParameter("txtMateria"), request.getParameter("txtSemestre"), request.getParameter("txtAnio")));
+			request.setAttribute("AlumnoAlta", flag);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("AdminAltaCurso.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("AdminAltaAlumno.jsp");
 			rd.forward(request, response);
 		}
+
 	}
 
 }

@@ -16,7 +16,7 @@ import entidades.Alumno;
 
 public class AlumnoNeg {
 
-	public Boolean guardarEdicionAlumno(String legajo, String dni, String nombre, String apellido,String fecha , String direccion, String nacionalidad,String email ,String telefono) 
+	public Boolean guardarEdicionAlumno(String legajo, String dni, String nombre, String apellido,String fecha ,String direccion, String nacionalidad, String provincia,String email ,String telefono) 
 	{
 		AlumnoDaoImpl adao = new AlumnoDaoImpl();
 		Alumno alumno = new Alumno();
@@ -43,8 +43,10 @@ public class AlumnoNeg {
 					e.printStackTrace();
 			}
 			
+			
 			alumno.setDireccion_Alumno(direccion);
 			alumno.setNacionalidad_Alumno(nacionalidad);
+			alumno.setProvincia_Alumno(provincia);
 			alumno.setEmail_Alumno(email);
 			alumno.setTelefono_Alumno(telefono);
 			
@@ -59,6 +61,40 @@ public class AlumnoNeg {
 
 		}
 		return false;
+	}
+	
+	public Boolean AltaAlumno(String nombre, String apellido, String dni, String fecha, String direccion, String nacionnalidad, String provincia, String email, String telefono) {
+		Alumno alum = new Alumno();
+		AlumnoDaoImpl alumDao = new AlumnoDaoImpl();
+		
+		alum.setNombre_Alumno(nombre);
+		alum.setApellido_Alumno(apellido);
+		alum.setDni_Alumno(dni);
+		
+		//alum.setFechaNac_Alumno(fecha);
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String stringFechaNacimiento = fecha;
+		Date date;
+		
+		try {
+			
+			date = formatter.parse(stringFechaNacimiento);
+			//formatter.format(date);
+			alum.setFechaNac_Alumno(date);
+			
+		} catch (ParseException e) {
+				e.printStackTrace();
+		}
+		
+		alum.setDireccion_Alumno(direccion);
+		alum.setNacionalidad_Alumno(nacionnalidad);
+		alum.setProvincia_Alumno(provincia);
+		alum.setEmail_Alumno(email);
+		alum.setTelefono_Alumno(telefono);
+		
+
+		return alumDao.AltaAlumno(alum);
 	}
 	
 	public ArrayList<Alumno> obtenerListaAlumnos()

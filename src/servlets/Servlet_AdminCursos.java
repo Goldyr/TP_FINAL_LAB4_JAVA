@@ -10,10 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import daoImpl.AlumnoDaoImpl;
-import daoImpl.CursoDaoImpl;
-import entidades.Alumno;
-import entidades.Curso;
+
+
+import negocio.CursoNeg;
 
 /**
  * Servlet implementation class Servlet_AdminCursos
@@ -37,11 +36,11 @@ public class Servlet_AdminCursos extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		CursoNeg curNeg = new CursoNeg();
 		if(request.getParameter("btnMostrarCursos")!=null) {
-			CursoDaoImpl CursoDao = new CursoDaoImpl();
-			ArrayList<Curso> lista = CursoDao.ListarCursos();
 			
-			 request.setAttribute("ListaC", lista);
+			
+			 request.setAttribute("ListaC", curNeg.obtenerCurso());
 					 
 					 RequestDispatcher rd = request.getRequestDispatcher("AdminCursos.jsp");
 					 rd.forward(request, response);

@@ -22,42 +22,15 @@
 	</form>
 	
 	<%
-	Usuario user = new Usuario();
-	
-	if(request.getAttribute("usuarioA")!=null)
-	{
-		user = (Usuario)request.getAttribute("usuarioA");
-		
 
-	}
-	
 	if(request.getAttribute("error")!= null)
 	{
 	%>
 	Contraseña o email incorrecto	
+	
 	<% 
 	}
 
-	
-	
-	if(user.getLegajo_Usuario() != null)
-	{
-		session.setAttribute("Usuario" , user);//Atributo global del usuario en la sesion
-		
-		if(user.isAdmin_Usuario())
-		{
-			
-			response.sendRedirect("InicioAdmin.jsp");
-		}
-		else
-		{
-			
-			response.sendRedirect("InicioProfesor.jsp");
-		}
-	}
-
-	
-	
 	 %>
 </body>
 </html>

@@ -45,7 +45,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	}
 
 	@Override
-	public Usuario ExisteUsuario(String Contraseña, String Email) {
+	public Usuario ExisteUsuario(String Email, String Contraseña) {
 		PreparedStatement statement;
         ResultSet resultSet; //Guarda el resultado de la query
         Conexion conexion = new Conexion();
@@ -54,8 +54,8 @@ public class UsuarioDaoImpl implements UsuarioDao {
         try
         {
             statement = conexion.getSQLConexion().prepareStatement(userlogin);
-            statement.setString(2, Contraseña);
-            statement.setString(1, Email);
+            statement.setString(2, Email);
+            statement.setString(1, Contraseña);
 
             resultSet = statement.executeQuery();
 

@@ -56,23 +56,65 @@ public class AlumnoDaoImpl implements AlumnoDao{
 		Date fecha_nac = resultSet.getDate("FechaNac_Alumno");
 		String direccion = resultSet.getString("Direccion_Alumno");
 		String nacionalidad = resultSet.getString("Nacionalidad_Alumno");
+		String provincia = resultSet.getString("Provincia_Alumno");
 		String email = resultSet.getString("Email_Alumno");
 		String telefono = resultSet.getString("Telefono_Alumno");
 		Boolean estado = resultSet.getBoolean("Estado_Alumno");
 
-		return new Alumno(Legajo, DNI, nombre, apellido, fecha_nac, direccion, nacionalidad, email, telefono, estado);	
+		return new Alumno(Legajo, DNI, nombre, apellido, fecha_nac, direccion, nacionalidad, provincia, email, telefono, estado);	
 	}
-	
+
 	@Override
 	public boolean EliminarAlumno(String legajo) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+
 	@Override
 	public boolean AltaAlumno(Alumno alumno) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resultado = false;
+		
+		Conexion cn = new Conexion(); 
+		
+		try {
+			CallableStatement cst = cn.getSQLConexion().prepareCall("CALL sp_altaAlumno(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			
+			cst.setString(1, alumno.getDni_Alumno());
+			cst.setString(2, alumno.getNombre_Alumno());
+			cst.setString(3, alumno.getApellido_Alumno());
+			
+			java.sql.Date sqlDate = new java.sql.Date(alumno.getFechaNac_Alumno().getTime());
+			//java.sql.Date sqlDate = new java.sql.Date(1999-8-18);
+			cst.setDate(4, sqlDate);
+			
+			cst.setString(5, alumno.getDireccion_Alumno());
+			cst.setString(6, alumno.getNacionalidad_Alumno());
+			cst.setString(7, alumno.getProvincia_Alumno());			
+			cst.setString(8, alumno.getEmail_Alumno());
+			cst.setString(9, alumno.getTelefono_Alumno());
+			
+			System.out.println(cst.toString());
+			int filas_afectadas = cst.executeUpdate();
+			System.out.println("Filas afectadas: " + filas_afectadas);
+			
+			resultado = true;
+			if(filas_afectadas==1) {
+				cn.getSQLConexion().commit();
+			}else {
+				cn.getSQLConexion().rollback();
+			}
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+			try {
+				cn.getSQLConexion().rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return resultado;
 	}
 
 	@Override

@@ -77,7 +77,7 @@ public class Servlet_Alumnos extends HttpServlet {
 			
 			if(request.getParameter("btnGuardarEdicion") != null) {
 				//guarda la modificacion
-				alneg.guardarEdicionAlumno(request.getParameter("legajoAlumno"), request.getParameter("dniAlumno"), request.getParameter("nombreAlumno"), request.getParameter("apellidoAlumno"), request.getParameter("fechaNacAlumno"), request.getParameter("direccionAlumno"), request.getParameter("nacionalidadAlumno"), request.getParameter("emailAlumno"), request.getParameter("telefonoAlumno"));
+				alneg.guardarEdicionAlumno(request.getParameter("legajoAlumno"), request.getParameter("dniAlumno"), request.getParameter("nombreAlumno"), request.getParameter("apellidoAlumno"), request.getParameter("fechaNacAlumno"), request.getParameter("direccionAlumno"), request.getParameter("nacionalidadAlumno"), request.getParameter("provinciaAlumno"), request.getParameter("emailAlumno"), request.getParameter("telefonoAlumno"));
 				
 				
 				 request.setAttribute("ListaA", alneg.obtenerListaAlumnos());
