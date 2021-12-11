@@ -27,6 +27,7 @@ public class NotasNeg {
 		notas.setParcial_2_Nota(parcial2);
 		notas.setRecuperatorio_1_Nota(recup1);
 		notas.setRecuperatorio_2_Nota(recup2);
+		System.out.println(notas.toString());
 
 		return ndao.ModificarNotar(notas);
 	}

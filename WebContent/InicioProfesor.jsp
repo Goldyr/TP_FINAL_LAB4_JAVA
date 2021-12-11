@@ -93,7 +93,7 @@ $(document).ready( function () {
 				%>
 			</select>
 		<input type="submit" value="Buscar" name="btnBuscarAlumnos">
-	</form>
+	
 	
 	<!--
 	<form>
@@ -158,10 +158,10 @@ $(document).ready( function () {
 			<td><%=notaEdit.getAlumno_Nota().getNombre_Alumno() %></td>
 			<td><%=notaEdit.getAlumno_Nota().getApellido_Alumno() %></td>
 			<td><%=notaEdit.getAlumno_Nota().getEmail_Alumno() %></td>
-			<td><input name="notaParcial1" type="number" placeholder="1.0" step="0.1" min="1" max="10" value="<%=notaEdit.getParcial_1_Nota()%>" /></td>
-			<td><input name="notaParcial2" type="number" placeholder="1.0" step="0.1" min="1" max="10" value="<%=notaEdit.getParcial_2_Nota() %>" /></td>
-			<td><input name="notaRec1" type="number" placeholder="1.0" step="0.1" min="1" max="10" value="<%=notaEdit.getRecuperatorio_1_Nota() %>" /></td>
-			<td><input name="notaRec2" type="number" placeholder="1.0" step="0.1" min="1" max="10" value="<%=notaEdit.getRecuperatorio_2_Nota() %>" /></td>
+			<td><input name="notaParcial1" type="number" placeholder="1.0" step="0.1" min="0" max="10" value="<%=notaEdit.getParcial_1_Nota()%>" /></td>
+			<td><input name="notaParcial2" type="number" placeholder="1.0" step="0.1" min="0" max="10" value="<%=notaEdit.getParcial_2_Nota() %>" /></td>
+			<td><input name="notaRec1" type="number" placeholder="1.0" step="0.1" min="0" max="10" value="<%=notaEdit.getRecuperatorio_1_Nota() %>" /></td>
+			<td><input name="notaRec2" type="number" placeholder="1.0" step="0.1" min="0" max="10" value="<%=notaEdit.getRecuperatorio_2_Nota() %>" /></td>
 			<td><%=notaEdit.getEstadoCursada_Nota() %></td>
 		</tr>
 		<%
@@ -169,7 +169,7 @@ $(document).ready( function () {
 		%>
 		</tbody>
 		</table>
-	
+	</form>
 	
 	
 </body>

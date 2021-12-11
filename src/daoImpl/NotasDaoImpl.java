@@ -29,7 +29,8 @@ public class NotasDaoImpl implements NotasDao {
 		try {
 
 			CallableStatement cst = conexion.getSQLConexion().prepareCall("{call sp_modificarNotas(?, ?, ?, ?, ?)}");
-
+			
+			System.out.println(notas.toString());
 			cst.setFloat(1, notas.getParcial_1_Nota());
 			cst.setFloat(2, notas.getParcial_2_Nota());
 			cst.setFloat(3, notas.getRecuperatorio_1_Nota());

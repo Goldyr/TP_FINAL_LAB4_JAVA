@@ -1,4 +1,6 @@
 <%@page import="entidades.Usuario" %>
+<%@page import="entidades.Materia" %>
+<%@page import= "java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -30,7 +32,26 @@
 	
 	<form action="Servlet_AdminAltaCurso" method="post">
 		<h3>Alta Curso</h3>
-		<p>Materia 				<input type="text" name="txtMateria"> </p>
+		<b>Seleccionar Materia</b>
+		<select name="materia_curso">
+
+				<%
+				//se llamaba txtMateria este cosito
+				ArrayList<Materia> listamaterias = new ArrayList<Materia>();
+				
+				if(request.getAttribute("listamaterias")!=null)
+				{
+					listamaterias = (ArrayList<Materia>)request.getAttribute("listamaterias");
+					for(Materia mat : listamaterias)
+					{
+				%>
+					<option value="<%=mat.getCodigoMateria()%>"> <%=mat.getNombreMateria()%> </option>
+	
+				<%
+					}
+				}
+				%>
+			</select>
 		<p>Semestre 			<input type="text" name="txtSemestre"> </p>
 		<p>Anio 				<input type="text" name="txtAnio"> </p>
 	

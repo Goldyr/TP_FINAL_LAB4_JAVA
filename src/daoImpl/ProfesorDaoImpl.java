@@ -148,7 +148,7 @@ public class ProfesorDaoImpl implements ProfesorDao{
 		try {
 			
 			
-			CallableStatement cst = conexion.getSQLConexion().prepareCall("{call sp_ModificarUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+			CallableStatement cst = conexion.getSQLConexion().prepareCall("{call sp_ModificarUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
 			cst.setString(1, profesor.getLegajo_Usuario());
 			cst.setString(2, profesor.getDNI_Usuario());
 			cst.setString(3, profesor.getNombre_Usuario());

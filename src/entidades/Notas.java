@@ -88,6 +88,16 @@ public class Notas {
 	public void setRecuperatorio_2_Nota(float recuperatorio_2_Nota) {
 		this.recuperatorio_2_Nota = recuperatorio_2_Nota;
 	}
+
+	@Override
+	public String toString() {
+		return "Notas [NombreMateria_Nota=" + NombreMateria_Nota + ", Alumno_Nota=" + Alumno_Nota + ", codNotas_Nota="
+				+ codNotas_Nota + ", parcial_1_Nota=" + parcial_1_Nota + ", parcial_2_Nota=" + parcial_2_Nota
+				+ ", recuperatorio_1_Nota=" + recuperatorio_1_Nota + ", recuperatorio_2_Nota=" + recuperatorio_2_Nota
+				+ ", EstadoCursada_Nota=" + EstadoCursada_Nota + "]";
+	}
+	
+	
 	
 	
 }

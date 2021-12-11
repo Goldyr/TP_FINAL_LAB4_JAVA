@@ -27,8 +27,9 @@ public class CursoDaoImpl implements CursoDao {
 			
 			CallableStatement cst = conexion.getSQLConexion().prepareCall("{call sp_AltaCursos(?, ?, ?)}");
 			cst.setString(1, alumno.getCodMateria());
-			cst.setString(2, alumno.getAnio_Curso());
-			cst.setString(3, alumno.getSemestre_Curso());
+			cst.setString(2, alumno.getSemestre_Curso());
+			cst.setString(3, alumno.getAnio_Curso());
+			
 				
 			int filas_afectadas = cst.executeUpdate();
 			

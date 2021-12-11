@@ -29,27 +29,30 @@
 	</div>
 	</form>
 	
-	<ul>
 	
-		<li>
-	<a href="AdminAltaAlumno.jsp">Alta Alumno</a>
-	</li>
-		<li>
-	<a href="AdminAlumnos.jsp">Listado y modificacion de alumnos</a>
-	</li>
-		<li>
-	<a href="AdminAltaProfesor.jsp">Alta Profesor </a>
-	</li>
-		<li>
-	<a href="AdminProfesores.jsp">Listado y modificacion de profesores </a>
-	</li>
-		<li>
-	<a href="AdminAltaCurso.jsp">Alta Curso </a>
-	</li>
-		<li>
-	<a href="AdminCursos.jsp"> Listado de cursos </a>
-	</li>
-
-	</ul>
+	<form method="get" action="Servlet_Login">
+		<ul>
+		
+			<li>
+		<a href="Servlet_Login?Param=1">Alta Alumno</a>
+		</li>
+			<li>
+		<a href="Servlet_Login?Param=2">Listado y modificacion de alumnos</a>
+		</li>
+			<li>
+		<a href="Servlet_Login?Param=3">Alta Profesor </a>
+		</li>
+			<li>
+		<a href="Servlet_Login?Param=4">Listado y modificacion de profesores </a>
+		</li>
+			<li>
+		<a href="Servlet_Login?Param=5">Alta Curso </a>
+		</li>
+			<li>
+		<a href="Servlet_Login?Param=6"> Listado de cursos </a>
+		</li>
+	
+		</ul>
+	</form>
 </body>
 </html>

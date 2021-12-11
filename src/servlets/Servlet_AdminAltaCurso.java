@@ -42,7 +42,7 @@ public class Servlet_AdminAltaCurso extends HttpServlet {
 		CursoNeg curNeg = new CursoNeg();
 		if(request.getParameter("btnAgregarCurso")!=null) {
 
-			request.setAttribute("CursoAlta", curNeg.Altacurso(request.getParameter("txtMateria"), request.getParameter("txtSemestre"), request.getParameter("txtAnio")));
+			request.setAttribute("CursoAlta", curNeg.Altacurso(request.getParameter("materia_curso"), request.getParameter("txtSemestre"), request.getParameter("txtAnio")));
 			
 			RequestDispatcher rd = request.getRequestDispatcher("AdminAltaCurso.jsp");
 			rd.forward(request, response);

@@ -39,7 +39,7 @@ $(document).ready( function () {
  
  	<form method="post" action="Servlet_Login">
 	<div style=text-align:right><%= user.getNombre_Usuario() %>
-	<input type="submit" value="CerrarSesion" name="btnCerrarSesion">
+	<input type="submit" value="Cerrar Sesion" name="btnCerrarSesion">
 	</div>
 	</form>
 	

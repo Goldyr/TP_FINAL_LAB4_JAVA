@@ -15,4 +15,10 @@ public class MateriaNeg {
 	
 	}
 	
+	public ArrayList<Materia> MateriasDisponibles()
+	{
+		MateriaDaoImpl matImpl = new MateriaDaoImpl();
+		return matImpl.ListarTodas();		
+	}
+	
 }

@@ -154,7 +154,7 @@ public class AlumnoDaoImpl implements AlumnoDao{
 		
 		try {
 			conexion.getSQLConexion().setAutoCommit(false);
-			CallableStatement cst = conexion.getSQLConexion().prepareCall("call sp_modificarAlumno(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			CallableStatement cst = conexion.getSQLConexion().prepareCall("call sp_modificarAlumno(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			cst.setString(1, alumno.getDni_Alumno());
 			cst.setString(2, alumno.getNombre_Alumno());
@@ -165,9 +165,10 @@ public class AlumnoDaoImpl implements AlumnoDao{
 			cst.setDate(4, sqlDate);
 			cst.setString(5, alumno.getDireccion_Alumno());
 			cst.setString(6, alumno.getNacionalidad_Alumno());
-			cst.setString(7, alumno.getEmail_Alumno());
-			cst.setString(8, alumno.getTelefono_Alumno());
-			cst.setString(9, alumno.getLegajo_Alumno());
+			cst.setString(7, alumno.getProvincia_Alumno());
+			cst.setString(8, alumno.getEmail_Alumno());
+			cst.setString(9, alumno.getTelefono_Alumno());
+			cst.setString(10, alumno.getLegajo_Alumno());
 			
 			//System.out.println(cst.toString());
 			

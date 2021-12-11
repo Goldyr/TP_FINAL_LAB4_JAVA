@@ -38,8 +38,48 @@ public class Servlet_Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//Redireccion del menuAdmin para poder pasarle datos al inicio
+		if(request.getParameter("Param")!=null)
+		{
+			int numerito;
+			numerito = Integer.parseInt(request.getParameter("Param"));
+			switch(numerito)
+			{
+				case 1:{
+					RequestDispatcher rd = request.getRequestDispatcher("AdminAltaAlumno.jsp");
+					rd.forward(request, response);
+				}
+				case 2:{
+					RequestDispatcher rd = request.getRequestDispatcher("AdminAlumnos.jsp");
+					rd.forward(request, response);
+				}
+				case 3:{
+					RequestDispatcher rd = request.getRequestDispatcher("AdminAltaProfesor.jsp");
+					rd.forward(request, response);
+				}
+				case 4:{
+					RequestDispatcher rd = request.getRequestDispatcher("AdminProfesores.jsp");
+					rd.forward(request, response);
+				}
+				case 5:{
+				
+					MateriaNeg negMateria = new MateriaNeg();
+					ArrayList<Materia> listamaterias = new ArrayList<Materia>();
+					
+					listamaterias = negMateria.MateriasDisponibles();
+					request.setAttribute("listamaterias", listamaterias );
+					
+					RequestDispatcher rd = request.getRequestDispatcher("AdminAltaCurso.jsp");
+					rd.forward(request, response);
+				}
+				case 6:{
+					RequestDispatcher rd = request.getRequestDispatcher("AdminAltaCurso.jsp");
+					rd.forward(request, response);
+				}
+			
+			}
+		
+		}
 	}
 
 	/**

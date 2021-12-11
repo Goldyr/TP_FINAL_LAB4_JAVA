@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import daoImpl.NotasDaoImpl;
+import entidades.Materia;
 import entidades.Notas;
+import negocio.MateriaNeg;
 import negocio.NotasNeg;
 
 /**
@@ -42,6 +45,13 @@ public class Servlet_InicioProfesor extends HttpServlet {
 
 			request.setAttribute("ListaNotas", notasNeg.obtenerNotasxCursoAlumnos(request.getParameter("legajoProfesor"),
 					request.getParameter("materia_a_administrar")));
+			
+			
+			//Setea el listado nuevamente
+			MateriaNeg negMateria = new MateriaNeg();
+			ArrayList<Materia> listamaterias = new ArrayList<Materia>();
+			listamaterias = negMateria.TraerListadoMateria(request.getParameter("legajoProfesor"));
+			request.setAttribute("listamaterias", listamaterias );
 
 			RequestDispatcher rd = request.getRequestDispatcher("InicioProfesor.jsp");
 			rd.forward(request, response);
@@ -53,6 +63,12 @@ public class Servlet_InicioProfesor extends HttpServlet {
 			notas = notasNeg.obtenerNotas(request.getParameter("CodNotaAlumno"));
 
 			if(notas != null) {
+				//Setea el listado nuevamente
+				MateriaNeg negMateria = new MateriaNeg();
+				ArrayList<Materia> listamaterias = new ArrayList<Materia>();
+				listamaterias = negMateria.TraerListadoMateria(request.getParameter("legajoProfesor"));
+				request.setAttribute("listamaterias", listamaterias );
+				
 				request.setAttribute("NotaEditable", notas);
 				RequestDispatcher rd = request.getRequestDispatcher("InicioProfesor.jsp");
 				rd.forward(request, response);
@@ -64,8 +80,14 @@ public class Servlet_InicioProfesor extends HttpServlet {
 					Float.parseFloat(request.getParameter("notaParcial2")), Float.parseFloat(request.getParameter("notaRec1")), 
 					Float.parseFloat(request.getParameter("notaRec2")));
 
-			request.setAttribute("ListaNotas", notasNeg.obtenerNotasxCursoAlumnos("54321", "LAB01"));
-
+			request.setAttribute("ListaNotas", notasNeg.obtenerNotasxCursoAlumnos(request.getParameter("legajoProfesor"), request.getParameter("materia_a_administrar")));
+			
+			//Setea el listado nuevamente
+			MateriaNeg negMateria = new MateriaNeg();
+			ArrayList<Materia> listamaterias = new ArrayList<Materia>();
+			listamaterias = negMateria.TraerListadoMateria(request.getParameter("legajoProfesor"));
+			request.setAttribute("listamaterias", listamaterias );
+			
 			RequestDispatcher rd = request.getRequestDispatcher("InicioProfesor.jsp");
 			rd.forward(request, response);
 
