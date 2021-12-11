@@ -59,8 +59,35 @@ public class ProfesorDaoImpl implements ProfesorDao{
 
 	@Override
 	public boolean EliminarProfesor(String legajo) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		boolean resultado = false;
+		Conexion conexion = new Conexion();
+
+		try {
+
+			CallableStatement cst = conexion.getSQLConexion().prepareCall("{call sp_bajaUsuario(?)}");
+			cst.setString(1, legajo);
+
+			int filas_afectadas = cst.executeUpdate();
+
+			if(filas_afectadas==1) {
+				conexion.getSQLConexion().commit();
+				resultado = true;
+			}else {
+				conexion.getSQLConexion().rollback();
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				conexion.getSQLConexion().rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+
+		return resultado;
 	}
 
 	@Override

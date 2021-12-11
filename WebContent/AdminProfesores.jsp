@@ -73,15 +73,16 @@ $(document).ready( function () {
 			
 		</tr>
 	</thead>
-		<%
+
+	 	<tbody>
+	 	<%
 	 	if(listaProfesor!=null){
 	 		for(Profesor Prof : listaProfesor){
 	 	%>
-	 	<tbody>
 	 	<tr>
 	 		<form action="Servlet_Profesores" method="post">
 	 			<td><input type="submit" name="btnEditar" value="Editar"/></td>
-				<td>Eliminar</td>
+				<td><input type="submit" name="btnEliminar" value="Eliminar"/></td>
 	 			<td><%=Prof.getLegajo_Usuario()%> <input type="hidden" name="legajoUsuario" value="<%=Prof.getLegajo_Usuario() %>"></td>
 	 			<td><%= Prof.getDNI_Usuario() %></td> 
 	 			<td><%=Prof.getNombre_Usuario()%></td>
@@ -130,6 +131,15 @@ $(document).ready( function () {
 		 %>
 	</table>
 	
+	<% String mensajeResultado = null; 
+	if(request.getAttribute("MensajeResultado")!= null)
+	{
+		mensajeResultado = (String)request.getAttribute("MensajeResultado");
+	}
+	%>
+	<% if(mensajeResultado != null){ %>
+	<p style="font-weight: bold;"> <%=mensajeResultado %></p>
+	<% } %>
 	
 	
 </body>

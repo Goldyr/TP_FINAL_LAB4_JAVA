@@ -77,16 +77,39 @@ public class Servlet_Alumnos extends HttpServlet {
 			
 			if(request.getParameter("btnGuardarEdicion") != null) {
 				//guarda la modificacion
-				alneg.guardarEdicionAlumno(request.getParameter("legajoAlumno"), request.getParameter("dniAlumno"), request.getParameter("nombreAlumno"), request.getParameter("apellidoAlumno"), request.getParameter("fechaNacAlumno"), request.getParameter("direccionAlumno"), request.getParameter("nacionalidadAlumno"), request.getParameter("provinciaAlumno"), request.getParameter("emailAlumno"), request.getParameter("telefonoAlumno"));
+				alneg.guardarEdicionAlumno(request.getParameter("legajoAlumno"), request.getParameter("dniAlumno"), 
+						request.getParameter("nombreAlumno"), request.getParameter("apellidoAlumno"), request.getParameter("fechaNacAlumno"), 
+						request.getParameter("direccionAlumno"), request.getParameter("nacionalidadAlumno"),  request.getParameter("provinciaAlumno"), request.getParameter("emailAlumno"), 
+						request.getParameter("telefonoAlumno"));
 				
+				request.setAttribute("ListaA", alneg.obtenerListaAlumnos());
 				
-				 request.setAttribute("ListaA", alneg.obtenerListaAlumnos());
-				 
-				 RequestDispatcher rd = request.getRequestDispatcher("AdminAlumnos.jsp");
-				 rd.forward(request, response);
-
+				RequestDispatcher rd = request.getRequestDispatcher("AdminAlumnos.jsp");
+				rd.forward(request, response);
 			}
-	}
+			
+			if(request.getParameter("btnEliminar") != null) {
+
+				String mensajeResultado = null;
+
+				if(alneg.eliminarAlumno(request.getParameter("legajoAlumno")))
+				{
+					mensajeResultado = "El alumno se dió de baja correctamente.";
+				}
+				else
+				{
+					mensajeResultado = "Error al dar de baja al alumno.";
+				}
+
+				request.setAttribute("ListaA", alneg.obtenerListaAlumnos());
+				request.setAttribute("MensajeResultado", mensajeResultado);
+
+				RequestDispatcher rd = request.getRequestDispatcher("AdminAlumnos.jsp");
+				rd.forward(request, response);
+			}
+	
+	
+		}
 	
 
 	

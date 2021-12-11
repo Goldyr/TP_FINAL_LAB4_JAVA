@@ -89,15 +89,15 @@ $(document).ready( function () {
 	 <tbody>
 	 <tr scope="row">
 	 	<form method="post" action="Servlet_Alumnos">
-	 		<td><input type="submit" name="btnEditar" value="Editar" class="btn btn-warning"/></td>
-			<td><input type="submit" name="btnEliminar" value="Eliminar" class="btn btn-danger"/></td>	
+	 		<td><input type="submit" name="btnEditar" value="Editar"/></td>
+			<td><input type="submit" name="btnEliminar" value="Eliminar"/></td>	
 	 		<td><%=Alu.getLegajo_Alumno() %> <input type="hidden" name="legajoAlumno" value="<%=Alu.getLegajo_Alumno()%>"> </td> 	
-	 		<td><%= Alu.getDni_Alumno() %></td>	 
+	 		<td><%=Alu.getDni_Alumno() %></td>	 
 	 		<td><%=Alu.getNombre_Alumno()%></td>
 	 		<td><%=Alu.getApellido_Alumno()%></td>
 	 		<td><%=Alu.getFechaNac_Alumno()%></td> 
 	 		<td><%=Alu.getDireccion_Alumno()%></td>
-	 		<td><%= Alu.getNacionalidad_Alumno() %></td>
+	 		<td><%=Alu.getNacionalidad_Alumno() %></td>
 	 		<td><%=Alu.getProvincia_Alumno()%></td>
 	 		<td><%=Alu.getEmail_Alumno()%></td>
 	 		<td><%=Alu.getTelefono_Alumno()%></td>
@@ -136,6 +136,16 @@ $(document).ready( function () {
 	 %>
 	</table>
 	
+	<% 
+	String mensajeResultado = null; 
+	if(request.getAttribute("MensajeResultado")!= null)
+	{
+		mensajeResultado = (String)request.getAttribute("MensajeResultado");
+	}
+	%>
+	<% if(mensajeResultado != null){ %>
+	<p style="font-weight: bold;"> <%=mensajeResultado %></p>
+	<% } %>
 	
 </body>
 </html>

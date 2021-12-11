@@ -54,12 +54,11 @@ public class Servlet_Profesores extends HttpServlet {
 		}
 		
 		if(request.getParameter("btnEditar")!=null)
-		{//Activa la edicion del profesor
-			
-			String legajo = request.getParameter("legajoUsuario");
-			Profesor profesor = new Profesor();
-			
-			profesor = profNeg.obtenerProfesor(legajo);
+		{
+			//Activa la edicion del profesor
+
+			Profesor profesor = null;
+			profesor = profNeg.obtenerProfesor(request.getParameter("legajoUsuario"));
 			
 			if(profesor != null) {
 				request.setAttribute("ProfesorEditable", profesor);
@@ -75,6 +74,25 @@ public class Servlet_Profesores extends HttpServlet {
 			
 			request.setAttribute("ListaP",profNeg.obtenerListaProfesores());
 			
+			RequestDispatcher rd = request.getRequestDispatcher("AdminProfesores.jsp");
+			rd.forward(request, response);
+		}
+		
+		if(request.getParameter("btnEliminar")!= null) {
+
+			String mensajeResultado = null;
+
+			if(profNeg.eliminarProfesor(request.getParameter("legajoUsuario")))
+			{
+				mensajeResultado = "El profesor se dió de baja correctamente.";
+			}
+			else {
+				mensajeResultado = "Error al dar de baja al profesor.";
+			}
+
+			request.setAttribute("ListaP", profNeg.obtenerListaProfesores());
+			request.setAttribute("MensajeResultado", mensajeResultado);
+
 			RequestDispatcher rd = request.getRequestDispatcher("AdminProfesores.jsp");
 			rd.forward(request, response);
 		}

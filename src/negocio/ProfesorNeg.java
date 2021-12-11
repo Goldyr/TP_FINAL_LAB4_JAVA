@@ -115,6 +115,11 @@ public class ProfesorNeg {
 		}
 	}
 	
+	public Boolean eliminarProfesor(String legajo) {
+		ProfesorDaoImpl profDao = new ProfesorDaoImpl();
+		return profDao.EliminarProfesor(legajo);
+	}
+	
 
 
 	

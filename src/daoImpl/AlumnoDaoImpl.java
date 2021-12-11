@@ -66,8 +66,35 @@ public class AlumnoDaoImpl implements AlumnoDao{
 
 	@Override
 	public boolean EliminarAlumno(String legajo) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resultado = false;
+		Conexion conexion = new Conexion();
+
+		try {
+			conexion.getSQLConexion().setAutoCommit(false);
+			CallableStatement cst = conexion.getSQLConexion().prepareCall("call sp_bajaAlumno(?)");
+
+			cst.setString(1, legajo);
+
+			int filas_afectadas = cst.executeUpdate();
+
+			if(filas_afectadas==1) {
+				conexion.getSQLConexion().commit();
+				resultado = true;
+			}else {
+				conexion.getSQLConexion().rollback();
+			}
+
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			try {
+				conexion.getSQLConexion().rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+
+		return resultado;
 	}
 
 
@@ -142,14 +169,15 @@ public class AlumnoDaoImpl implements AlumnoDao{
 			cst.setString(8, alumno.getTelefono_Alumno());
 			cst.setString(9, alumno.getLegajo_Alumno());
 			
-			System.out.println(cst.toString());
+			//System.out.println(cst.toString());
 			
 			int filas_afectadas = cst.executeUpdate();
-			System.out.println("Filas afectadas: " + filas_afectadas);
+			//System.out.println("Filas afectadas: " + filas_afectadas);
 			
-			resultado = true;
+			
 			if(filas_afectadas==1) {
 				conexion.getSQLConexion().commit();
+				resultado = true;
 			}else {
 				conexion.getSQLConexion().rollback();
 			}

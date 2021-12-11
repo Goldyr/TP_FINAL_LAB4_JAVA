@@ -109,4 +109,11 @@ public class AlumnoNeg {
 		AlumnoDaoImpl alumDao = new AlumnoDaoImpl();
 		return alumDao.obtenerAlumno(legajo);
 	}
+	
+
+
+	public Boolean eliminarAlumno(String legajo) {
+		AlumnoDaoImpl alumDao = new AlumnoDaoImpl();
+		return alumDao.EliminarAlumno(legajo);
+	}
 }
