@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import entidades.Materia;
 import negocio.CursoNeg;
+import negocio.MateriaNeg;
 
 /**
  * Servlet implementation class Servlet_AdminAltaCurso
@@ -48,5 +50,14 @@ public class Servlet_AdminAltaCurso extends HttpServlet {
 			rd.forward(request, response);
 		}
 	}
+	
+    public static ArrayList<Materia> obtenerddlmateria(){
+        MateriaNeg negMateria = new MateriaNeg();
+        ArrayList<Materia> listamaterias = new ArrayList<Materia>();
+        
+        listamaterias = negMateria.MateriasDisponibles();
+        
+        return listamaterias;
+    }
 
 }

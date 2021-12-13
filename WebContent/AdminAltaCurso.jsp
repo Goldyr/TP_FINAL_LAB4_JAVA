@@ -1,5 +1,6 @@
 <%@page import="entidades.Usuario" %>
 <%@page import="entidades.Materia" %>
+<%@page import="servlets.Servlet_AdminAltaCurso" %>
 <%@page import= "java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -33,15 +34,14 @@
 	<form action="Servlet_AdminAltaCurso" method="post">
 		<h3>Alta Curso</h3>
 		<b>Seleccionar Materia</b>
+		
 		<select name="materia_curso">
 
 				<%
 				//se llamaba txtMateria este cosito
 				ArrayList<Materia> listamaterias = new ArrayList<Materia>();
-				
-				if(request.getAttribute("listamaterias")!=null)
-				{
-					listamaterias = (ArrayList<Materia>)request.getAttribute("listamaterias");
+				listamaterias = Servlet_AdminAltaCurso.obtenerddlmateria();
+
 					for(Materia mat : listamaterias)
 					{
 				%>
@@ -49,11 +49,11 @@
 	
 				<%
 					}
-				}
+				
 				%>
 			</select>
-		<p>Semestre 			<input type="text" name="txtSemestre"> </p>
-		<p>Anio 				<input type="text" name="txtAnio"> </p>
+		<p>Semestre 			<input type="text"  placeholder="Ingrese el semestre" name="txtSemestre" required> </p>
+		<p>Año 				<input type="text"  placeholder="Ingrese el Año" pattern="[0-9]{4}" title="Debe ingresar 4 digitos" name="txtAnio" required> </p>
 	
 		
 		<input type="submit" name="btnAgregarCurso" value="Agregar Curso">

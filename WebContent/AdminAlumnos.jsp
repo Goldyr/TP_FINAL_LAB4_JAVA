@@ -20,6 +20,16 @@ $(document).ready( function () {
     $('#tablaAlumnos').DataTable();
 } );
 </script>
+<script type="text/javascript">
+function ConfirmDelete()
+{
+	var respuesta = confirm("Estas seguro que desea Eliminar al Alumno?")
+	
+if(respuesta == true){
+	return true;
+}else{return false;}
+}
+</script>
 
 </head>
 <body>
@@ -90,7 +100,7 @@ $(document).ready( function () {
 	 <tr scope="row">
 	 	<form method="post" action="Servlet_Alumnos">
 	 		<td><input type="submit" name="btnEditar" value="Editar"/></td>
-			<td><input type="submit" name="btnEliminar" value="Eliminar"/></td>	
+			<td><input type="submit" name="btnEliminar" value="Eliminar" onclick="return ConfirmDelete()"/></td>	
 	 		<td><%=Alu.getLegajo_Alumno() %> <input type="hidden" name="legajoAlumno" value="<%=Alu.getLegajo_Alumno()%>"> </td> 	
 	 		<td><%=Alu.getDni_Alumno() %></td>	 
 	 		<td><%=Alu.getNombre_Alumno()%></td>

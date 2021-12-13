@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import daoImpl.NotasDaoImpl;
 import entidades.Materia;
 import entidades.Notas;
+import entidades.Usuario;
 import negocio.MateriaNeg;
 import negocio.NotasNeg;
 
@@ -94,5 +95,14 @@ public class Servlet_InicioProfesor extends HttpServlet {
 		}
 
 	}
+	
+    public static ArrayList<Materia> obtenerddlmateria(HttpServletRequest request, HttpServletResponse response){
+        MateriaNeg negMateria = new MateriaNeg();
+        ArrayList<Materia> listamaterias = new ArrayList<Materia>();
+        
+        listamaterias = negMateria.TraerListadoMateria(((Usuario)request.getSession().getAttribute("Usuario")).getLegajo_Usuario());
+        
+        return listamaterias;
+    }
 
 }

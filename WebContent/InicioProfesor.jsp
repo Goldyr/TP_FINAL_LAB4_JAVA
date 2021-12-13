@@ -72,26 +72,26 @@ $(document).ready( function () {
 	<form method="post" action="Servlet_InicioProfesor">
 
 		<b>Seleccionar Materia para administrar alumnos: </b>
-			<input type="hidden" value="<%=user.getLegajo_Usuario() %>" name="legajoProfesor"/>
+            <input type="hidden" value="<%=user.getLegajo_Usuario() %>" name="legajoProfesor"/>
 
-			<select name="materia_a_administrar">
+            <select name="materia_a_administrar">
 
-				<%
-				ArrayList<Materia> listamaterias = new ArrayList<Materia>();
-				
-				if(request.getAttribute("listamaterias")!=null)
-				{
-					listamaterias = (ArrayList<Materia>)request.getAttribute("listamaterias");
-					for(Materia mat : listamaterias)
-					{
-				%>
-					<option value="<%=mat.getCodigoMateria()%>"> <%=mat.getNombreMateria()%> </option>
-	
-				<%
-					}
-				}
-				%>
-			</select>
+                <%
+                ArrayList<Materia> listamaterias = new ArrayList<Materia>();
+
+                if(request.getAttribute("listamaterias")!=null)
+                {
+                    listamaterias = (ArrayList<Materia>)request.getAttribute("listamaterias");
+                    for(Materia mat : listamaterias)
+                    {
+                %>
+                    <option value="<%=mat.getCodigoMateria()%>"> <%=mat.getNombreMateria()%> </option>
+
+                <%
+                    }
+                }
+                %>
+            </select>
 		<input type="submit" value="Buscar" name="btnBuscarAlumnos">
 	
 	

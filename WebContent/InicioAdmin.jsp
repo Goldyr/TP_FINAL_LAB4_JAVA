@@ -23,6 +23,7 @@
 	}else{response.sendRedirect("Login.jsp");}
  %>
 	
+	
 	<form method="post" action="Servlet_Login" >
 	<div style=text-align:right><%= user.getNombre_Usuario() %>
 	<input type="submit" value="CerrarSesion" name="btnCerrarSesion">
@@ -30,29 +31,29 @@
 	</form>
 	
 	
-	<form method="get" action="Servlet_Login">
-		<ul>
-		
-			<li>
-		<a href="Servlet_Login?Param=1">Alta Alumno</a>
-		</li>
-			<li>
-		<a href="Servlet_Login?Param=2">Listado y modificacion de alumnos</a>
-		</li>
-			<li>
-		<a href="Servlet_Login?Param=3">Alta Profesor </a>
-		</li>
-			<li>
-		<a href="Servlet_Login?Param=4">Listado y modificacion de profesores </a>
-		</li>
-			<li>
-		<a href="Servlet_Login?Param=5">Alta Curso </a>
-		</li>
-			<li>
-		<a href="Servlet_Login?Param=6"> Listado de cursos </a>
-		</li>
-	
-		</ul>
-	</form>
+<form method="get" action="Servlet_InicioAdmin">
+        <ul>
+
+            <li>
+        <a href="Servlet_InicioAdmin?Param=1">Alta Alumno</a>
+        </li>
+            <li>
+        <a href="Servlet_InicioAdmin?Param=2">Listado y modificacion de alumnos</a>
+        </li>
+            <li>
+        <a href="Servlet_InicioAdmin?Param=3">Alta Profesor </a>
+        </li>
+            <li>
+        <a href="Servlet_InicioAdmin?Param=4">Listado y modificacion de profesores </a>
+        </li>
+            <li>
+        <a href="Servlet_InicioAdmin?Param=5">Alta Curso </a>
+        </li>
+            <li>
+            <a href="Servlet_InicioAdmin?Param=6">Listar cursos</a>
+            </li>
+
+        </ul>
+    </form>
 </body>
 </html>

@@ -31,15 +31,15 @@
 	
 	<form method="post" action="Servlet_AltaAlumno">
 		<h3>Alta Alumno</h3>
-		<p>Nombre 				<input type="text" name="txtNombre"> </p>
-		<p>Apellido 			<input type="text" name="txtApellido"> </p>
-		<p>DNI 					<input type="text" name="txtDNI"> </p>
-		<p>Fecha de nacimiento 	<input type="date" name="txtFechaNacimiento"> </p>
-		<p>Direccion 			<input type="text" name="txtDireccion"> </p>
-		<p>Nacionalidad			<input type="text" name="txtNacionalidad"> </p>
-		<p>Provincia 			<input type="text" name="txtProvincia"> </p>
-		<p>Email 				<input type="text" name="txtEmail"> </p>
-		<p>Telefono 			<input type="text" name="txtTelefono"> </p>
+		<p>Nombre 				<input type="text" placeholder="Ingrese el Nombre" name="txtNombre" required> </p>
+		<p>Apellido 			<input type="text" placeholder="Ingrese el Apellido" name="txtApellido" required> </p>
+		<p>DNI 					<input type="text" name="txtDNI" placeholder="Ingrese el DNI" pattern="[0-9]{8}" title="Debe ingresar 8 números" required />
+		<p>Fecha de nacimiento 	<input type="date" pattern="/d{1,2}/\d{1,2}/\d{4}" name="txtFechaNacimiento" required> </p>
+		<p>Direccion 			<input type="text" placeholder="Ingrese la Direccion" name="txtDireccion" required> </p>
+		<p>Nacionalidad			<input type="text" placeholder="Ingrese la Nacionalidad" name="txtNacionalidad" required> </p>
+		<p>Provincia 			<input type="text" name="txtProvincia" required> </p>
+		<p>Email 				<input type="email" laceholder="Ingrese el Email" name="txtEmail" required> </p>
+		<p>Telefono 			<input type="tel"  placeholder="Ingrese el Telefono" name="txtTelefono" required> </p>
 		
 		<input type="submit" name="btnAgregarAlumno" value="Agregar Alumno">
 	</form>
