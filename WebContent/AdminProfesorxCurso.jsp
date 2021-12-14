@@ -19,9 +19,12 @@
 
 <script type="text/javascript">
 $(document).ready( function () {
-    $('#tablaCurso').DataTable();
+	$('table.display').DataTable();
+
 } );
 </script>
+
+
 </head>
 <body>
 <% 
@@ -50,8 +53,50 @@ $(document).ready( function () {
 	 		listaCurso = Servlet_AdminProfesorxCurso.Cursos(legajo);
 	 	}
 	 	%>
+	 	
+	 	<%
+	 	ArrayList <Curso> listaCurso_noProfesor = null;    
+	 	
+	 	if(request.getAttribute("LegajoProf")!=null){
+	 		String legajo = (String)request.getAttribute("LegajoProf");
+	 		listaCurso_noProfesor = Servlet_AdminProfesorxCurso.Cursos_noProfesor(legajo);
+	 	}
+	 	%>
+	 	
+	 
+	
+	<table border="1" class="display" >
+	<thead>
+		<tr> 
+			<td></td> <td></td> <th>codigo curso</th> <th>codigo materia</th> <th>semestre</th> <th>anio</th>
+		</tr>
+	</thead>
 
-	<table border="1" class="display" id="tablaCurso">
+	 	<tbody>
+	 		 	
+	 	<%
+	 	if(listaCurso_noProfesor!=null){
+	 		for(Curso curs : listaCurso_noProfesor){
+	 	%>
+	 	<tr>
+	 		<form action="Servlet_AdminProfesoresxCurso" method="post">
+	 			<td><input type="submit" name="btnagregar_Alcurso" value="Agregar al curso"/></td>
+	 			<td><%= curs.getCodCurso() %></td>
+	 			<td><%= curs.getCodMateria() %></td> 
+	 			<td><%= curs.getSemestre_Curso() %></td>
+	 			<td><%= curs.getAnio_Curso() %></td>
+	 		</form>	
+	 	</tr>
+	 	</tbody>
+	 	<%
+	 		}
+	 	}
+	 	%>
+	 	</tbody>
+	 </table>
+	
+
+	<table border="1" class="display" >
 	<thead>
 		<tr> 
 			<td></td> <td></td> <th>codigo curso</th> <th>codigo materia</th> <th>Nombre materia</th> <th>semestre</th> <th>anio</th>

@@ -96,12 +96,12 @@ public class Servlet_InicioProfesor extends HttpServlet {
 
 	}
 	
-    public static ArrayList<Materia> obtenerddlmateria(HttpServletRequest request, HttpServletResponse response){
+	public static ArrayList<Materia> obtenerddlmateria(String legajo){
         MateriaNeg negMateria = new MateriaNeg();
         ArrayList<Materia> listamaterias = new ArrayList<Materia>();
-        
-        listamaterias = negMateria.TraerListadoMateria(((Usuario)request.getSession().getAttribute("Usuario")).getLegajo_Usuario());
-        
+
+        listamaterias = negMateria.TraerListadoMateria(legajo);
+
         return listamaterias;
     }
 

@@ -16,11 +16,12 @@ public class CursoDaoImpl implements CursoDao {
 
 	
 	private static final String readall = "SELECT * FROM cursos;";
-	private static String readall2 = "select cursos.*, materias.* from cursos inner join cursosxusuarios " + 
-											"on cursosxusuarios.CodCurso_CxU = cursos.CodCurso_Curso" + 
-											"inner join materia " + 
-											"on materias.CodMateria_Materia = cursos.CodCurso_Curso " + 
-											"where cursosxusuarios.Legajo_Usuario_CxU =  ";
+	private  String readall2 = "select cursos.*, (Select NombreMateria_Materia from materias where CodMateria_Materia=cursos.CodMateria_Curso) as NombreMateria_Materia from cursos inner join cursosxusuarios on cursosxusuarios.CodCurso_CxU = cursos.CodCurso_Curso where cursosxusuarios.Legajo_Usuario_CxU = ";
+	//select cursos.*, (Select NombreMateria_Materia from materias where CodMateria_Materia=cursos.CodMateria_Curso) as NombreMateria_Materia from cursos inner join cursosxusuarios on cursosxusuarios.CodCurso_CxU = cursos.CodCurso_Curso where cursosxusuarios.Legajo_Usuario_CxU =  '54321' 
+	
+	private  String cursos_noProfesor = "select c.* from cursos as c where c.Estado_Curso = 1 and not exists(select * from cursosxusuarios as c2 where c.CodCurso_Curso = c2.CodCurso_CxU and c2.Legajo_Usuario_CxU = ?);" ;
+	// consulta para traer los cursos en donde no esta el profesor
+	
 	@Override
 	public boolean AltaCurso(Curso alumno) {
 		boolean resultado = false;
@@ -122,6 +123,30 @@ public class CursoDaoImpl implements CursoDao {
 		return ListarCursos;
 
 	}
+	
+	public ArrayList<Curso> ListarCursos_noProfesor(String legajo){//devuelve cursos en los que no esta un profesor
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<Curso> ListarCursos = new ArrayList<Curso>();
+		Conexion conexion = new Conexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(cursos_noProfesor);
+			statement.setString(1, legajo);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				ListarCursos.add(getCurso(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+
+		return ListarCursos;
+	}
+	
 	
 	private Curso getCurso(ResultSet resultSet) throws SQLException
 	{

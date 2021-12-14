@@ -68,15 +68,7 @@ public class Servlet_Login extends HttpServlet {
 					}
 					else
 					{
-						MateriaNeg negMateria = new MateriaNeg();
-                        ArrayList<Materia> listamaterias = new ArrayList<Materia>();
-                        //Busco materias por el legajo y las cargo en la listamaterias
-                        listamaterias = negMateria.TraerListadoMateria(user.getLegajo_Usuario());
 
-                        //Seteo el atributo para preguntar cuando llegue a InicioProfe si no tiene no se hacer
-                        request.getSession().setAttribute("seslistamaterias" , listamaterias);
-                        request.setAttribute("listamaterias", listamaterias );
-                        //
                         RequestDispatcher rd = request.getRequestDispatcher("InicioProfesor.jsp");
                         rd.forward(request, response);
 					}

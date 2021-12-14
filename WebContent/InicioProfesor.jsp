@@ -1,6 +1,6 @@
 <%@ page import="entidades.Usuario" %>
 <%@ page import="entidades.Materia" %>
-
+<%@page import="servlets.Servlet_InicioProfesor" %>
 <%@ page import="entidades.Notas" %>
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "java.util.List" %>
@@ -79,9 +79,8 @@ $(document).ready( function () {
                 <%
                 ArrayList<Materia> listamaterias = new ArrayList<Materia>();
 
-                if(request.getAttribute("listamaterias")!=null)
-                {
-                    listamaterias = (ArrayList<Materia>)request.getAttribute("listamaterias");
+
+                    listamaterias = Servlet_InicioProfesor.obtenerddlmateria(((Usuario)session.getAttribute("Usuario")).getLegajo_Usuario());
                     for(Materia mat : listamaterias)
                     {
                 %>
@@ -89,7 +88,7 @@ $(document).ready( function () {
 
                 <%
                     }
-                }
+
                 %>
             </select>
 		<input type="submit" value="Buscar" name="btnBuscarAlumnos">

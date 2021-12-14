@@ -54,5 +54,14 @@ public class Servlet_AdminProfesorxCurso extends HttpServlet {
         return listacurso;
     }
 	
+	public static ArrayList<Curso> Cursos_noProfesor(String legajo){
+        CursoNeg negCurso = new CursoNeg();
+        ArrayList<Curso> listacurso = new ArrayList<Curso>();
+        
+        listacurso = negCurso.obtenerCursos_noProfesor(legajo);
+        
+        return listacurso;
+    }
+	
 	
 }
