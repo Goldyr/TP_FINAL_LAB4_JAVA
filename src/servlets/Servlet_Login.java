@@ -74,7 +74,7 @@ public class Servlet_Login extends HttpServlet {
                         listamaterias = negMateria.TraerListadoMateria(user.getLegajo_Usuario());
 
                         //Seteo el atributo para preguntar cuando llegue a InicioProfe si no tiene no se hacer
-                        //request.getSession().setAttribute("seslistamaterias" , listamaterias);
+                        request.getSession().setAttribute("seslistamaterias" , listamaterias);
                         request.setAttribute("listamaterias", listamaterias );
                         //
                         RequestDispatcher rd = request.getRequestDispatcher("InicioProfesor.jsp");

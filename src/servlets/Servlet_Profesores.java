@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import entidades.Profesor;
+import negocio.CursoNeg;
 import negocio.ProfesorNeg;
 
 /**
@@ -45,6 +46,8 @@ public class Servlet_Profesores extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProfesorNeg profNeg = new ProfesorNeg();
+		CursoNeg CursNeg = new CursoNeg();
+		
 		if(request.getParameter("btnMostrarProfesores")!=null || request.getParameter("btnVolver")!= null) 
 		{ // Manda para mostrar la lista de los profesores
 			request.setAttribute("ListaP",profNeg.obtenerListaProfesores());
@@ -97,6 +100,13 @@ public class Servlet_Profesores extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
+		if(request.getParameter("btnCursos")!= null) {
+
+			request.setAttribute("LegajoProf", request.getParameter("legajoUsuario"));
+			
+			RequestDispatcher rd = request.getRequestDispatcher("AdminProfesorxCurso.jsp");
+			rd.forward(request, response);
+		}
 	}
 	
 

@@ -28,8 +28,24 @@ public class Curso {
 		
 	}
 	
-
-
+	public Curso(String codCurso, String materia, String Nombre_materia, String semestre_Curso, String anio_Curso, Boolean estado) {
+		this.codCurso=codCurso;
+		this.materia.setCodigoMateria(materia);
+		this.materia.setNombreMateria(Nombre_materia);
+		this.semestre_Curso=semestre_Curso;
+		this.anio_Curso=anio_Curso;
+		this.setEstado(estado);
+		
+	}
+	
+	public Materia getMateria() {
+		return materia;
+	}
+	
+	public void setMateria(Materia materiaset) {
+		materia = materiaset;
+	}
+	
 	public String getCodMateria() {
 		return materia.getCodigoMateria();
 	}

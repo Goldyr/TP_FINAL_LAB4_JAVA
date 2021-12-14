@@ -92,6 +92,7 @@ if(respuesta == true){
 	 	%>
 	 	<tr>
 	 		<form action="Servlet_Profesores" method="post">
+	 			<td><input type="submit" name="btnCursos" value="Ver Cursos"/></td>
 	 			<td><input type="submit" name="btnEditar" value="Editar"/></td>
 				<td><input type="submit" name="btnEliminar" value="Eliminar" onclick="return ConfirmDelete()"/></td>
 	 			<td><%=Prof.getLegajo_Usuario()%> <input type="hidden" name="legajoUsuario" value="<%=Prof.getLegajo_Usuario() %>"></td>

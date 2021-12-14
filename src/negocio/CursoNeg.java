@@ -13,6 +13,12 @@ public class CursoNeg {
 		return lista;
 	}
 	
+	public ArrayList<Curso> CursosObtener(String Legajo){
+		CursoDaoImpl CursoDao = new CursoDaoImpl();
+		ArrayList<Curso> lista = CursoDao.ListarCursosxProfesor(Legajo);
+		return lista;
+	}
+	
 	public Boolean Altacurso(String materia, String semestre, String anio) {
 		Curso curs= new Curso();
 		CursoDaoImpl cursDao= new CursoDaoImpl();
