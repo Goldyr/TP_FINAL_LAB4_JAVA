@@ -182,5 +182,35 @@ public class CursoDaoImpl implements CursoDao {
 		return false;
 	}
 
+	@Override
+	public ArrayList<Curso> ListarCursosxProfesorxMateria(String legajo, String CodMateria) {
+		
+		String stringQuery = String.format("select cursos.*, (Select NombreMateria_Materia " + 
+				"from materias where CodMateria_Materia=cursos.CodMateria_Curso) as NombreMateria_Materia "+ 
+				"from cursos " + 
+				"inner join cursosxusuarios on cursosxusuarios.CodCurso_CxU = cursos.CodCurso_Curso " + 
+				"where cursosxusuarios.Legajo_Usuario_CxU = '%s' and cursos.CodMateria_Curso = '%s' ", legajo, CodMateria);
+		
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<Curso> ListarCursos = new ArrayList<Curso>();
+		Conexion conexion = new Conexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(stringQuery);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				ListarCursos.add(getCursoMateria(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+
+		return ListarCursos;
+	}
+
 	
 }

@@ -36,4 +36,10 @@ public class CursoNeg {
 		return cursDao.AltaCurso(curs);
 	}
 
+	public ArrayList<Curso> obtenerCursosDeMateriaxProfesor(String Legajo, String CodMateria){
+		CursoDaoImpl CursoDao = new CursoDaoImpl();
+		return CursoDao.ListarCursosxProfesorxMateria(Legajo, CodMateria);
+		
+	}
+	
 }

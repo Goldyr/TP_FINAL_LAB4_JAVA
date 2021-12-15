@@ -1,5 +1,6 @@
 <%@ page import="entidades.Usuario" %>
 <%@ page import="entidades.Materia" %>
+<%@ page import="entidades.Curso" %>
 <%@page import="servlets.Servlet_InicioProfesor" %>
 <%@ page import="entidades.Notas" %>
 <%@ page import = "java.util.ArrayList" %>
@@ -30,6 +31,15 @@ $(document).ready( function () {
 <body>
 
 	<!-- DECLARACION DE VARIABLES -->
+	
+		<!-- CURSOS -->
+	
+	<%
+	ArrayList<Curso> arrCursos = null;
+	if(request.getAttribute("ListaCursos")!=null){
+		arrCursos = (ArrayList<Curso>)request.getAttribute("ListaCursos");
+	}
+	%>
 
 	<!-- USUARIO/PROFESOR -->
 
@@ -37,8 +47,14 @@ $(document).ready( function () {
 	Usuario user = new Usuario();
 	if(session.getAttribute("Usuario")!=null){
 		user = (Usuario)session.getAttribute("Usuario");
-	}else{response.sendRedirect("Login.jsp");}
+
+		
+	}else{
+		response.sendRedirect("Login.jsp");
+		
+	}
 	%>
+	
 
 	<!-- NOTAS -->
 	<%
@@ -61,6 +77,7 @@ $(document).ready( function () {
 	%>
 	
 
+
 	<h3>Bienvenido/a</h3>
 
 	<form method="post" action="Servlet_Login">
@@ -79,7 +96,9 @@ $(document).ready( function () {
                 <%
                 ArrayList<Materia> listamaterias = new ArrayList<Materia>();
 
-
+                if(user.getLegajo_Usuario() != null){
+                	
+           
                     listamaterias = Servlet_InicioProfesor.obtenerddlmateria(((Usuario)session.getAttribute("Usuario")).getLegajo_Usuario());
                     for(Materia mat : listamaterias)
                     {
@@ -88,23 +107,70 @@ $(document).ready( function () {
 
                 <%
                     }
+                }
 
                 %>
             </select>
 		<input type="submit" value="Buscar" name="btnBuscarAlumnos">
-	
-	
-	<!--
-	<form>
-		 <b>Cargar Nota Masiva (curso seleccionado)</b>
-		<br>
-		<input type="text" name="txtParcial1">
-		<input type="text" name="txtParcial2">
-		<input type="text" name="txtRecuperatorio1">
-		<input type="text" name="txtRecuperatorio1">
-		<input type="submit" value="Cargar Nota" name="btnCargarNota">
-	</form>
-	 	-->
+		
+		<div>
+		
+		<div> 
+		 <p>Cargar nota masiva del curso seleccionado: </p>
+		 <select name="cursoNotasMasiva">
+		 	<%
+		 	if(arrCursos != null){
+		 		for(Curso curso : arrCursos){
+		 	%>
+		 	<option value="<%=curso.getCodCurso() %>"><%=curso.getSemestre_Curso() %> <%=curso.getAnio_Curso() %></option>
+		 	<%
+		 		}
+		 	}
+		 	
+		 	%>
+		 </select>
+		</div>
+		
+		
+		 <select name="alumnosNotasMasiva" multiple>
+		 <% if(arrListNotas != null) 
+			{
+				for(Notas nota : arrListNotas){
+		%>
+			 	<option value="<%=nota.getAlumno_Nota().getLegajo_Alumno() %>"><%=nota.getAlumno_Nota().getNombre_Alumno()%> <%=nota.getAlumno_Nota().getApellido_Alumno()%></option>
+		<% 		} 
+			}
+		%>
+		 	
+		 </select>
+		 
+		 <div>
+		 	<div>
+				 <div>
+			 		<label for="txtParcial1" name="lblParcial1">Nota parcial 1</label>
+					<input type="number" placeholder="1.0" step="0.1" min="0" max="10" name="txtParcial1">
+		 		</div>
+				<div> 
+					<label for="txtParcial2" name="lblParcial2">Nota parcial 2</label>
+					<input type="number" placeholder="1.0" step="0.1" min="0" max="10" name="txtParcial2">
+				</div>
+			</div>
+		 	<div>
+				<div> 			
+					<label for="txtRecuperatorio1" name="lblRecuperatorio1">Nota reucuperatorio 1</label>
+					<input type="number" placeholder="0" step="0.1" min="0" max="10" name="txtRecuperatorio1">
+				</div>
+
+				<div>
+					<label for="txtRecuperatorio2" name="lblRecuperatorio2">Nota reucuperatorio 2</label>
+					<input type="number" placeholder="0" step="0.1" min="0" max="10" name="txtRecuperatorio2">
+				</div>
+				<input type="submit" value="Cargar Notas" name="btnCargarNota">
+		 	</div>
+		</div>
+		</div>
+			
+	 	
 		<h3>Alumnos:</h3>
 		<table border="1" id="tablaCursosxAlumnos" class="display">
 			<thead>
@@ -131,7 +197,7 @@ $(document).ready( function () {
 			<tr>
 			<form method="post" action="Servlet_InicioProfesor">
 					<td><input type="submit" value="Editar" name="btnEditar" /></td>
-					<td><%=nota.getNombreMateria_Nota()%> <input type="hidden" name="CodNotaAlumno" value="<%=nota.getCodNotas_Nota() %>"/> </td>
+					<td><%=nota.getMateria_Nota().getNombreMateria()%> <input type="hidden" name="CodNotaAlumno" value="<%=nota.getCodNotas_Nota() %>"/> </td>
 					<td><%=nota.getAlumno_Nota().getLegajo_Alumno() %></td>
 					<td><%=nota.getAlumno_Nota().getNombre_Alumno() %></td>
 					<td><%=nota.getAlumno_Nota().getApellido_Alumno() %></td>
@@ -152,13 +218,13 @@ $(document).ready( function () {
 		%>
 		<tr>
 			<td><input type="submit" value="Guardar" name="btnGuardar" /></td>
-			<td><%=notaEdit.getNombreMateria_Nota() %> <input type="hidden" name="CodNotaAlumno" value="<%=notaEdit.getCodNotas_Nota() %>"/> </td>
+			<td><%=notaEdit.getMateria_Nota().getNombreMateria() %> <input type="hidden" name="CodNotaAlumno" value="<%=notaEdit.getCodNotas_Nota() %>"/> </td>
 			<td><%=notaEdit.getAlumno_Nota().getLegajo_Alumno() %></td>
 			<td><%=notaEdit.getAlumno_Nota().getNombre_Alumno() %></td>
 			<td><%=notaEdit.getAlumno_Nota().getApellido_Alumno() %></td>
 			<td><%=notaEdit.getAlumno_Nota().getEmail_Alumno() %></td>
-			<td><input name="notaParcial1" type="number" placeholder="1.0" step="0.1" min="0" max="10" value="<%=notaEdit.getParcial_1_Nota()%>" /></td>
-			<td><input name="notaParcial2" type="number" placeholder="1.0" step="0.1" min="0" max="10" value="<%=notaEdit.getParcial_2_Nota() %>" /></td>
+			<td><input name="notaParcial1"  required type="number" placeholder="1.0" step="0.1" min="0" max="10" value="<%=notaEdit.getParcial_1_Nota()%>" /></td>
+			<td><input name="notaParcial2" required type="number" placeholder="1.0" step="0.1" min="0" max="10" value="<%=notaEdit.getParcial_2_Nota() %>" /></td>
 			<td><input name="notaRec1" type="number" placeholder="1.0" step="0.1" min="0" max="10" value="<%=notaEdit.getRecuperatorio_1_Nota() %>" /></td>
 			<td><input name="notaRec2" type="number" placeholder="1.0" step="0.1" min="0" max="10" value="<%=notaEdit.getRecuperatorio_2_Nota() %>" /></td>
 			<td><%=notaEdit.getEstadoCursada_Nota() %></td>

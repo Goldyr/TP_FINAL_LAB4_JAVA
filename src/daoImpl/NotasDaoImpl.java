@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import dao.NotasDao;
 import entidades.Alumno;
+import entidades.Materia;
 import entidades.Notas;
 import entidades.Usuario;
 
@@ -20,7 +21,7 @@ public class NotasDaoImpl implements NotasDao {
 	}
 
 	@Override
-	public boolean ModificarNotar(Notas notas) {
+	public boolean ModificarNota(Notas notas) {
 
 		Boolean resultado = false;
 
@@ -30,7 +31,6 @@ public class NotasDaoImpl implements NotasDao {
 
 			CallableStatement cst = conexion.getSQLConexion().prepareCall("{call sp_modificarNotas(?, ?, ?, ?, ?)}");
 			
-			System.out.println(notas.toString());
 			cst.setFloat(1, notas.getParcial_1_Nota());
 			cst.setFloat(2, notas.getParcial_2_Nota());
 			cst.setFloat(3, notas.getRecuperatorio_1_Nota());
@@ -39,7 +39,7 @@ public class NotasDaoImpl implements NotasDao {
 
 			int filas_afectadas = cst.executeUpdate();
 
-			if(filas_afectadas==1) {
+			if(filas_afectadas != 0) {
 				resultado=true;
 				conexion.getSQLConexion().commit();
 			}else {
@@ -99,9 +99,10 @@ public class NotasDaoImpl implements NotasDao {
 	private Notas getNotas(ResultSet rs) throws SQLException
 	{
 		Alumno alumnoNota = new Alumno();
+		Materia alumnoMateria = new Materia();
 
 		String CodNota_Nota = rs.getString("CodNotas_Nota");
-		String NombreMateria_Nota = rs.getString("NombreMateria_Materia");
+		alumnoMateria.setNombreMateria(rs.getString("NombreMateria_Materia"));
 
 		alumnoNota.setLegajo_Alumno(rs.getString("Legajo_Alumno"));
 		alumnoNota.setNombre_Alumno(rs.getString("Nombre_Alumno"));
@@ -115,7 +116,7 @@ public class NotasDaoImpl implements NotasDao {
 		String EstadoCursada_Nota = rs.getString("EstadoCursada_Nota");
 
 
-		return new Notas(CodNota_Nota, NombreMateria_Nota, alumnoNota, parcial_1_Nota, parcial_2_Nota, recuperatorio_1_Nota, recuperatorio_2_Nota,
+		return new Notas(CodNota_Nota, alumnoMateria, alumnoNota, parcial_1_Nota, parcial_2_Nota, recuperatorio_1_Nota, recuperatorio_2_Nota,
 				EstadoCursada_Nota);
 	}
 
@@ -149,6 +150,62 @@ public class NotasDaoImpl implements NotasDao {
 		}
 
 		return _notas;
+	}
+
+	@Override
+	public boolean ModificarNotasMasivamente(ArrayList<Notas> arrNotas) {
+	
+		boolean resultado = true;
+
+		for(Notas NotaAlumno : arrNotas)
+		{
+			if(!ModificarNotaxCurso(NotaAlumno)) resultado = false;
+		}
+		
+		return resultado;
+	}
+
+	@Override
+	public boolean ModificarNotaxCurso(Notas notas) {
+
+		Boolean resultado = false;
+
+		Conexion conexion = new Conexion();
+
+		try {
+
+			CallableStatement cst = conexion.getSQLConexion().prepareCall("{call sp_modificarNotasCursosxAlumnos(?, ?, ?, ?, ?, ?)}");
+			
+			cst.setString(1, notas.getAlumno_Nota().getLegajo_Alumno());
+			cst.setString(2, notas.getCurso_Nota().getCodCurso());
+			cst.setFloat(3, notas.getParcial_1_Nota());
+			cst.setFloat(4, notas.getParcial_2_Nota());
+			cst.setFloat(5, notas.getRecuperatorio_1_Nota());
+			cst.setFloat(6, notas.getRecuperatorio_2_Nota());
+			
+
+			int filas_afectadas = cst.executeUpdate();
+
+			if(filas_afectadas != 0) {
+				resultado=true;
+				conexion.getSQLConexion().commit();
+			}else {
+				conexion.getSQLConexion().rollback();
+			}
+
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				conexion.getSQLConexion().rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+
+		}
+
+		return resultado;
 	}
 
 }

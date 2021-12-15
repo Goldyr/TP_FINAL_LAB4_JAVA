@@ -18,10 +18,25 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
 <script type="text/javascript">
+
 $(document).ready( function () {
-	$('table.display').DataTable();
+	$('#tablaCursos').DataTable({
+		 "bPaginate": true,
+		 "bLengthChange": false,
+		 "bInfo": false,
+		 "searching": false, 
+		 "ordering": true,
+	});
+	$('#tablaOnlyCursos').DataTable({
+		 "bPaginate": true,
+		 "bLengthChange": false,
+		 "bInfo": false,
+		 "searching": false, 
+		 "ordering": true,
+	});
 
 } );
+
 </script>
 
 
@@ -65,10 +80,10 @@ $(document).ready( function () {
 	 	
 	 
 	
-	<table border="1" class="display" >
+	<table border="1" id="tablaCursos">
 	<thead>
 		<tr> 
-			<td></td> <td></td> <th>codigo curso</th> <th>codigo materia</th> <th>semestre</th> <th>anio</th>
+			<td></td><th>Cod. Curso</th> <th>Cod. Materia</th> <th>Semestre</th> <th>Año</th>
 		</tr>
 	</thead>
 
@@ -96,7 +111,7 @@ $(document).ready( function () {
 	 </table>
 	
 
-	<table border="1" class="display" >
+	<table border="1" id="tablaOnlyCursos">
 	<thead>
 		<tr> 
 			<td></td> <td></td> <th>codigo curso</th> <th>codigo materia</th> <th>Nombre materia</th> <th>semestre</th> <th>anio</th>
