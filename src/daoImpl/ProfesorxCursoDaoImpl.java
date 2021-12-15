@@ -13,7 +13,6 @@ import entidades.ProfesorxCurso;
 
 public class ProfesorxCursoDaoImpl implements ProfesorxCursoDao {
 
-
 	@Override
 	public boolean AltaProfesorxCurso(ProfesorxCurso pxc ) {
 		boolean resultado = false;
@@ -53,5 +52,5 @@ public class ProfesorxCursoDaoImpl implements ProfesorxCursoDao {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }
+
