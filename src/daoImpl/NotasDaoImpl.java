@@ -6,14 +6,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.mysql.jdbc.Statement;
+
 import dao.NotasDao;
 import entidades.Alumno;
+import entidades.Curso;
 import entidades.Materia;
 import entidades.Notas;
 import entidades.Usuario;
 
 public class NotasDaoImpl implements NotasDao {
 
+	
+	String readall= "SELECT n.CodNotas_Nota, m.NombreMateria_Materia, a.Legajo_Alumno, Nombre_Alumno, a.Apellido_Alumno, a.Email_Alumno, n.Parcial_1_Nota, n.Parcial_2_Nota, " + 
+			"n.Recuperatorio_1_Nota, Recuperatorio_2_Nota, n.EstadoCursada_Nota FROM Notas AS n " + 
+			"INNER JOIN cursosxalumnos as cxa ON cxa.CodNotas_CxA = n.CodNotas_Nota " + 
+			"INNER JOIN alumnos as a ON a.Legajo_Alumno = cxa.Legajo_Alumno_CxA " + 
+			"INNER JOIN cursos as c ON c.CodCurso_Curso = cxa.CodCurso_CxA " + 
+			"INNER JOIN materias as m ON m.CodMateria_Materia = c.CodMateria_Curso " + 
+			"INNER JOIN cursosxusuarios AS cxu ON cxu.CodCurso_CxU = c.CodCurso_Curso " + 
+			"INNER JOIN usuarios u ON u.Legajo_Usuario = cxu.Legajo_Usuario_CxU " + 
+			"WHERE u.Legajo_Usuario = ? AND m.CodMateria_Materia = ? AND C.Semestre_Curso = ?;";
 	@Override
 	public boolean AltaNotas(Notas notas) {
 		// TODO Auto-generated method stub
@@ -95,7 +108,38 @@ public class NotasDaoImpl implements NotasDao {
 
 		return resultado;
 	}
+	@Override
+	public ArrayList<Notas> ListarNotasFiltradas(String legajoProfesor, String codMateria, String Semestre) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<Notas> ListarNotas = new ArrayList<Notas>();
+		Conexion conexion = new Conexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readall);
+			statement.setString(1, legajoProfesor);
+			statement.setString(2, codMateria);
+			statement.setString(3, Semestre);
+			resultSet = statement.executeQuery();
+			System.out.println(statement.toString());
+			while(resultSet.next())
+			{
+				ListarNotas.add(getNotas(resultSet));
+			}
+		} 
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				conexion.getSQLConexion().rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 
+		}
+
+		return ListarNotas;
+	}
 	private Notas getNotas(ResultSet rs) throws SQLException
 	{
 		Alumno alumnoNota = new Alumno();

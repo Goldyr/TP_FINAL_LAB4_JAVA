@@ -14,7 +14,7 @@ import entidades.Materia;
 
 public class MateriaDaoImpl implements MateriaDao{
 
-	String codigosql = "SELECT CodMateria_Materia, NombreMateria_Materia FROM Materias AS MAT" + 
+	String codigosql = "SELECT distinct CodMateria_Materia, NombreMateria_Materia FROM Materias AS MAT" + 
 			" INNER JOIN Cursos AS CUR ON MAT.CodMateria_Materia = CUR.CodMateria_Curso" + 
 			" INNER JOIN CursosxUsuarios AS CURXU ON CURXU.CodCurso_CxU = CUR.CodCurso_Curso" + 
 			" INNER JOIN Usuarios AS US ON US.Legajo_Usuario = CURXU.Legajo_Usuario_CxU" + 

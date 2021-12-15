@@ -12,7 +12,10 @@ public class NotasNeg {
 		NotasDaoImpl ndao = new NotasDaoImpl();
 		return ndao.ListarNotas(legajoProfesor, codigoMateria);
 	}
-
+	public ArrayList<Notas> obtenerNotasFiltrado(String legajoProfesor, String codMateria, String Semestre) {
+		NotasDaoImpl ndao = new NotasDaoImpl();
+		return ndao.ListarNotasFiltradas(legajoProfesor, codMateria, Semestre);
+	}
 	public Notas obtenerNotas(String CodNotas) {
 		NotasDaoImpl ndao = new NotasDaoImpl();
 		return ndao.obtenerNotas(CodNotas);

@@ -67,10 +67,15 @@ public class Servlet_InicioProfesor extends HttpServlet {
 		NotasNeg notasNeg = new NotasNeg();
 		CursoNeg negCurso = new CursoNeg();
 		
-		// Lista de las notas
+		if(request.getParameter("radios").equals("Ambos")) {
+		
+			// Lista de las notas
 		request.setAttribute("ListaNotas", notasNeg.obtenerNotasxCursoAlumnos(request.getParameter("legajoProfesor"),
 				request.getParameter("materia_a_administrar")));
-		
+		}else {
+			request.setAttribute("ListaNotas", notasNeg.obtenerNotasFiltrado(request.getParameter("legajoProfesor"),request.getParameter("materia_a_administrar"),request.getParameter("radios")));          
+			request.getParameter("materia_a_administrar");
+		}
 		// Lista de cursos
 		
 		request.setAttribute("ListaCursos", negCurso.obtenerCursosDeMateriaxProfesor(request.getParameter("legajoProfesor"),

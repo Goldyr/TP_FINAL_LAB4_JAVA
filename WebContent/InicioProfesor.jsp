@@ -134,10 +134,23 @@ margin: 10px 0;
 	
 	                %>
 	            </select>
+	       
             </div>
-            <div class="col-1">
-				<input type="submit" value="Buscar" name="btnBuscarAlumnos">
-			</div>
+            	<div class="col-1">
+					<input type="submit" value="Buscar" name="btnBuscarAlumnos">
+				</div>
+			     <div>	
+	            	<input type="radio" id="radioInput" name="radios" value="Primer Semestre">
+	            	<label for="radioInput">Primer Semestre</label>
+	            </div>
+	            <div>
+	            	<input type="radio" id="radioInput2" name="radios" value="Segundo Semestre">
+	            	<label for="radioInput2">Segundo Semestre</label>
+	            </div>
+	            <div>
+	            	<input type="radio" id="radioInput3" name="radios" value="Ambos">
+	            	<label for="radioInput3">Ambos</label>
+	            </div>
 		</div>
 		<h4>Modificar notas de manera masiva</h4>
 		<div class="row my-3 container-fluid">
