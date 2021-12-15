@@ -18,9 +18,18 @@
 
 <script type="text/javascript">
 $(document).ready( function () {
-    $('#tablaCursos').DataTable();
+    $('#tablaCursos').DataTable({searching: false, language: {url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'}});
 } );
 </script>
+
+<style>
+
+.dataTables_length{
+margin: 10px 0;
+}
+
+</style>
+
 <body>
 
 	<% 
@@ -36,20 +45,40 @@ $(document).ready( function () {
 	}else{response.sendRedirect("Login.jsp");}
  %>
 
-	<form method="post" action="Servlet_Login">
-	<div style=text-align:right><%= user.getNombre_Usuario() %>
-	<input type="submit" value="CerrarSesion" name="btnCerrarSesion">
+	<header>
+	<div class="container-fluid my-2">
+	<div class="row">
+		<div class="col">
+ 			<h3>Bienvenido/a a la administración - Listado de Cursos</h3>
+		</div>
+		<div class="col text-right d-flex justify-content-end">
+			<form method="post" action="Servlet_Login">
+				<p style="display:inline-block; margin:0; padding:0.375rem 0.75rem;">Administrador: <%= user.getNombre_Usuario() %> </p>
+				<input type="submit" value="Cerrar Sesión" class="btn btn-outline-primary" name="btnCerrarSesion">
+			</form>
+		</div>
 	</div>
-	</form>
+	</div>
+</header>
+
+	<ul>
+	<li>
+		<a href="InicioAdmin.jsp">Inicio</a>
+	</li>
+	<li>
+	<a href="Servlet_InicioAdmin?Param=5">Alta de Curso</a>
+	</li>
+	</ul>
 	
-<h3>Listado Cursos</h3>
-	<a href="AdminAltaCurso.jsp">Alta Curso</a>
+<section>
+<div class="container-fluid">
+	<h4>Listado de los cursos de la carrera</h4>
 	
 
 	<form method="post" action="Servlet_AdminCursos">
 	<input type="submit" name="btnMostrarCursos" value="Mostrar Cursos">
 	</form>
-	
+
 	<%
 	ArrayList<Curso> ListaCursos = null;
 	if(request.getAttribute("ListaC")!=null){
@@ -57,10 +86,10 @@ $(document).ready( function () {
 	}
 	%>
 	
-	<table border="1" id="tablaCursos" class="display">
-	<thead>
+	<table border="1" id="tablaCursos" class="table">
+	<thead class="table-dark">
 		<tr> 
-			<th>Curso</th><th>Materia</th><th>Semestre</th><th>Año</th>
+			<th>Cod. Curso</th><th>Materia</th><th>Semestre</th><th>Año</th>
 		</tr>
 	</thead>
 		<%if(ListaCursos != null){ %>
@@ -75,5 +104,7 @@ $(document).ready( function () {
 		</tbody>
 		<%}}} %>
 	</table>
+	</div>
+	</section>
 </body>
 </html>
