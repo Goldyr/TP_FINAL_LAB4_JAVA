@@ -1,6 +1,7 @@
 <%@page import="entidades.Usuario" %>
 <%@page import="java.util.ArrayList"  %>
 <%@page import="entidades.Alumno" %>
+<%@page import="servlets.Servlet_Alumnos" %>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -102,12 +103,13 @@ margin: 10px 0;
 	if(request.getAttribute("AlumnoEditable")!= null)
 	{
 		alumnoEditable = (Alumno)request.getAttribute("AlumnoEditable");
-	}
+	}else{listaAlumno = Servlet_Alumnos.listarAlumnos();}
 	%>
 	
 	<table border="1" class="display table" id="tablaAlumnos">
 		<thead>
 		<tr class="table-dark" scope="row">
+			<td> </td>
 			<td> </td>
 			<td> </td>
 			<th>Legajo</th>
@@ -129,6 +131,7 @@ margin: 10px 0;
 	 <tbody>
 	 <tr scope="row">
 	 	<form method="post" action="Servlet_Alumnos">
+	 		<td><input type="submit" name="btnInscribir" value="Inscribir a curso"/></td>
 	 		<td><input type="submit" name="btnEditar" value="Editar"/></td>
 			<td><input type="submit" name="btnEliminar" value="Eliminar" onclick="return ConfirmDelete()"/></td>	
 	 		<td><%=Alu.getLegajo_Alumno() %> <input type="hidden" name="legajoAlumno" value="<%=Alu.getLegajo_Alumno()%>"> </td> 	

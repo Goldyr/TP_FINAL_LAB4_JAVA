@@ -64,7 +64,18 @@
 	    <p>Fecha de nacimiento     <input type="date" pattern="/d{1,2}/\d{1,2}/\d{4}" name="txtFechaNacimiento" required> </p>
 	    <p>Direccion             <input type="text" placeholder="Ingrese la Direccion" name="txtDireccion" required> </p>
 	    <p>Nacionalidad            <input type="text" placeholder="Ingrese la Nacionalidad"name="txtNacionalidad" required> </p>
-	    <p>Localidad             <input type="text" name="txtLocalidad" required> </p>
+	     <!-- <p>Localidad             <input type="text" name="txtLocalidad" required> </p>  -->
+	    <p>Localidad
+			<select name="txtLocalidad" required> 
+				<option value="Loc1">Tigre </option>
+				<option value="Loc2">San Fernando </option>
+				<option value="Loc3">Pacheco </option>
+				<option value="Loc4">Vicente Lopez </option>
+				<option value="Loc5">San Martin </option>
+				<option value="Loc6">Avellaneda </option>
+				<option value="Loc7">San Isidro </option>	
+			</select>
+		</p>
 	    <p>Email                 <input type="email" placeholder="Ingrese el Email"name="txtEmail" required> </p>
 	    <p>Telefono             <input type="tel" placeholder="Ingrese el Telefono" name="txtTelefono" required> </p>
 	    

@@ -58,8 +58,36 @@
 		<p>Fecha de nacimiento 	<input type="date" pattern="/d{1,2}/\d{1,2}/\d{4}" name="txtFechaNacimiento" required> </p>
 		<p>Direccion 			<input type="text" placeholder="Ingrese la Direccion" name="txtDireccion" required> </p>
 		<p>Nacionalidad			<input type="text" placeholder="Ingrese la Nacionalidad" name="txtNacionalidad" required> </p>
-		<p>Provincia 			<input type="text" name="txtProvincia" required> </p>
-		<p>Email 				<input type="email" laceholder="Ingrese el Email" name="txtEmail" required> </p>
+				<!-- <p>Provincia 			<input type="text" name="txtProvincia" required> </p>  -->
+		<p>Provincia 
+			<select name="txtProvincia" required> 
+				<option value="Prov1">Buenos Aires </option>
+				<option value="Prov2">Catamarca </option>
+				<option value="Prov3">Chaco </option>
+				<option value="Prov4">Chubut </option>
+				<option value="Prov5">Cordoba </option>
+				<option value="Prov6">Corrientes </option>
+				<option value="Prov7">Entre Rios </option>
+				<option value="Prov8">Formosa </option>
+				<option value="Prov9">Jujuy </option>
+				<option value="Prov10">La Pampa </option>
+				<option value="Prov11">La Rioja </option>
+				<option value="Prov12">Mendoza </option>
+				<option value="Prov13">Misiones </option>
+				<option value="Prov14">Neuquen </option>
+				<option value="Prov15">Rio Negro </option>
+				<option value="Prov16">Salta </option>
+				<option value="Prov17">San Juan </option>
+				<option value="Prov18">San Luis </option>
+				<option value="Prov19">Santa Cruz </option>
+				<option value="Prov20">Santa Fe </option>
+				<option value="Prov21">Santiago del Estero </option>
+				<option value="Prov22">Tierra del Fuego </option>
+				<option value="Prov23">Tucuman </option>		
+			</select>
+		</p>
+
+		<p>Email 				<input type="email" placeholder="Ingrese el Email" name="txtEmail" required> </p>
 		<p>Telefono 			<input type="tel"  placeholder="Ingrese el Telefono" name="txtTelefono" required> </p>
 		
 		<input type="submit" name="btnAgregarAlumno" value="Agregar Alumno">

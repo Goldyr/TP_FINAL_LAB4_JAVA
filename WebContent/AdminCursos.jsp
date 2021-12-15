@@ -1,6 +1,7 @@
 <%@page import="entidades.Usuario" %>
 <%@page import="java.util.ArrayList"  %>
 <%@page import="entidades.Curso" %>
+<%@page import="servlets.Servlet_AdminCursos" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -83,7 +84,7 @@ margin: 10px 0;
 	ArrayList<Curso> ListaCursos = null;
 	if(request.getAttribute("ListaC")!=null){
 		ListaCursos = (ArrayList<Curso>)request.getAttribute("ListaC");
-	}
+	}else{ListaCursos = Servlet_AdminCursos.listarcursos();}
 	%>
 	
 	<table border="1" id="tablaCursos" class="table">

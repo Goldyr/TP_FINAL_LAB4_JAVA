@@ -14,4 +14,6 @@ public interface CursoDao {
 	public boolean EliminarCurso(String legajo);
 	public boolean ModificarCurso(Alumno alumno);
 	public boolean ExisteCurso(String legajo);
+	public ArrayList<Curso> ListarCursosxAlumno(String legajo);
+    public ArrayList<Curso> ListarCursos_noAlumno(String legajo);
 }

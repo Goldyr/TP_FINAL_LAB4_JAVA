@@ -109,7 +109,13 @@ public class Servlet_Profesores extends HttpServlet {
 		}
 	}
 	
-
+	public static ArrayList<Profesor> listarprofe() {
+		ProfesorNeg profNeg = new ProfesorNeg();
+		ArrayList<Profesor> listaprof = new ArrayList<Profesor>();
+		listaprof = profNeg.obtenerListaProfesores();
+		return listaprof;
+		
+	}
 	
 
 	

@@ -49,6 +49,14 @@ public class Servlet_Alumnos extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			AlumnoNeg alneg = new AlumnoNeg();
 			
+			if(request.getParameter("btnInscribir") != null) {
+                //activa la edicion del alumno
+                request.getSession().setAttribute("LegajoAlumnoxCurso", request.getParameter("legajoAlumno"));
+
+                RequestDispatcher rd = request.getRequestDispatcher("AdminAltaAlumnoxCurso.jsp");
+                rd.forward(request, response);
+            }
+			
 			if(request.getParameter("btnMostrarAlumnos")!=null || request.getParameter("btnVolver")!=null) {
 				//lista los alumnos
 				 request.setAttribute("ListaA", alneg.obtenerListaAlumnos());
@@ -111,6 +119,12 @@ public class Servlet_Alumnos extends HttpServlet {
 	
 		}
 	
+	public static ArrayList<Alumno> listarAlumnos() {
+		AlumnoNeg alneg = new AlumnoNeg();
+		ArrayList<Alumno> listarAlumnos = new ArrayList<Alumno>();
+		listarAlumnos = alneg.obtenerListaAlumnos();
+		return listarAlumnos;
+	}
 
 	
 }

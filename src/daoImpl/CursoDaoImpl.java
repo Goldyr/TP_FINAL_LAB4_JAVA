@@ -22,6 +22,11 @@ public class CursoDaoImpl implements CursoDao {
 	private  String cursos_noProfesor = "select c.* from cursos as c where c.Estado_Curso = 1 and not exists(select * from cursosxusuarios as c2 where c.CodCurso_Curso = c2.CodCurso_CxU and c2.Legajo_Usuario_CxU = ?);" ;
 	// consulta para traer los cursos en donde no esta el profesor
 	
+	private String readall3 = "select cursos.* , (Select NombreMateria_Materia from materias where CodMateria_Materia=cursos.CodMateria_Curso) as NombreMateria_Materia from cursos inner join CursosxAlumnos on CursosxAlumnos.CodCurso_CxA = cursos.CodCurso_Curso where CursosxAlumnos.Legajo_Alumno_CxA = " ;
+    private  String cursos_noAlumno = "select c.* from cursos as c "
+            + "where c.Estado_Curso = 1 "
+            + "and not exists(select * from CursosxAlumnos as c2 where c.CodCurso_Curso = c2.CodCurso_CxA and c2.Legajo_Alumno_CxA = ?);" ;
+	
 	@Override
 	public boolean AltaCurso(Curso alumno) {
 		boolean resultado = false;
@@ -211,6 +216,58 @@ public class CursoDaoImpl implements CursoDao {
 
 		return ListarCursos;
 	}
+	
+	@Override
+	public ArrayList<Curso> ListarCursosxAlumno(String legajo) {
+        readall3 += "'" + legajo + "';";
 
+        //System.out.println(readall3);
+
+        PreparedStatement statement;
+        ResultSet resultSet; //Guarda el resultado de la query
+        ArrayList<Curso> ListarCursos = new ArrayList<Curso>();
+        Conexion conexion = new Conexion();
+        try 
+        {
+            statement = conexion.getSQLConexion().prepareStatement(readall3);
+            resultSet = statement.executeQuery();
+            while(resultSet.next())
+            {
+                ListarCursos.add(getCursoMateria(resultSet));
+            }
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+
+        return ListarCursos;
+    }
+
+	@Override
+    public ArrayList<Curso> ListarCursos_noAlumno(String legajo){//devuelve cursos en los que no esta un alumno
+        PreparedStatement statement;
+        ResultSet resultSet; //Guarda el resultado de la query
+        ArrayList<Curso> ListarCursos = new ArrayList<Curso>();
+        Conexion conexion = new Conexion();
+        try 
+        {
+            statement = conexion.getSQLConexion().prepareStatement(cursos_noAlumno);
+            statement.setString(1, legajo);
+            //System.out.println(statement);
+            resultSet = statement.executeQuery();
+            //System.out.println(resultSet);
+            while(resultSet.next())
+            {
+                ListarCursos.add(getCurso(resultSet));
+            }
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+
+        return ListarCursos;
+    }
 	
 }

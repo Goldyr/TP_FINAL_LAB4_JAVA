@@ -1,6 +1,7 @@
 <%@page import="entidades.Usuario" %>
 <%@page import="java.util.ArrayList"  %>
 <%@page import="entidades.Profesor" %>
+<%@page import="servlets.Servlet_Profesores" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -101,8 +102,11 @@ margin: 10px 0;
 	if(request.getAttribute("ProfesorEditable")!= null)
 	{
 		profesorEdit = (Profesor)request.getAttribute("ProfesorEditable");
+	}else{
+		listaProfesor = Servlet_Profesores.listarprofe();
 	}
 	%>
+	
 	
 	<table border="1" class="table" id="tablaProfesores">
 	<thead class="table-dark">

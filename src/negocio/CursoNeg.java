@@ -42,4 +42,16 @@ public class CursoNeg {
 		
 	}
 	
+	public ArrayList<Curso> CursosObtener_Alumno(String Legajo){
+        CursoDaoImpl CursoDao = new CursoDaoImpl();
+        ArrayList<Curso> lista = CursoDao.ListarCursosxAlumno(Legajo);
+        return lista;
+    }
+
+    public ArrayList<Curso> obtenerCursos_noAlumno(String Legajo){
+        CursoDaoImpl CursoDao = new CursoDaoImpl();
+        ArrayList<Curso> lista = CursoDao.ListarCursos_noAlumno(Legajo);
+        return lista;
+    }
+	
 }

@@ -106,52 +106,55 @@ margin: 10px 0;
 	</header>
 
 	
-	<form method="post" action="Servlet_InicioProfesor">
+
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-3">
-				<p style="display:inline-block;">Selecciona una materia para administrar alumnos:  </p>
-            	<input type="hidden" value="<%=user.getLegajo_Usuario() %>" name="legajoProfesor"/>
-			</div>
-			<div class="col-2">	
-            	<select name="materia_a_administrar" class="form-select form-select-sm">
-	
-	                <%
-	                ArrayList<Materia> listamaterias = new ArrayList<Materia>();
-	
-	                if(user.getLegajo_Usuario() != null){
-	                	
-	           
-	                    listamaterias = Servlet_InicioProfesor.obtenerddlmateria(((Usuario)session.getAttribute("Usuario")).getLegajo_Usuario());
-	                    for(Materia mat : listamaterias)
-	                    {
-	                %>
-	                    <option value="<%=mat.getCodigoMateria()%>"> <%=mat.getNombreMateria()%> </option>
-	
-	                <%
-	                    }
-	                }
-	
-	                %>
-	            </select>
-	       
+	<form method="post" action="Servlet_InicioProfesor">
+        <div class="row">
+            <div class="col-3">
+                <p style="display:inline-block;">Selecciona una materia para administrar alumnos:  </p>
+                <input type="hidden" value="<%=user.getLegajo_Usuario() %>" name="legajoProfesor"/>
             </div>
-            	<div class="col-1">
-					<input type="submit" value="Buscar" name="btnBuscarAlumnos">
-				</div>
-			     <div>	
-	            	<input type="radio" id="radioInput" name="radios" value="Primer Semestre">
-	            	<label for="radioInput">Primer Semestre</label>
-	            </div>
-	            <div>
-	            	<input type="radio" id="radioInput2" name="radios" value="Segundo Semestre">
-	            	<label for="radioInput2">Segundo Semestre</label>
-	            </div>
-	            <div>
-	            	<input type="radio" id="radioInput3" name="radios" value="Ambos">
-	            	<label for="radioInput3">Ambos</label>
-	            </div>
-		</div>
+            <div class="col-2">
+                <select name="materia_a_administrar" class="form-select form-select-sm">
+
+                    <%
+                    ArrayList<Materia> listamaterias = new ArrayList<Materia>();
+
+                    if(user.getLegajo_Usuario() != null){
+
+
+                        listamaterias = Servlet_InicioProfesor.obtenerddlmateria(((Usuario)session.getAttribute("Usuario")).getLegajo_Usuario());
+                        for(Materia mat : listamaterias)
+                        {
+                    %>
+                        <option value="<%=mat.getCodigoMateria()%>" > <%=mat.getNombreMateria()%> </option>
+
+                    <%
+                        }
+                    }
+
+                    %>
+                </select>
+            </div>
+				<div class="col-1">
+                    <input type="submit" value="Buscar" name="btnBuscarAlumnos">
+                </div>
+                 <div>
+                    <input type="radio" id="radioInput" name="radios" value="Primer Semestre" >
+                    <label for="radioInput">Primer Semestre</label>
+                </div>
+                <div>
+                    <input type="radio" id="radioInput2" name="radios" value="Segundo Semestre" >
+                    <label for="radioInput2">Segundo Semestre</label>
+                </div>
+                <div>
+                    <input type="radio" id="radioInput3" name="radios" value="Ambos"  >
+                    <label for="radioInput3">Ambos</label>
+                </div>
+            </div>
+            </form>
+        </div>
+        
 		<h4>Modificar notas de manera masiva</h4>
 		<div class="row my-3 container-fluid">
 			 <div class="row justify-content-start"> 
@@ -176,7 +179,7 @@ margin: 10px 0;
 			<div class="row justify-content-start"> 
 				<div class="col-5">
 					<p>2. Selecciona los alumnos que deseas modificar la nota (Ctrl + Clic Izq.)</p>
-					 <select name="alumnosNotasMasiva" class="form-select form-select-sm" multiple>
+					 <select name="alumnosNotasMasiva" class="form-select form-select-sm" multiple required>
 						 <% if(arrListNotas != null) 
 							{
 								for(Notas nota : arrListNotas){
@@ -288,7 +291,7 @@ margin: 10px 0;
 			</table>
 		</div>
 	</section>
-</form>
+
 	
 
 </body>

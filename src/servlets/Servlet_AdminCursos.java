@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
+import entidades.Curso;
 import negocio.CursoNeg;
 
 /**
@@ -46,6 +45,14 @@ public class Servlet_AdminCursos extends HttpServlet {
 					 rd.forward(request, response);
 
 		}
+	}
+	
+	public static ArrayList<Curso> listarcursos() {
+		CursoNeg curNeg = new CursoNeg();
+		ArrayList<Curso> listaCurso = new ArrayList<Curso>();
+		listaCurso = curNeg.obtenerCurso();
+		return listaCurso;
+		
 	}
 
 }

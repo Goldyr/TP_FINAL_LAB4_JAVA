@@ -77,7 +77,13 @@
 				
 				%>
 			</select>
-		<p>Semestre 			<input type="text"  placeholder="Ingrese el semestre" name="txtSemestre" required> </p>
+<!-- <p>Semestre 			<input type="text"  placeholder="Ingrese el semestre" name="txtSemestre" required> 	</p>  -->
+		<p>Semestre
+			<select name="txtSemestre" required> 
+				<option value="Primer Semestre">Primer Semestre</option>
+				<option value="Segundo Semestre">Segundo Semestre</option>
+			</select>
+		</p>
 		<p>Año 				<input type="text"  placeholder="Ingrese el Año" pattern="[0-9]{4}" title="Debe ingresar 4 digitos" name="txtAnio" required> </p>
 	
 		
