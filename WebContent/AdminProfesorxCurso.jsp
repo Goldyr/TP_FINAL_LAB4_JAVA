@@ -18,25 +18,23 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
 <script type="text/javascript">
-
 $(document).ready( function () {
-	$('#tablaCursos').DataTable({
-		 "bPaginate": true,
-		 "bLengthChange": false,
-		 "bInfo": false,
-		 "searching": false, 
-		 "ordering": true,
-	});
-	$('#tablaOnlyCursos').DataTable({
-		 "bPaginate": true,
-		 "bLengthChange": false,
-		 "bInfo": false,
-		 "searching": false, 
-		 "ordering": true,
-	});
+    $('#tablaCursos').DataTable({
+         "bPaginate": true,
+         "bLengthChange": false,
+         "bInfo": false,
+         "searching": false, 
+         "ordering": true,
+    });
+    $('#tablaOnlyCursos').DataTable({
+         "bPaginate": true,
+         "bLengthChange": false,
+         "bInfo": false,
+         "searching": false, 
+         "ordering": true,
+    });
 
 } );
-
 </script>
 
 
@@ -62,9 +60,9 @@ $(document).ready( function () {
 	</form>
 	 	<%
 	 	ArrayList <Curso> listaCurso = null;    
-	 	
-	 	if(request.getAttribute("LegajoProf")!=null){
-	 		String legajo = (String)request.getAttribute("LegajoProf");
+	 	String legajo = "";
+	 	if(request.getSession().getAttribute("LegajoProf")!=null){
+	 		legajo = (String)request.getSession().getAttribute("LegajoProf");
 	 		listaCurso = Servlet_AdminProfesorxCurso.Cursos(legajo);
 	 	}
 	 	%>
@@ -72,18 +70,20 @@ $(document).ready( function () {
 	 	<%
 	 	ArrayList <Curso> listaCurso_noProfesor = null;    
 	 	
-	 	if(request.getAttribute("LegajoProf")!=null){
-	 		String legajo = (String)request.getAttribute("LegajoProf");
+	 	if(request.getSession().getAttribute("LegajoProf")!=null){
+	 		legajo = (String)request.getSession().getAttribute("LegajoProf");
 	 		listaCurso_noProfesor = Servlet_AdminProfesorxCurso.Cursos_noProfesor(legajo);
+	 		session.setAttribute("LegajoProfxCurs",legajo);
 	 	}
+	 	
 	 	%>
 	 	
-	 
 	
-	<table border="1" id="tablaCursos">
+	<h3> Cursos en los que no esta inscripto </h3>
+	<table border="1" class="display" id="tablaCursos" >
 	<thead>
 		<tr> 
-			<td></td><th>Cod. Curso</th> <th>Cod. Materia</th> <th>Semestre</th> <th>Año</th>
+			<th></th> <th>Codigo Curso</th> <th>Codigo Materia</th> <th>Semestre</th> <th>Año</th>
 		</tr>
 	</thead>
 
@@ -94,9 +94,9 @@ $(document).ready( function () {
 	 		for(Curso curs : listaCurso_noProfesor){
 	 	%>
 	 	<tr>
-	 		<form action="Servlet_AdminProfesoresxCurso" method="post">
+	 		<form action="Servlet_AdminProfesorxCurso" method="post">
 	 			<td><input type="submit" name="btnagregar_Alcurso" value="Agregar al curso"/></td>
-	 			<td><%= curs.getCodCurso() %></td>
+	 			<td><%= curs.getCodCurso() %> <input type="hidden" name="CodCurso" value="<%=curs.getCodCurso()%>"></td>
 	 			<td><%= curs.getCodMateria() %></td> 
 	 			<td><%= curs.getSemestre_Curso() %></td>
 	 			<td><%= curs.getAnio_Curso() %></td>
@@ -110,11 +110,12 @@ $(document).ready( function () {
 	 	</tbody>
 	 </table>
 	
-
-	<table border="1" id="tablaOnlyCursos">
+	<h3> Cursos en los que esta inscripto </h3>
+	
+	<table border="1" class="display" id="tablaOnlyCursos">
 	<thead>
 		<tr> 
-			<td></td> <td></td> <th>codigo curso</th> <th>codigo materia</th> <th>Nombre materia</th> <th>semestre</th> <th>anio</th>
+			<th>Codigo Curso</th> <th>Codigo Materia</th> <th>Nombre Materia</th> <th>Semestre</th> <th>Año</th>
 		</tr>
 	</thead>
 
@@ -125,7 +126,7 @@ $(document).ready( function () {
 	 		for(Curso curs : listaCurso){
 	 	%>
 	 	<tr>
-	 		<form action="Servlet_AdminProfesoresxCurso" method="post">
+	 		<form action="Servlet_AdminProfesorxCurso" method="post">
 	 			<td><%= curs.getCodCurso() %></td>
 	 			<td><%= curs.getCodMateria() %></td> 
 	 			<td><%= curs.getMateria().getNombreMateria() %></td>
@@ -140,5 +141,17 @@ $(document).ready( function () {
 	 	%>
 	 	</tbody>
 	 </table>
+	 
+	 <%
+		String mensaje="";
+		if(request.getAttribute("AltaProfesorxcurs")!=null){
+	
+			mensaje= (String)request.getAttribute("MensajeError");		
+		}
+		if(request.getAttribute("MensajeError")!=null){
+			mensaje= (String)request.getAttribute("MensajeError");	
+		}
+	%>
+	<%=mensaje %>
 </body>
 </html>

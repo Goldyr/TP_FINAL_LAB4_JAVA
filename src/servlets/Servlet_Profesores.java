@@ -102,7 +102,7 @@ public class Servlet_Profesores extends HttpServlet {
 		
 		if(request.getParameter("btnCursos")!= null) {
 
-			request.setAttribute("LegajoProf", request.getParameter("legajoUsuario"));
+			request.getSession().setAttribute("LegajoProf", request.getParameter("legajoUsuario"));
 			
 			RequestDispatcher rd = request.getRequestDispatcher("AdminProfesorxCurso.jsp");
 			rd.forward(request, response);

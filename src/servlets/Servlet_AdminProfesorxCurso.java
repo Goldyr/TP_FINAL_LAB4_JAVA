@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,8 @@ import entidades.Curso;
 import entidades.Materia;
 import negocio.CursoNeg;
 import negocio.MateriaNeg;
+import negocio.ProfesorNeg;
+import negocio.ProfesorxCursoNeg;
 
 /**
  * Servlet implementation class Servlet_AdminProfesorxCurso
@@ -41,8 +44,27 @@ public class Servlet_AdminProfesorxCurso extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	
+		ProfesorxCursoNeg profxCursNeg = new ProfesorxCursoNeg();
+		
+		if(request.getParameter("btnagregar_Alcurso")!=null) {
+			String Mensaje;
+			Boolean flag;
+			flag = profxCursNeg.AltaProfesorxCurso((String)request.getSession().getAttribute("LegajoProfxCurs"), request.getParameter("CodCurso"));
+			if(flag) {
+				request.setAttribute("AltaProfesorxcurs", flag);
+				Mensaje = "El profesor se agrego al curso correctamente";
+			}else {
+				
+				Mensaje = "El profesor no se agrego al curso correctamente.";
+			}
+			
+			request.setAttribute("MensajeError", Mensaje);
+				
+			RequestDispatcher rd = request.getRequestDispatcher("AdminProfesorxCurso.jsp");
+			rd.forward(request, response);
+			
+	  }
 	}
 
 	public static ArrayList<Curso> Cursos(String legajo){
@@ -62,6 +84,8 @@ public class Servlet_AdminProfesorxCurso extends HttpServlet {
         
         return listacurso;
     }
+	
+	
 	
 	
 }
