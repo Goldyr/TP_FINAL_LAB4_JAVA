@@ -15,7 +15,7 @@
 		<input type="text" name="txtMail">
 		
 		<p>Ingresar Contraseña:<p>
-		<input type="text" name="txtPass">
+		<input type="password" name="txtPass">
 		<br>
 		<br>
 		<input type="submit" name="btnIniciarSesion" value="Iniciar Sesion">

@@ -105,6 +105,14 @@ public class AlumnoNeg {
 		return lista;
 	}
 	
+	public ArrayList<Alumno> ListaFiltrada(String buscado)
+	{
+		AlumnoDaoImpl alumDao = new AlumnoDaoImpl();
+		ArrayList<Alumno> lista = alumDao.ListarAlumnosFiltrados(buscado);
+		 
+		return lista;
+	}
+	
 	public Alumno obtenerAlumno(String legajo) {
 		AlumnoDaoImpl alumDao = new AlumnoDaoImpl();
 		return alumDao.obtenerAlumno(legajo);

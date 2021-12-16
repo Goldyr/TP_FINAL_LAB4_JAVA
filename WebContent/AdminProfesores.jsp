@@ -76,6 +76,14 @@ margin: 10px 0;
 				<input type="submit" value="Cerrar Sesión" class="btn btn-outline-primary" name="btnCerrarSesion">
 			</form>
 		</div>
+		
+		<div class="FiltradoPancho">
+				<form method="post" action="Servlet_Profesores">
+						<b>Filtrar por nombre:</b>
+						<input type="text" name="txtFiltroProfe">
+						<input value="Filtrar" type="submit"name="btnFiltrarProfe">
+				</form>
+		</div>
 	</div>
 	</div>
 </header>
@@ -108,11 +116,14 @@ margin: 10px 0;
 	if(request.getAttribute("ProfesorEditable")!= null)
 	{
 		profesorEdit = (Profesor)request.getAttribute("ProfesorEditable");
-	}else{
-		listaProfesor = Servlet_Profesores.listarprofe();
 	}
 	%>
-	
+	<%
+	if(request.getAttribute("ListaP")==null && request.getAttribute("ProfesorEditable")== null)
+	{
+		listaProfesor = Servlet_Profesores.listarprofe();
+	}
+	 %>
 	
 		<% String mensajeResultado = null; 
 		if(request.getAttribute("MensajeResultado")!= null)

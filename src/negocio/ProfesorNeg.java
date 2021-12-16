@@ -28,6 +28,13 @@ public class ProfesorNeg {
 		return profDao.ObtenerProfesor(legajo);
 	}
 	
+	public ArrayList<Profesor>ListaFiltradaProfe(String buscado)
+	{
+		ProfesorDaoImpl ProfDao = new ProfesorDaoImpl();
+		ArrayList<Profesor> lista = ProfDao.ListarProfesorFiltrado(buscado);
+		
+		return lista;
+	}
 	
 	
 	

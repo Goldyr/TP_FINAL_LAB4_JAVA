@@ -73,6 +73,14 @@ margin: 10px 0;
 				<input type="submit" value="Cerrar Sesión" class="btn btn-outline-primary" name="btnCerrarSesion">
 			</form>
 		</div>
+		
+				<div class="filtrado_pancho">
+				<form method="post" action="Servlet_Alumnos">
+						<b>Filtrar por nombre:</b>
+						<input type="text" name="txtFiltro">
+						<input value="Filtrar" type="submit"name="btnFiltrar">
+					</form>
+				</div>
 	</div>
 	</div>
 </header>
@@ -101,16 +109,22 @@ margin: 10px 0;
 		listaAlumno = (ArrayList<Alumno>)request.getAttribute("ListaA");
 	}
 	%>
-	
+
 	<%
 	Alumno alumnoEditable = null;
 	if(request.getAttribute("AlumnoEditable")!= null)
 	{
 		alumnoEditable = (Alumno)request.getAttribute("AlumnoEditable");
-	}else{listaAlumno = Servlet_Alumnos.listarAlumnos();}
+	}
 	%>
 	
-	
+	<%
+	if(request.getAttribute("AlumnoEditable")==null && request.getAttribute("ListaA")==null)
+	{
+	listaAlumno = Servlet_Alumnos.listarAlumnos();
+	}
+	 %>
+	 
 	<% 
 	String mensajeResultado = null; 
 	if(request.getAttribute("MensajeResultado")!= null)

@@ -124,7 +124,14 @@ public class Servlet_Alumnos extends HttpServlet {
 				rd.forward(request, response);
 			}
 	
-	
+			if(request.getParameter("btnFiltrar") != null)
+			{
+				String buscado = request.getParameter("txtFiltro");
+				request.setAttribute("ListaA", alneg.ListaFiltrada(buscado));
+				
+				RequestDispatcher rd = request.getRequestDispatcher("AdminAlumnos.jsp");
+				rd.forward(request, response);
+			}
 		}
 	
 	public static ArrayList<Alumno> listarAlumnos() {

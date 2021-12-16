@@ -19,6 +19,8 @@ public class ProfesorDaoImpl implements ProfesorDao{
 	
 	private static String existe = "SELECT * FROM Usuarios where DNI_Usuario=? or Email_Usuario=?;";
 	
+	private static String sqlfilter = "SELECT * FROM Usuarios WHERE Estado_Usuario = 1 AND Nombre_Usuario LIKE '%";
+	
 	@Override
 	public ArrayList<Profesor> ListarProfesor() {
 		
@@ -29,6 +31,28 @@ public class ProfesorDaoImpl implements ProfesorDao{
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(readall);
 			resultSet = statement.executeQuery();
+			
+			while(resultSet.next() == true) {
+				ListarProfesores.add(getProfesor(resultSet));
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ListarProfesores;
+	}
+	
+	public ArrayList<Profesor> ListarProfesorFiltrado(String buscado)
+	{
+		PreparedStatement statement;
+		ResultSet resultSet;
+		ArrayList<Profesor> ListarProfesores = new ArrayList<Profesor>();
+		Conexion conexion = new Conexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(sqlfilter + buscado + "%';");
+			resultSet = statement.executeQuery();
+			System.out.println(statement.toString());
 			
 			while(resultSet.next() == true) {
 				ListarProfesores.add(getProfesor(resultSet));

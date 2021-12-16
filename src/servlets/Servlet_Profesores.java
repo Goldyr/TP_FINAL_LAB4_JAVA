@@ -112,6 +112,16 @@ public class Servlet_Profesores extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("AdminProfesorxCurso.jsp");
 			rd.forward(request, response);
 		}
+		
+		if(request.getParameter("btnFiltrarProfe") != null){
+			
+			String buscado = request.getParameter("txtFiltroProfe");
+			
+			request.setAttribute("ListaP", profNeg.ListaFiltradaProfe(buscado));
+			
+			RequestDispatcher rd = request.getRequestDispatcher("AdminProfesores.jsp");
+			rd.forward(request, response);
+		}
 	}
 	
 	public static ArrayList<Profesor> listarprofe() {

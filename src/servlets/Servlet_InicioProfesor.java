@@ -197,5 +197,10 @@ public class Servlet_InicioProfesor extends HttpServlet {
 
 	        return listamaterias;
 	}
+	
+	public static ArrayList<Notas> obtenernotasalum(String legajo, String codMateria){
+        NotasNeg notasNeg = new NotasNeg();
+        return notasNeg.obtenerNotasxCursoAlumnos(legajo, codMateria);
+    }
 
 }

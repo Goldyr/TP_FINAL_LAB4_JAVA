@@ -88,6 +88,7 @@ margin: 10px 0;
 		arrListNotas = (ArrayList<Notas>)request.getAttribute("ListaNotas");
 		
 	}
+	else{arrListNotas = Servlet_InicioProfesor.obtenernotasalum(((Usuario)session.getAttribute("Usuario")).getLegajo_Usuario(),"LAB01");}
 	%>
 
 	<!-- EDICION DE NOTAS -->

@@ -23,6 +23,8 @@ public class AlumnoDaoImpl implements AlumnoDao{
 	private static final String readall = "SELECT * FROM alumnos WHERE Estado_Alumno = 1;";
 	
 	private static String existe = "SELECT * FROM alumnos where DNI_Alumno=? or Email_Alumno=?;";
+	
+	private static String filteredcode = "SELECT * from Alumnos WHERE Nombre_Alumno LIKE ";
 	@Override
 	
 	public ArrayList<Alumno> ListarAlumnos() {
@@ -48,6 +50,29 @@ public class AlumnoDaoImpl implements AlumnoDao{
 		return ListarAlumnos;
 	}
 
+	public ArrayList<Alumno> ListarAlumnosFiltrados(String buscado)
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<Alumno> ListarAlumnos = new ArrayList<Alumno>();
+		Conexion conexion = new Conexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(filteredcode + "'%" + buscado + "%' AND Estado_Alumno = 1;");
+			System.out.println(statement.toString());
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				ListarAlumnos.add(getAlumno(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+
+		return ListarAlumnos;
+	}
 	private Alumno getAlumno(ResultSet resultSet) throws SQLException
 	{
 		String Legajo = resultSet.getString("Legajo_Alumno");
