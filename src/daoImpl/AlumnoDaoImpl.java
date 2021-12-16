@@ -153,7 +153,7 @@ public class AlumnoDaoImpl implements AlumnoDao{
 		Conexion conexion = new Conexion();
 		
 		try {
-			conexion.getSQLConexion().setAutoCommit(false);
+	
 			CallableStatement cst = conexion.getSQLConexion().prepareCall("call sp_modificarAlumno(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			cst.setString(1, alumno.getDni_Alumno());

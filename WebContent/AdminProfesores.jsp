@@ -26,12 +26,18 @@ $(document).ready( function () {
 <script type="text/javascript">
 function ConfirmDelete()
 {
-	var respuesta = confirm("Estas seguro que desea Eliminar al profesor?")
+	var respuesta = confirm("¿Estás seguro que deseas eliminar al profesor?")
 	
-if(respuesta == true){
-	return true;
-}else{return false;}
+return respuesta
 }
+
+function ConfirmEdit()
+{
+	var respuesta = confirm("¿Estás seguro que desea editar al profesor?")
+	
+return respuesta
+}
+
 </script>
 
 <style>
@@ -108,6 +114,17 @@ margin: 10px 0;
 	%>
 	
 	
+		<% String mensajeResultado = null; 
+		if(request.getAttribute("MensajeResultado")!= null)
+		{
+			mensajeResultado = (String)request.getAttribute("MensajeResultado");
+		}
+		%>
+		<% if(mensajeResultado != null){ %>
+		<p style="font-weight: bold;"> MENSAJE: <%=mensajeResultado %></p>
+		
+		<% } %>
+	
 	<table border="1" class="table" id="tablaProfesores">
 	<thead class="table-dark">
 		<tr> 
@@ -153,7 +170,7 @@ margin: 10px 0;
 	 			<tr>
 	 				<form action="Servlet_Profesores" method="post">
 	 					<td><input type="submit" name="btnVolver" value="Volver"/></td>
-						<td><input type="submit" name="btnGuardarEdicion" value="Guardar"/></td>
+						<td><input type="submit" name="btnGuardarEdicion" value="Guardar" onClick="return ConfirmEdit()"/></td>
 						
 	 					<td><%=profesorEdit.getLegajo_Usuario()%> <input type="hidden" name="legajoUsuario" value="<%=profesorEdit.getLegajo_Usuario() %>"></td>
 	 					<td><input type="text" required name="dniUsuario" value="<%= profesorEdit.getDNI_Usuario() %>"></td> 
@@ -174,16 +191,6 @@ margin: 10px 0;
 	 	}
 		 %>
 	</table>
-	
-	<% String mensajeResultado = null; 
-	if(request.getAttribute("MensajeResultado")!= null)
-	{
-		mensajeResultado = (String)request.getAttribute("MensajeResultado");
-	}
-	%>
-	<% if(mensajeResultado != null){ %>
-	<p style="font-weight: bold;"> <%=mensajeResultado %></p>
-	<% } %>
 	</div>
 </section>
 </body>

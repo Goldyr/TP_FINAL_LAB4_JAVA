@@ -24,11 +24,15 @@ $(document).ready( function () {
 <script type="text/javascript">
 function ConfirmDelete()
 {
-	var respuesta = confirm("Estas seguro que desea Eliminar al Alumno?")
+	var respuesta = confirm("¿Estás seguro que deseas eliminar al Alumno?")
+	return respuesta
 	
-if(respuesta == true){
-	return true;
-}else{return false;}
+}
+
+function ConfirmEdit()
+{
+	var respuesta = confirm("¿Estás seguro que deseas editar al Alumno?")
+	return respuesta
 }
 </script>
 
@@ -106,6 +110,19 @@ margin: 10px 0;
 	}else{listaAlumno = Servlet_Alumnos.listarAlumnos();}
 	%>
 	
+	
+	<% 
+	String mensajeResultado = null; 
+	if(request.getAttribute("MensajeResultado")!= null)
+	{
+		mensajeResultado = (String)request.getAttribute("MensajeResultado");
+	}
+	%>
+	<% if(mensajeResultado != null){ %>
+	<p style="font-weight: bold; margin:5px 0;">MENSAJE: <%=mensajeResultado %></p>
+	<% } %>
+	
+	
 	<table border="1" class="display table" id="tablaAlumnos">
 		<thead>
 		<tr class="table-dark" scope="row">
@@ -158,8 +175,9 @@ margin: 10px 0;
 
 	 <tr scope="row">
 	 		<form action="Servlet_Alumnos" method="post">
-	 			<td><input type="submit" name="btnVolver" value="Volver" class="btn btn-warning"/></td>
-				<td><input type="submit" name="btnGuardarEdicion" value="Guardar" class="btn btn-success"/></td>
+	 			<td></td>
+	 			<td><input type="submit" name="btnVolver" value="Volver"/></td>
+				<td><input type="submit" name="btnGuardarEdicion" value="Guardar" onClick="return ConfirmEdit()"/></td>
 	 			<td><%=alumnoEditable.getLegajo_Alumno()%> <input type="hidden" name="legajoAlumno" value="<%=alumnoEditable.getLegajo_Alumno() %>"></td>
 	 			<td><input type="text" required name="dniAlumno" value="<%=alumnoEditable.getDni_Alumno() %>"></td> 
 	 			<td><input type="text" required name="nombreAlumno" value="<%=alumnoEditable.getNombre_Alumno()%>"></td>
@@ -179,16 +197,6 @@ margin: 10px 0;
 	 %>
 	</table>
 	
-	<% 
-	String mensajeResultado = null; 
-	if(request.getAttribute("MensajeResultado")!= null)
-	{
-		mensajeResultado = (String)request.getAttribute("MensajeResultado");
-	}
-	%>
-	<% if(mensajeResultado != null){ %>
-	<p style="font-weight: bold;"> <%=mensajeResultado %></p>
-	<% } %>
 	</div>
 </section>
 </body>

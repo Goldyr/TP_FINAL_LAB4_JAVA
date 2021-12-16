@@ -25,7 +25,9 @@ import negocio.NotasNeg;
 @WebServlet("/Servlet_InicioProfesor")
 public class Servlet_InicioProfesor extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	private String selectedRadio;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -58,24 +60,26 @@ public class Servlet_InicioProfesor extends HttpServlet {
 		if(request.getParameter("btnCargarNota") != null) {
 			cargarNotasMasivas(request, response);
 		}
-			
-	
 	}
 
-	
 	public void buscarAlumnosxMateria(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		NotasNeg notasNeg = new NotasNeg();
 		CursoNeg negCurso = new CursoNeg();
 		
+		selectedRadio = request.getParameter("radios");
+		
 		if(request.getParameter("radios").equals("Ambos")) {
 		
-			// Lista de las notas
+		// Lista de las notas
 		request.setAttribute("ListaNotas", notasNeg.obtenerNotasxCursoAlumnos(request.getParameter("legajoProfesor"),
 				request.getParameter("materia_a_administrar")));
 		}else {
-			request.setAttribute("ListaNotas", notasNeg.obtenerNotasFiltrado(request.getParameter("legajoProfesor"),request.getParameter("materia_a_administrar"),request.getParameter("radios")));          
+			request.setAttribute("ListaNotas", notasNeg.obtenerNotasFiltrado(request.getParameter("legajoProfesor"),
+					request.getParameter("materia_a_administrar"),
+					request.getParameter("radios")));          
 			request.getParameter("materia_a_administrar");
 		}
+		
 		// Lista de cursos
 		
 		request.setAttribute("ListaCursos", negCurso.obtenerCursosDeMateriaxProfesor(request.getParameter("legajoProfesor"),
@@ -114,13 +118,20 @@ public class Servlet_InicioProfesor extends HttpServlet {
 	
 	public void guardarEdicionNotas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String mensajeResultado = null;
+		Boolean resultado;
+		
 		NotasNeg notasNeg = new NotasNeg();
 
-		notasNeg.guardarEdicionNotas(request.getParameter("CodNotaAlumno"), Float.parseFloat(request.getParameter("notaParcial1")), 
+		resultado = notasNeg.guardarEdicionNotas(request.getParameter("CodNotaAlumno"), Float.parseFloat(request.getParameter("notaParcial1")), 
 				Float.parseFloat(request.getParameter("notaParcial2")), Float.parseFloat(request.getParameter("notaRec1")), 
 				Float.parseFloat(request.getParameter("notaRec2")));
 
 		request.setAttribute("ListaNotas", notasNeg.obtenerNotasxCursoAlumnos(request.getParameter("legajoProfesor"), request.getParameter("materia_a_administrar")));
+		
+		if(resultado) mensajeResultado = "La nota del alumno de modificó correctamente.";
+		else mensajeResultado = "Error al modificar la nota del alumno.";
+		request.setAttribute("MensajeResultado", mensajeResultado);
 		
 		//Setea el listado nuevamente
 		MateriaNeg negMateria = new MateriaNeg();
@@ -134,8 +145,13 @@ public class Servlet_InicioProfesor extends HttpServlet {
 	
 	public void cargarNotasMasivas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String mensajeResultado = null;
+		Boolean resultado;
+		
 		NotasNeg notasNeg = new NotasNeg();
 		float notaRec1 = 0, notaRec2 = 0;
+		
+		System.out.println(selectedRadio);
 		
 		if(!request.getParameter("txtRecuperatorio1").isEmpty())
 		{
@@ -148,10 +164,15 @@ public class Servlet_InicioProfesor extends HttpServlet {
 		}
 		
 		
-		notasNeg.modificarNotasMasivamente(request.getParameterValues("alumnosNotasMasiva"), request.getParameter("cursoNotasMasiva"),
+		resultado = notasNeg.modificarNotasMasivamente(request.getParameterValues("alumnosNotasMasiva"), request.getParameter("codCursoAlumno"),
 				Float.parseFloat(request.getParameter("txtParcial1")), 
 				Float.parseFloat(request.getParameter("txtParcial2")), notaRec1, notaRec2);  
 
+		if(resultado) mensajeResultado = "Las notas de los alumnos se modificaron correctamente.";
+		else mensajeResultado = "Error al modificar las notas de los alumnos.";
+		
+		request.setAttribute("MensajeResultado2", mensajeResultado);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("InicioProfesor.jsp");
 		
 		rd.forward(request, response);
@@ -166,5 +187,15 @@ public class Servlet_InicioProfesor extends HttpServlet {
 
         return listamaterias;
     }
+	
+	public static ArrayList<Curso> obtenerCurso(String legajoProfesor, String codMateria)
+	{
+	       CursoNeg negCurso = new CursoNeg();
+	        ArrayList<Curso> listamaterias;
+
+	        listamaterias = negCurso.obtenerCursosDeMateriaxProfesor(legajoProfesor, codMateria);
+
+	        return listamaterias;
+	}
 
 }

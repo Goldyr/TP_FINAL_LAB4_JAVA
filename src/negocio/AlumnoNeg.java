@@ -24,7 +24,7 @@ public class AlumnoNeg {
 		alumno = adao.obtenerAlumno(legajo);
 		
 		if(alumno != null) {
-			System.out.println(legajo);
+			//System.out.println(legajo);
 			alumno.setDni_Alumno(dni);
 			alumno.setNombre_Alumno(nombre);
 			alumno.setApellido_Alumno(apellido);

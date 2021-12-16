@@ -85,12 +85,20 @@ public class Servlet_Alumnos extends HttpServlet {
 			
 			if(request.getParameter("btnGuardarEdicion") != null) {
 				//guarda la modificacion
-				alneg.guardarEdicionAlumno(request.getParameter("legajoAlumno"), request.getParameter("dniAlumno"), 
+				
+				String mensajeResultado = null;
+				Boolean resultado; 
+				
+				resultado = alneg.guardarEdicionAlumno(request.getParameter("legajoAlumno"), request.getParameter("dniAlumno"), 
 						request.getParameter("nombreAlumno"), request.getParameter("apellidoAlumno"), request.getParameter("fechaNacAlumno"), 
 						request.getParameter("direccionAlumno"), request.getParameter("nacionalidadAlumno"),  request.getParameter("provinciaAlumno"), request.getParameter("emailAlumno"), 
 						request.getParameter("telefonoAlumno"));
 				
+				if(resultado) mensajeResultado = "El alumno se modificó correctamente.";
+				else mensajeResultado = "Error al modificar al alumno.";
+				
 				request.setAttribute("ListaA", alneg.obtenerListaAlumnos());
+				request.setAttribute("MensajeResultado", mensajeResultado);
 				
 				RequestDispatcher rd = request.getRequestDispatcher("AdminAlumnos.jsp");
 				rd.forward(request, response);

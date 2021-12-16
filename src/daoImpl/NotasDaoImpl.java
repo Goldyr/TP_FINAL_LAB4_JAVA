@@ -18,7 +18,7 @@ import entidades.Usuario;
 public class NotasDaoImpl implements NotasDao {
 
 	
-	String readall= "SELECT n.CodNotas_Nota, m.NombreMateria_Materia, a.Legajo_Alumno, Nombre_Alumno, a.Apellido_Alumno, a.Email_Alumno, n.Parcial_1_Nota, n.Parcial_2_Nota, " + 
+	String readall= "SELECT c.CodCurso_Curso, n.CodNotas_Nota, m.NombreMateria_Materia, a.Legajo_Alumno, Nombre_Alumno, a.Apellido_Alumno, a.Email_Alumno, n.Parcial_1_Nota, n.Parcial_2_Nota, " + 
 			"n.Recuperatorio_1_Nota, Recuperatorio_2_Nota, n.EstadoCursada_Nota FROM Notas AS n " + 
 			"INNER JOIN cursosxalumnos as cxa ON cxa.CodNotas_CxA = n.CodNotas_Nota " + 
 			"INNER JOIN alumnos as a ON a.Legajo_Alumno = cxa.Legajo_Alumno_CxA " + 
@@ -121,7 +121,7 @@ public class NotasDaoImpl implements NotasDao {
 			statement.setString(2, codMateria);
 			statement.setString(3, Semestre);
 			resultSet = statement.executeQuery();
-			System.out.println(statement.toString());
+			//System.out.println(statement.toString());
 			while(resultSet.next())
 			{
 				ListarNotas.add(getNotas(resultSet));
@@ -144,9 +144,11 @@ public class NotasDaoImpl implements NotasDao {
 	{
 		Alumno alumnoNota = new Alumno();
 		Materia alumnoMateria = new Materia();
-
+		Curso codCurso = new Curso();
+		
 		String CodNota_Nota = rs.getString("CodNotas_Nota");
 		alumnoMateria.setNombreMateria(rs.getString("NombreMateria_Materia"));
+		codCurso.setCodCurso(rs.getString("CodCurso_Curso"));
 
 		alumnoNota.setLegajo_Alumno(rs.getString("Legajo_Alumno"));
 		alumnoNota.setNombre_Alumno(rs.getString("Nombre_Alumno"));
@@ -160,7 +162,7 @@ public class NotasDaoImpl implements NotasDao {
 		String EstadoCursada_Nota = rs.getString("EstadoCursada_Nota");
 
 
-		return new Notas(CodNota_Nota, alumnoMateria, alumnoNota, parcial_1_Nota, parcial_2_Nota, recuperatorio_1_Nota, recuperatorio_2_Nota,
+		return new Notas(CodNota_Nota, alumnoMateria, codCurso, alumnoNota, parcial_1_Nota, parcial_2_Nota, recuperatorio_1_Nota, recuperatorio_2_Nota,
 				EstadoCursada_Nota);
 	}
 

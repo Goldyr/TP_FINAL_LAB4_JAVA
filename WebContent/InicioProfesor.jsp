@@ -29,6 +29,19 @@ $(document).ready( function () {
 } );
 </script>
 
+
+<script type="text/javascript">
+function ConfirmEdit()
+{
+	var respuesta = confirm("¿Estás seguro que deseas editar la nota del Alumno?")
+	
+	console.log(respuesta);
+	
+	return respuesta;
+}
+	
+</script>
+
 </head>
 
 <style>
@@ -107,7 +120,7 @@ margin: 10px 0;
 
 	
 
-	<div class="container-fluid">
+<div class="container-fluid">
 	<form method="post" action="Servlet_InicioProfesor">
         <div class="row">
             <div class="col-3">
@@ -136,9 +149,10 @@ margin: 10px 0;
                     %>
                 </select>
             </div>
-				<div class="col-1">
+			<div class="col-1">
                     <input type="submit" value="Buscar" name="btnBuscarAlumnos">
-                </div>
+              </div>
+              		 <p style="display:inline-block;">Selecciona un curso de la materia seleccionada: </p>
                  <div>
                     <input type="radio" id="radioInput" name="radios" value="Primer Semestre" >
                     <label for="radioInput">Primer Semestre</label>
@@ -148,85 +162,29 @@ margin: 10px 0;
                     <label for="radioInput2">Segundo Semestre</label>
                 </div>
                 <div>
-                    <input type="radio" id="radioInput3" name="radios" value="Ambos"  >
+                    <input type="radio" id="radioInput3" name="radios" value="Ambos" checked >
                     <label for="radioInput3">Ambos</label>
-                </div>
+              </div>
             </div>
-            </form>
-        </div>
+          </form>
+     </div>
         
-		<h4>Modificar notas de manera masiva</h4>
-		<div class="row my-3 container-fluid">
-			 <div class="row justify-content-start"> 
-				 <div class="col-5 ">
 	
-				 <p style="display:inline-block;">1. Selecciona un curso de la materia seleccionada </p>
-				 <select name="cursoNotasMasiva" class="form-select form-select-sm">
-				 	<%
-				 	if(arrCursos != null){
-				 		for(Curso curso : arrCursos){
-				 	%>
-				 	<option value="<%=curso.getCodCurso() %>"><%=curso.getSemestre_Curso() %> <%=curso.getAnio_Curso() %></option>
-				 	<%
-				 		}
-				 	}
-				 	
-				 	%>
-				 </select>
-				 </div>
-			 </div>
-			 
-			<div class="row justify-content-start"> 
-				<div class="col-5">
-					<p>2. Selecciona los alumnos que deseas modificar la nota (Ctrl + Clic Izq.)</p>
-					 <select name="alumnosNotasMasiva" class="form-select form-select-sm" multiple required>
-						 <% if(arrListNotas != null) 
-							{
-								for(Notas nota : arrListNotas){
-						%>
-							 	<option value="<%=nota.getAlumno_Nota().getLegajo_Alumno() %>"><%=nota.getAlumno_Nota().getNombre_Alumno()%> <%=nota.getAlumno_Nota().getApellido_Alumno()%></option>
-						<% 		} 
-							}
-						%>
-			 		</select>
-				</div>
-			</div>
-			<div class="row justify-content-start"> 
-				<div class="col-5">
-						 <div class="row"> 
-				 	 	<p>3. Ingresar las notas y luego hacer clic botón</p>
-				 	<div class="col">
-				 		<label for="txtParcial1" name="lblParcial1">Nota parcial 1 (*)</label>
-						<input class="form-control form-control-sm" type="number" placeholder="1.0" step="0.1" min="0" max="10" name="txtParcial1">
-				 	</div>
-				 	<div class="col">
-				 		<label for="txtParcial2" name="lblParcial2">Nota parcial 2 (*)</label>
-						<input class="form-control form-control-sm" type="number" placeholder="1.0" step="0.1" min="0" max="10" name="txtParcial2">
-				 	</div>
-				 </div>
-				  <div class="row"> 
-				  	<div class="col">
-				  		<label for="txtRecuperatorio1" name="lblRecuperatorio1">Nota recuperatorio 1</label>
-						<input class="form-control form-control-sm" type="number" placeholder="0" step="0.1" min="0" max="10" name="txtRecuperatorio1">
-				  	</div>
-				  	 <div class="col">
-				  	 <label for="txtRecuperatorio2" name="lblRecuperatorio2">Nota recuperatorio 2</label>
-						<input class="form-control form-control-sm" type="number" placeholder="0" step="0.1" min="0" max="10" name="txtRecuperatorio2">
-				  	</div>
-				 </div>
-				  <div class="row"> 
-					  <div class="col-1">
-					  		<input type="submit" class="my-3" value="Cargar Notas" name="btnCargarNota">
-					  </div>
-				  </div>
-	
-				</div>
-			</div>
-		</div>
-	</div>
-<section>
+	<section>
 		<div class="container-fluid"> 
 			<h4>Tabla de los alumnos en cursos de la materia seleccionada</h4>
+			
+					<% 
+					String mensajeResultado = null; 
+					if(request.getAttribute("MensajeResultado")!= null)
+					{
+						mensajeResultado = (String)request.getAttribute("MensajeResultado");
+					}
+					%>
+					<% if(mensajeResultado != null){ %>
+					<p style="font-weight: bold; margin:5px 0;">MENSAJE: <%=mensajeResultado %></p>
+					<% } 
+					%>
 			<table border="1" id="tablaCursosxAlumnos" class="table table-sm">
 				<thead class="table-dark">
 				<tr> 
@@ -272,7 +230,8 @@ margin: 10px 0;
 			{
 			%>
 			<tr>
-				<td><input type="submit" value="Guardar" name="btnGuardar" /></td>
+				<form method="post" action="Servlet_InicioProfesor">
+				<td><input type="submit" value="Guardar" name="btnGuardar" onClick="return ConfirmEdit()" /></td>
 				<td><%=notaEdit.getMateria_Nota().getNombreMateria() %> <input type="hidden" name="CodNotaAlumno" value="<%=notaEdit.getCodNotas_Nota() %>"/> </td>
 				<td><%=notaEdit.getAlumno_Nota().getLegajo_Alumno() %></td>
 				<td><%=notaEdit.getAlumno_Nota().getNombre_Alumno() %></td>
@@ -283,6 +242,7 @@ margin: 10px 0;
 				<td><input name="notaRec1" type="number" placeholder="1.0" step="0.1" min="0" max="10" value="<%=notaEdit.getRecuperatorio_1_Nota() %>" /></td>
 				<td><input name="notaRec2" type="number" placeholder="1.0" step="0.1" min="0" max="10" value="<%=notaEdit.getRecuperatorio_2_Nota() %>" /></td>
 				<td><%=notaEdit.getEstadoCursada_Nota() %></td>
+				</form>
 			</tr>
 			<%
 			}
@@ -291,8 +251,76 @@ margin: 10px 0;
 			</table>
 		</div>
 	</section>
-
 	
 
+	<div class="container-fluid my-3">
+		<form method="post" action="Servlet_InicioProfesor">
+			<div class="row justify-content-start"> 
+				<h4>Modificar notas de manera masiva</h4>
+				<div class="col-5">
+					<p>1. Selecciona los alumnos que deseas modificar la nota (Ctrl + Clic Izq.)</p>
+					 <select name="alumnosNotasMasiva" class="form-select form-select-sm" multiple required>
+						 <% if(arrListNotas != null) 
+							{
+								for(Notas nota : arrListNotas){
+						%>		
+							 	<option value="<%=nota.getAlumno_Nota().getLegajo_Alumno() %>"><%=nota.getAlumno_Nota().getNombre_Alumno()%> <%=nota.getAlumno_Nota().getApellido_Alumno()%></option>
+						<% 		} 
+						
+						if(!arrListNotas.isEmpty()){ %>
+							<input type="hidden" value="<%=arrListNotas.get(0).getCurso_Nota().getCodCurso()%>" name="codCursoAlumno" />
+						<% 		
+									}
+							}
+						%>
+			 		</select>
+			 		
+				</div>
+			</div>
+			<div class="row justify-content-start"> 
+				<div class="col-5">
+						 <div class="row"> 
+				 	 	<p>2. Ingresar las notas y luego hacer clic botón</p>
+				 	<div class="col">
+				 		<label for="txtParcial1" name="lblParcial1">Nota parcial 1 (*)</label>
+						<input class="form-control form-control-sm" type="number" value="1.0" step="0.1" min="0" max="10" name="txtParcial1">
+				 	</div>
+				 	<div class="col">
+				 		<label for="txtParcial2" name="lblParcial2">Nota parcial 2 (*)</label>
+						<input class="form-control form-control-sm" type="number" value="1.0" step="0.1" min="0" max="10" name="txtParcial2">
+				 	</div>
+				 </div>
+				  <div class="row"> 
+				  	<div class="col">
+				  		<label for="txtRecuperatorio1" name="lblRecuperatorio1">Nota recuperatorio 1</label>
+						<input class="form-control form-control-sm" type="number" placeholder="0" step="0.1" min="0" max="10" name="txtRecuperatorio1">
+				  	</div>
+				  	 <div class="col">
+				  	 <label for="txtRecuperatorio2" name="lblRecuperatorio2">Nota recuperatorio 2</label>
+						<input class="form-control form-control-sm" type="number" placeholder="0" step="0.1" min="0" max="10" name="txtRecuperatorio2">
+				  	</div>
+				 </div>
+				  <div class="row"> 
+					  <div class="col-3">
+					  		<input type="submit" class="my-3" value="Cargar Notas" name="btnCargarNota">
+					  </div>
+					  <div class="col-7">
+					  	<% String mensajeResultado2 = null; 
+							if(request.getAttribute("MensajeResultado2")!= null)
+							{
+								mensajeResultado2 = (String)request.getAttribute("MensajeResultado2");
+							}
+							%>
+							<% if(mensajeResultado2 != null){ %>
+							<p style="font-weight: bold; margin:5px 0;">MENSAJE: <%=mensajeResultado2 %></p>
+							
+						<% } %>
+					  </div>
+				  </div>
+	
+				</div>
+			</div>
+			</form>
+		</div>
 </body>
 </html>

@@ -73,9 +73,14 @@ public class Servlet_Profesores extends HttpServlet {
 		
 		if(request.getParameter("btnGuardarEdicion")!=null)
 		{//modifica al profesor
-			profNeg.guardarEdicionProfesor(request.getParameter("legajoUsuario"), request.getParameter("dniUsuario"), request.getParameter("nombreUsuario"), request.getParameter("apellidoUsuario"), request.getParameter("fechaNacUsuario"), request.getParameter("direccionUsuario"), request.getParameter("localidadUsuario"), request.getParameter("nacionalidadUsuario"), request.getParameter("emailUsuario"), request.getParameter("contraseñaUsuario"), request.getParameter("telefonoUsuario"));
+			String mensajeResultado = null;
+			Boolean resultado = profNeg.guardarEdicionProfesor(request.getParameter("legajoUsuario"), request.getParameter("dniUsuario"), request.getParameter("nombreUsuario"), request.getParameter("apellidoUsuario"), request.getParameter("fechaNacUsuario"), request.getParameter("direccionUsuario"), request.getParameter("localidadUsuario"), request.getParameter("nacionalidadUsuario"), request.getParameter("emailUsuario"), request.getParameter("contraseñaUsuario"), request.getParameter("telefonoUsuario"));
+			
+			if(resultado) mensajeResultado = "El profesor se modificó correctamente.";
+			else mensajeResultado = "Error al modificar al profesor.";
 			
 			request.setAttribute("ListaP",profNeg.obtenerListaProfesores());
+			request.setAttribute("MensajeResultado", mensajeResultado);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("AdminProfesores.jsp");
 			rd.forward(request, response);

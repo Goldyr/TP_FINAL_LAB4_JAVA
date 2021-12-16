@@ -166,9 +166,10 @@ public class ProfesorDaoImpl implements ProfesorDao{
 			
 			int filas_afectadas = cst.executeUpdate();
 			
-			resultado = true;
+	
 			if(filas_afectadas==1) {
 				conexion.getSQLConexion().commit();
+				resultado = true;
 			}else {
 				conexion.getSQLConexion().rollback();
 			}
