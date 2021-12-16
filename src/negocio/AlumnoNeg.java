@@ -116,4 +116,9 @@ public class AlumnoNeg {
 		AlumnoDaoImpl alumDao = new AlumnoDaoImpl();
 		return alumDao.EliminarAlumno(legajo);
 	}
+	
+	public Boolean existeAlumno(String Dni, String Email) {
+		AlumnoDaoImpl alumDao = new AlumnoDaoImpl();
+		return alumDao.ExisteAlumno(Dni, Email);
+	}
 }

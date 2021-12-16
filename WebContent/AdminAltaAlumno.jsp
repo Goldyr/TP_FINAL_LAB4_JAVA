@@ -61,29 +61,29 @@
 				<!-- <p>Provincia 			<input type="text" name="txtProvincia" required> </p>  -->
 		<p>Provincia 
 			<select name="txtProvincia" required> 
-				<option value="Prov1">Buenos Aires </option>
-				<option value="Prov2">Catamarca </option>
-				<option value="Prov3">Chaco </option>
-				<option value="Prov4">Chubut </option>
-				<option value="Prov5">Cordoba </option>
-				<option value="Prov6">Corrientes </option>
-				<option value="Prov7">Entre Rios </option>
-				<option value="Prov8">Formosa </option>
-				<option value="Prov9">Jujuy </option>
-				<option value="Prov10">La Pampa </option>
-				<option value="Prov11">La Rioja </option>
-				<option value="Prov12">Mendoza </option>
-				<option value="Prov13">Misiones </option>
-				<option value="Prov14">Neuquen </option>
-				<option value="Prov15">Rio Negro </option>
-				<option value="Prov16">Salta </option>
-				<option value="Prov17">San Juan </option>
-				<option value="Prov18">San Luis </option>
-				<option value="Prov19">Santa Cruz </option>
-				<option value="Prov20">Santa Fe </option>
-				<option value="Prov21">Santiago del Estero </option>
-				<option value="Prov22">Tierra del Fuego </option>
-				<option value="Prov23">Tucuman </option>		
+				<option value="Buenos Aires">Buenos Aires </option>
+                <option value="Catamarca">Catamarca </option>
+                <option value="Chaco">Chaco </option>
+                <option value="Chubut">Chubut </option>
+                <option value="Cordoba">Cordoba </option>
+                <option value="Corrientes">Corrientes </option>
+                <option value="Entre Rios">Entre Rios </option>
+                <option value="Formosa">Formosa </option>
+                <option value="Jujuy">Jujuy </option>
+                <option value="La Pampa ">La Pampa </option>
+                <option value="La Rioja">La Rioja </option>
+                <option value="Mendoza">Mendoza </option>
+                <option value="Misiones">Misiones </option>
+                <option value="Neuquen">Neuquen </option>
+                <option value="Rio Negro">Rio Negro </option>
+                <option value="Salta">Salta </option>
+                <option value="San Juan">San Juan </option>
+                <option value="San Luis">San Luis </option>
+                <option value="Santa Cruz">Santa Cruz </option>
+                <option value="Santa Fe">Santa Fe </option>
+                <option value="Santiago del Estero">Santiago del Estero </option>
+                <option value="Tierra del Fuego">Tierra del Fuego </option>
+                <option value="Tucuman">Tucuman </option>	
 			</select>
 		</p>
 
@@ -93,19 +93,22 @@
 		<input type="submit" name="btnAgregarAlumno" value="Agregar Alumno">
 	</form>
 	
-		<%
+
+		
+			<%
+		String mensaje="";
 		if(request.getAttribute("AlumnoAlta")!=null){
-			if((boolean)request.getAttribute("AlumnoAlta")){
-				%>
-				Se dio de alta correctamente	
-				<%	
-			}else{
-				%>
-				Error: No pudo darse de alta correctamente	
-				<%
-			}
+	
+			mensaje= (String)request.getAttribute("MensajeError");	
+			
 		}
-		%>
+	
+		if(request.getAttribute("MensajeError")!=null){
+			mensaje= (String)request.getAttribute("MensajeError");	
+		}
+	%>
+	
+	<%=mensaje %>
 
 </body>
 </html>

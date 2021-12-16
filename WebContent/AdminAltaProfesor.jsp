@@ -67,13 +67,13 @@
 	     <!-- <p>Localidad             <input type="text" name="txtLocalidad" required> </p>  -->
 	    <p>Localidad
 			<select name="txtLocalidad" required> 
-				<option value="Loc1">Tigre </option>
-				<option value="Loc2">San Fernando </option>
-				<option value="Loc3">Pacheco </option>
-				<option value="Loc4">Vicente Lopez </option>
-				<option value="Loc5">San Martin </option>
-				<option value="Loc6">Avellaneda </option>
-				<option value="Loc7">San Isidro </option>	
+				<option value="Tigre ">Tigre </option>
+                <option value="San Fernando">San Fernando </option>
+                <option value="Pacheco ">Pacheco </option>
+                <option value="Vicente Lopez">Vicente Lopez </option>
+                <option value="San Martin">San Martin </option>
+                <option value="Avellaneda ">Avellaneda </option>
+                <option value="San Isidro">San Isidro </option>
 			</select>
 		</p>
 	    <p>Email                 <input type="email" placeholder="Ingrese el Email"name="txtEmail" required> </p>

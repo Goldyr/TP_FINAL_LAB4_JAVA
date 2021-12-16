@@ -22,6 +22,7 @@ public class AlumnoDaoImpl implements AlumnoDao{
 	
 	private static final String readall = "SELECT * FROM alumnos WHERE Estado_Alumno = 1;";
 	
+	private static String existe = "SELECT * FROM alumnos where DNI_Alumno=? or Email_Alumno=?;";
 	@Override
 	
 	public ArrayList<Alumno> ListarAlumnos() {
@@ -200,9 +201,32 @@ public class AlumnoDaoImpl implements AlumnoDao{
 	}
 
 	@Override
-	public boolean ExisteAlumno(String legajo) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean ExisteAlumno(String Dni, String Email) {
+		PreparedStatement statement;
+        ResultSet resultSet; //Guarda el resultado de la query
+        Conexion conexion = new Conexion();
+        boolean flag = false;
+        try
+        {
+            statement = conexion.getSQLConexion().prepareStatement(existe);
+            statement.setString(2, Email);
+            statement.setString(1, Dni);
+
+            resultSet = statement.executeQuery();
+
+           
+           if(resultSet.next()) 
+           {
+        	   flag = true;
+           }
+           
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        
+        return flag;
 	}
 
 	@Override
