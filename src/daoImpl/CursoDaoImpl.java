@@ -27,6 +27,7 @@ public class CursoDaoImpl implements CursoDao {
             + "where c.Estado_Curso = 1 "
             + "and not exists(select * from CursosxAlumnos as c2 where c.CodCurso_Curso = c2.CodCurso_CxA and c2.Legajo_Alumno_CxA = ?);" ;
 	
+    private String existe = "SELECT C.* FROM cursos as C where C.CodMateria_Curso = ? and C.Semestre_Curso = ?  and C.Año_Curso = ? ;";
 	@Override
 	public boolean AltaCurso(Curso alumno) {
 		boolean resultado = false;
@@ -182,9 +183,34 @@ public class CursoDaoImpl implements CursoDao {
 	}
 
 	@Override
-	public boolean ExisteCurso(String legajo) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean ExisteCurso(String codmateria, String semestre, String año) {
+		PreparedStatement statement;
+        ResultSet resultSet; //Guarda el resultado de la query
+        Conexion conexion = new Conexion();
+        boolean flag = false;
+        try
+        {
+            statement = conexion.getSQLConexion().prepareStatement(existe);
+            statement.setString(1, codmateria);
+            statement.setString(2, semestre);
+            statement.setString(3, año);
+
+
+            resultSet = statement.executeQuery();
+
+           
+           if(resultSet.next()) 
+           {
+        	   flag = true;
+           }
+           
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        
+        return flag;
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public interface CursoDao {
 	public ArrayList<Curso> ListarCursosxProfesorxMateria(String legajo, String CodMateria);
 	public boolean EliminarCurso(String legajo);
 	public boolean ModificarCurso(Alumno alumno);
-	public boolean ExisteCurso(String legajo);
+	public boolean ExisteCurso(String codmateria, String semestre, String año);
 	public ArrayList<Curso> ListarCursosxAlumno(String legajo);
     public ArrayList<Curso> ListarCursos_noAlumno(String legajo);
 }

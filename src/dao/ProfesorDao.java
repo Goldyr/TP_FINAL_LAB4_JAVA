@@ -11,7 +11,7 @@ public interface ProfesorDao {
     public boolean EliminarProfesor(String legajo);
     public boolean AltaProfesor(Profesor profesor);
     public boolean ModificarProfesor(Profesor profesor);
-    public boolean ExisteProfesor(String legajo);
+    public boolean ExisteProfesor(String Dni ,String Email);
     public Profesor ObtenerProfesor(String legajo);
 
 }

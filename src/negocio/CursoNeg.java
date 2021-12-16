@@ -53,5 +53,10 @@ public class CursoNeg {
         ArrayList<Curso> lista = CursoDao.ListarCursos_noAlumno(Legajo);
         return lista;
     }
+    
+    public Boolean existeCurso(String codmateria, String semestre, String año) {
+    	CursoDaoImpl CursoDao = new CursoDaoImpl();
+    	return CursoDao.ExisteCurso(codmateria, semestre, año);
+    }
 	
 }

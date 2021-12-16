@@ -11,6 +11,6 @@ public interface AlumnoDao {
 	public boolean EliminarAlumno(String legajo);
 	public boolean AltaAlumno(Alumno alumno);
 	public boolean ModificarAlumno(Alumno alumno);
-	public boolean ExisteAlumno(String legajo);
+	public boolean ExisteAlumno(String Dni, String Email);
 	public Alumno obtenerAlumno(String legajo);
 }

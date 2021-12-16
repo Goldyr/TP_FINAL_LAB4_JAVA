@@ -45,6 +45,7 @@ public class Servlet_AltaProfesor extends HttpServlet {
 		if(request.getParameter("btnAltaProfesor")!=null) {
 			String Mensaje;
 			Boolean flag;
+			if (profNeg.existeProfesor(request.getParameter("txtDNI"), request.getParameter("txtEmail")) == false) {
 			flag = profNeg.AltaProfesor(request.getParameter("txtDNI"), request.getParameter("txtNombre"), request.getParameter("txtApellido"), request.getParameter("txtFechaNacimiento"), request.getParameter("txtDireccion"), request.getParameter("txtLocalidad"), request.getParameter("txtNacionalidad"), request.getParameter("txtEmail"), request.getParameter("txtContraseña"), request.getParameter("txtRepContraseña"), request.getParameter("txtTelefono"));
 
 			if(flag) {
@@ -52,12 +53,13 @@ public class Servlet_AltaProfesor extends HttpServlet {
 				Mensaje = "El profesor se agrego correctamente";
 			}else {
 				
-				Mensaje = "El profesor no se agrego correctamente.Revise los campos";
+				Mensaje = "El profesor no se agrego correctamente. Revise los campos";
 			}
 			
+			}else {
+				Mensaje = "El profesor ya existe";
+			}
 			request.setAttribute("MensajeError", Mensaje);
-
-				
 			RequestDispatcher rd = request.getRequestDispatcher("AdminAltaProfesor.jsp");
 			rd.forward(request, response);
 			

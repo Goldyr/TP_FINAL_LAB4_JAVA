@@ -43,8 +43,22 @@ public class Servlet_AdminAltaCurso extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CursoNeg curNeg = new CursoNeg();
 		if(request.getParameter("btnAgregarCurso")!=null) {
+			Boolean flag;
+			String Mensaje;
+			if(curNeg.existeCurso(request.getParameter("materia_curso"), request.getParameter("txtSemestre"), request.getParameter("txtAnio")) == false) {
+				flag = curNeg.Altacurso(request.getParameter("materia_curso"), request.getParameter("txtSemestre"), request.getParameter("txtAnio"));
+				if(flag) {
+					request.setAttribute("CursoAlta", flag);
+					Mensaje = "El Curso se agrego correctamente";
+				}else {
+					
+					Mensaje = "El Curso no se agrego correctamente. Revise los campos";
+				}
+				
+			}else {Mensaje = "El curso ya existe";}
 
-			request.setAttribute("CursoAlta", curNeg.Altacurso(request.getParameter("materia_curso"), request.getParameter("txtSemestre"), request.getParameter("txtAnio")));
+
+			request.setAttribute("Mensaje_error", Mensaje);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("AdminAltaCurso.jsp");
 			rd.forward(request, response);

@@ -79,6 +79,8 @@ public class ProfesorNeg {
 	
 	public Boolean AltaProfesor(String dni, String nombre, String apellido, String fecha, String direccion, String localidad, String nacionalidad, String email, String contraseña, String repcontraseña, String telefono) {
 		Profesor prof = new Profesor();
+		ProfesorDaoImpl profDaoimpl = new ProfesorDaoImpl();
+
 		if(repcontraseña.compareTo(contraseña)!=0){
 			System.out.println(repcontraseña);
 			System.out.println("error");
@@ -110,8 +112,9 @@ public class ProfesorNeg {
 			prof.setEmail_Usuario(email);
 			prof.setTelefono_Usuario(telefono);
 			
-			ProfesorDaoImpl profDaoimpl = new ProfesorDaoImpl();
+
 			return profDaoimpl.AltaProfesor(prof);
+		
 		}
 	}
 	

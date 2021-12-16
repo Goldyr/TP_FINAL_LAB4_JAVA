@@ -89,19 +89,22 @@
 		
 		<input type="submit" name="btnAgregarCurso" value="Agregar Curso">
 		
-		<%
+
+		
+			<%
+		String mensaje="";
 		if(request.getAttribute("CursoAlta")!=null){
-			if((boolean)request.getAttribute("CursoAlta")){
-				%>
-				Se dio de alta correctamente	
-				<%	
-			}else{
-				%>
-				Error: No pudo darse de alta correctamente	
-				<%
-			}
+	
+			mensaje= (String)request.getAttribute("Mensaje_error");	
+			
 		}
-		%>
+	
+		if(request.getAttribute("Mensaje_error")!=null){
+			mensaje= (String)request.getAttribute("Mensaje_error");	
+		}
+	%>
+	
+	<%=mensaje %>
 	</form>
 	</div>
 </section>

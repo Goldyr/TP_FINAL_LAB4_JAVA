@@ -11,10 +11,13 @@ import java.util.ArrayList;
 import dao.ProfesorDao;
 import entidades.Alumno;
 import entidades.Profesor;
+import entidades.Usuario;
 
 public class ProfesorDaoImpl implements ProfesorDao{
 
 	private static final String readall = "SELECT * FROM Usuarios WHERE Admin_Usuario=0 and Estado_Usuario=1;";
+	
+	private static String existe = "SELECT * FROM Usuarios where DNI_Usuario=? or Email_Usuario=?;";
 	
 	@Override
 	public ArrayList<Profesor> ListarProfesor() {
@@ -189,9 +192,32 @@ public class ProfesorDaoImpl implements ProfesorDao{
 	}
 
 	@Override
-	public boolean ExisteProfesor(String legajo) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean ExisteProfesor(String Dni ,String Email) {
+		PreparedStatement statement;
+        ResultSet resultSet; //Guarda el resultado de la query
+        Conexion conexion = new Conexion();
+        boolean flag = false;
+        try
+        {
+            statement = conexion.getSQLConexion().prepareStatement(existe);
+            statement.setString(2, Email);
+            statement.setString(1, Dni);
+
+            resultSet = statement.executeQuery();
+
+           
+           if(resultSet.next()) 
+           {
+        	   flag = true;
+           }
+           
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        
+        return flag;
 	}
 
 	
@@ -220,4 +246,6 @@ public class ProfesorDaoImpl implements ProfesorDao{
 		
 		return _profesor;
 	}
+
+
 }

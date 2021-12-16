@@ -43,9 +43,20 @@ public class Servlet_AltaAlumno extends HttpServlet {
 		
 		if(request.getParameter("btnAgregarAlumno")!=null) {
 			Boolean flag;
-			flag = alumNeg.AltaAlumno(request.getParameter("txtNombre"), request.getParameter("txtApellido"), request.getParameter("txtDNI"), request.getParameter("txtFechaNacimiento"), request.getParameter("txtDireccion"), request.getParameter("txtNacionalidad"), request.getParameter("txtProvincia"), request.getParameter("txtEmail"), request.getParameter("txtTelefono"));
-
-			request.setAttribute("AlumnoAlta", flag);
+			String Mensaje;
+			if(alumNeg.existeAlumno(request.getParameter("txtDNI"), request.getParameter("txtEmail"))== false) {
+				flag = alumNeg.AltaAlumno(request.getParameter("txtNombre"), request.getParameter("txtApellido"), request.getParameter("txtDNI"), request.getParameter("txtFechaNacimiento"), request.getParameter("txtDireccion"), request.getParameter("txtNacionalidad"), request.getParameter("txtProvincia"), request.getParameter("txtEmail"), request.getParameter("txtTelefono"));
+				if(flag) {
+					request.setAttribute("AlumnoAlta", flag);
+					Mensaje = "El Alumno se agrego correctamente";
+				}else {
+					
+					Mensaje = "El Alumno no se agrego correctamente. Revise los campos";
+				}
+				
+			}else {Mensaje = "El Alumno ya existe";}
+			
+			request.setAttribute("MensajeError", Mensaje);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("AdminAltaAlumno.jsp");
 			rd.forward(request, response);
