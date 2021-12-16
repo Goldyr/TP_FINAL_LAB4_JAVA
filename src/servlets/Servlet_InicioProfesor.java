@@ -139,6 +139,8 @@ public class Servlet_InicioProfesor extends HttpServlet {
 		listamaterias = negMateria.TraerListadoMateria(request.getParameter("legajoProfesor"));
 		request.setAttribute("listamaterias", listamaterias );
 		
+		
+		
 		RequestDispatcher rd = request.getRequestDispatcher("InicioProfesor.jsp");
 		rd.forward(request, response);
 	}

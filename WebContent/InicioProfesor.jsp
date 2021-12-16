@@ -88,7 +88,7 @@ margin: 10px 0;
 		arrListNotas = (ArrayList<Notas>)request.getAttribute("ListaNotas");
 		
 	}
-	else{arrListNotas = Servlet_InicioProfesor.obtenernotasalum(((Usuario)session.getAttribute("Usuario")).getLegajo_Usuario(),"LAB01");}
+
 	%>
 
 	<!-- EDICION DE NOTAS -->
@@ -100,8 +100,12 @@ margin: 10px 0;
 		
 	}
 	%>
+	<% 
+	if(request.getAttribute("NotaEditable")==null && request.getAttribute("ListaNotas")==null){
+		arrListNotas = Servlet_InicioProfesor.obtenernotasalum(((Usuario)session.getAttribute("Usuario")).getLegajo_Usuario(),"LAB01");
+	}
 	
-
+		%>
 
 	<header class="my-2">
 		<div class="container-fluid">
