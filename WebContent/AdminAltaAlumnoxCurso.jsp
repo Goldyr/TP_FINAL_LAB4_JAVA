@@ -54,13 +54,15 @@ $(document).ready( function () {
  	%>
  
  	<form method="post" action="Servlet_Login">
-	<div style=text-align:right><%= user.getNombre_Usuario() %>
-	<input type="submit" value="Cerrar Sesion" name="btnCerrarSesion">
-	</div>
+			<div class="col text-right d-flex justify-content-end">
+			<p style="display:inline-block; margin:0; padding:0.375rem 0.75rem;">Administrador: <%= user.getNombre_Usuario() %> </p>
+			<input type="submit" value="Cerrar Sesión" class="btn btn-outline-primary" name="btnCerrarSesion">
+		</div>
 	</form>
 	   
+	 <div class="container-fluid">
     <a href="Servlet_InicioAdmin?Param=2">Volver Listado y modificacion de alumnos </a>
-    <br>
+ 
 	<%
 	String legajo ="";
 	ArrayList <Curso> listaCurso = null;
@@ -77,16 +79,13 @@ $(document).ready( function () {
 	if(request.getSession().getAttribute("LegajoAlumnoxCurso")!=null){
 		legajo = (String)request.getSession().getAttribute("LegajoAlumnoxCurso");
 		listaCurso_noAlumno = Servlet_AdminAltaAlumnoxCurso.Cursos_noAlumno(legajo);
-	%>
-		Legajo del Alumno = <%= legajo %>
-	<%
 	}
 	%>
 	
 		<table border="1" class="display" id="tablaCursos">
 	<thead>
 		<tr> 
-		 <td></td><th>Codigo curso</th> <th>Codigo materia</th> <th>Semestre</th> <th>Anio</th>
+		 <td></td><th>Cod. Curso</th> <th>Cod. Materia</th> <th>Semestre</th> <th>Año</th>
 		</tr>
 	</thead>
 
@@ -130,13 +129,11 @@ $(document).ready( function () {
 	<%=mensaje %>
 	 
 	 
-	 
-<br><br>
-		Cursos en los cuales esta inscripto
+		<h4> Cursos en los cuales esta inscripto el alumno </h4>
  		<table border="1" class="display" id="tablaOnlyCursos">
 	<thead>
 		<tr> 
-		 <th>codigo curso</th> <th>codigo materia</th> <th>Nombre materia</th> <th>semestre</th> <th>anio</th>
+		 <th>Cod. Curso</th> <th>Cod. Materia</th> <th>Nombre materia</th> <th>Semestre</th> <th>Año</th>
 		</tr>
 	</thead>
 
@@ -166,7 +163,7 @@ $(document).ready( function () {
  
  
 	
-
+</div>
  
 </body>
 </html>

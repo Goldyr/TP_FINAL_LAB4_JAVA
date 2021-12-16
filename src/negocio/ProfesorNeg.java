@@ -118,6 +118,12 @@ public class ProfesorNeg {
 		}
 	}
 	
+	public Boolean existeProfesor(String dni, String email) {
+        ProfesorDaoImpl profDaoimpl = new ProfesorDaoImpl();
+        return profDaoimpl.ExisteProfesor(dni, email);
+
+    }
+	
 	public Boolean eliminarProfesor(String legajo) {
 		ProfesorDaoImpl profDao = new ProfesorDaoImpl();
 		return profDao.EliminarProfesor(legajo);

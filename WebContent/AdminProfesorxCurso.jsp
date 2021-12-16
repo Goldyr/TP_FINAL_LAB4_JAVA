@@ -54,9 +54,22 @@ $(document).ready( function () {
  %>
  
  <form method="post" action="Servlet_Login">
-	<div style=text-align:right><%= user.getNombre_Usuario() %>
-	<input type="submit" value="Cerrar Sesion" name="btnCerrarSesion">
-	</div>
+		<div class="col text-right d-flex justify-content-end">
+			<p style="display:inline-block; margin:0; padding:0.375rem 0.75rem;">Administrador: <%= user.getNombre_Usuario() %> </p>
+			<input type="submit" value="Cerrar Sesión" class="btn btn-outline-primary" name="btnCerrarSesion">
+		</div>
+		<ul>
+	<li>
+		<a href="InicioAdmin.jsp">Inicio</a>
+	</li>
+	<li>
+		<a href="Servlet_InicioAdmin?Param=4">Listado y modificación de profesores</a>
+	</li>
+	<li>
+		<a href="Servlet_InicioAdmin?Param=3">Alta de Profesores</a>
+	</li>
+	</ul>
+	
 	</form>
 	 	<%
 	 	ArrayList <Curso> listaCurso = null;    
@@ -78,9 +91,10 @@ $(document).ready( function () {
 	 	
 	 	%>
 	 	
-	
-	<h3> Cursos en los que no esta inscripto </h3>
-	<table border="1" class="display" id="tablaCursos" >
+<section>
+<div class="container-fluid">
+	<h4> Cursos en los que no esta inscripto </h4>
+	<table border="1" class="display table" id="tablaCursos">
 	<thead>
 		<tr> 
 			<th></th> <th>Codigo Curso</th> <th>Codigo Materia</th> <th>Semestre</th> <th>Año</th>
@@ -109,10 +123,13 @@ $(document).ready( function () {
 	 	%>
 	 	</tbody>
 	 </table>
+</div>
+</section>
 	
-	<h3> Cursos en los que esta inscripto </h3>
-	
-	<table border="1" class="display" id="tablaOnlyCursos">
+<section>
+<div class="container-fluid">
+	<h4> Cursos en los que esta inscripto </h4>
+	<table border="1" class="display table" id="tablaOnlyCursos">
 	<thead>
 		<tr> 
 			<th>Codigo Curso</th> <th>Codigo Materia</th> <th>Nombre Materia</th> <th>Semestre</th> <th>Año</th>
@@ -153,5 +170,7 @@ $(document).ready( function () {
 		}
 	%>
 	<%=mensaje %>
+	</div>
+</section>
 </body>
 </html>

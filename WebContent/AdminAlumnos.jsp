@@ -179,14 +179,14 @@ margin: 10px 0;
 	 			<td><input type="submit" name="btnVolver" value="Volver"/></td>
 				<td><input type="submit" name="btnGuardarEdicion" value="Guardar" onClick="return ConfirmEdit()"/></td>
 	 			<td><%=alumnoEditable.getLegajo_Alumno()%> <input type="hidden" name="legajoAlumno" value="<%=alumnoEditable.getLegajo_Alumno() %>"></td>
-	 			<td><input type="text" required name="dniAlumno" value="<%=alumnoEditable.getDni_Alumno() %>"></td> 
+	 			<td><input type="text" readonly name="dniAlumno" value="<%=alumnoEditable.getDni_Alumno() %>"></td> 
 	 			<td><input type="text" required name="nombreAlumno" value="<%=alumnoEditable.getNombre_Alumno()%>"></td>
 	 			<td><input type="text" required name="apellidoAlumno" value="<%=alumnoEditable.getApellido_Alumno()%>"></td>
 	 			<td><input type="date"  required name="fechaNacAlumno" value="<%=alumnoEditable.getFechaNac_Alumno()%>"></td>
 	 			<td><input type="text" name="direccionAlumno" value="<%=alumnoEditable.getDireccion_Alumno()%>"></td>
 	 			<td><input type="text" name="nacionalidadAlumno" value="<%= alumnoEditable.getNacionalidad_Alumno() %>"></td>
 	 			<td><input type="text" name="provinciaAlumno" value="<%=alumnoEditable.getProvincia_Alumno()%>"></td>
-	 			<td><input type="text" required name="emailAlumno" value="<%= alumnoEditable.getEmail_Alumno()%>"></td>
+	 			<td><input type="text" readonly name="emailAlumno" value="<%= alumnoEditable.getEmail_Alumno()%>"></td>
 	 			<td><input type="text" required name="telefonoAlumno" value="<%= alumnoEditable.getTelefono_Alumno()%>"></td>
 	 		</form>	
 	 </tr>

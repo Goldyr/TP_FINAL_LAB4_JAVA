@@ -169,18 +169,19 @@ margin: 10px 0;
 
 	 			<tr>
 	 				<form action="Servlet_Profesores" method="post">
+	 					<td> </td>
 	 					<td><input type="submit" name="btnVolver" value="Volver"/></td>
 						<td><input type="submit" name="btnGuardarEdicion" value="Guardar" onClick="return ConfirmEdit()"/></td>
 						
 	 					<td><%=profesorEdit.getLegajo_Usuario()%> <input type="hidden" name="legajoUsuario" value="<%=profesorEdit.getLegajo_Usuario() %>"></td>
-	 					<td><input type="text" required name="dniUsuario" value="<%= profesorEdit.getDNI_Usuario() %>"></td> 
+	 					<td><input type="text" readonly name="dniUsuario" value="<%= profesorEdit.getDNI_Usuario() %>"></td> 
 	 					<td><input type="text" required name="nombreUsuario" value="<%=profesorEdit.getNombre_Usuario()%>"></td>
 	 					<td><input type="text" required name="apellidoUsuario" value="<%=profesorEdit.getApellido_Usuario()%>"></td>
 	 					<td><input type="date"  required name="fechaNacUsuario" value="<%=profesorEdit.getFechaNac_Profesor()%>"></td>
 	 					<td><input type="text" name="direccionUsuario" value="<%=profesorEdit.getDireccion_Profesor()%>"></td>
 	 					<td><input type="text" name="localidadUsuario" value="<%= profesorEdit.getLocalidad_Profesor() %>"></td> 
 	 					<td><input type="text" name="nacionalidadUsuario" value="<%= profesorEdit.getNacionalidad_Profesor() %>"></td>
-	 					<td><input type="text" required name="emailUsuario" value="<%= profesorEdit.getEmail_Usuario()%>"></td>
+	 					<td><input type="text" readonly name="emailUsuario" value="<%= profesorEdit.getEmail_Usuario()%>"></td>
 	 					<td><input type="text" required name="contraseñaUsuario" value="<%= profesorEdit.getContraseña_Usuario()%>"></td>
 	 					<td><input type="text" required name="telefonoUsuario" value="<%= profesorEdit.getTelefono_Usuario()%>"></td>
 	 				</form>	
